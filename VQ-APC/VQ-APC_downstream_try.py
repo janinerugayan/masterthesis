@@ -68,11 +68,11 @@ process_wav_multiple(export_dir_path, output_path)
 '''
 
 save_dir = './preprocessed'
-# utt_id = args.exp_name
+wav_id = args.exp_name
 logmel_path = export_dir_path
 max_seq_len = 1600
 
-prepare_torch_lengths_multiple(save_dir, logmel_path, max_seq_len)
+prepare_torch_lengths_multiple(save_dir, logmel_path, max_seq_len, wav_id)
 
 
 # prepare_torch_lengths(save_dir, utt_id, logmel_path)
