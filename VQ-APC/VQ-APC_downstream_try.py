@@ -32,37 +32,9 @@ args = parser.parse_args()
 wav_path = args.sound_file
 out_path = './preprocessed/' + args.exp_name
 
-def preemphasis(x, preemph):
-    return scipy.signal.lfilter([1, -preemph], [1], x)
+logmel_shape = process_wav(wav_path, out_path)
 
-sr=160000
-preemph=0.97
-n_fft=2048
-n_mels=80
-hop_length=160
-win_length=400
-fmin=50
-top_db=80
-bits=8
-offset=0.0
-duration=None
-
-wav, _ = librosa.load(wav_path, sr=sr, offset=offset, duration=duration)
-wav = wav / np.abs(wav).max() * 0.999
-
-mel = librosa.feature.melspectrogram(preemphasis(wav, preemph),
-                                     sr=sr,
-                                     n_fft=n_fft,
-                                     n_mels=n_mels,
-                                     hop_length=hop_length,
-                                     win_length=win_length,
-                                     fmin=fmin,
-                                     power=1)
-logmel = librosa.amplitude_to_db(mel, top_db=top_db)
-logmel = logmel / top_db + 1
-
-print(logmel.shape[-1])
-
+print(logmel_shape)
 
 # x, sr = librosa.load(wav_path, sr=44100)
 # mel_per_wav = librosa.feature.melspectrogram(x, sr=sr, n_mels=80).T
