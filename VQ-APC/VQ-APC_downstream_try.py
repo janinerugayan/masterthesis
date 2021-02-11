@@ -30,8 +30,7 @@ args = parser.parse_args()
 '''
 
 wav_path = args.sound_file
-out_path = './preprocessed/' + args.exp_name
-export_dir_path = './preprocessed'
+export_dir_path = './preprocessed/'
 
 # randomly segment combined sound file
 min_len = 10000
@@ -39,9 +38,8 @@ max_len = 60000
 randomseg(wav_path, export_dir_path, min_len, max_len)
 
 # process wav files to get log-mel feature vectors
-process_wav_multiple(export_dir_path, out_path)
+process_wav_multiple(export_dir_path, export_dir_path + args.exp_name)
 
-embed()
 
 # process_wav(wav_path, out_path)
 
