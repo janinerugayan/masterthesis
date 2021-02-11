@@ -5,6 +5,10 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import os
+from pydub import AudioSegment
+import argparse
+import random
+from pathlib import Path
 
 
 def preemphasis(x, preemph):
@@ -50,10 +54,6 @@ def process_wav(wav_path, out_path, sr=160000, preemph=0.97, n_fft=2048, n_mels=
 
 def prepare_torch_lengths(save_dir, utt_id, logmel_path):
 
-    # max_seq_len = max_seq_len
-    save_dir = save_dir
-    utt_id = utt_id
-
     data = np.load(logmel_path)
 
     id2len = {}
@@ -70,3 +70,49 @@ def prepare_torch_lengths(save_dir, utt_id, logmel_path):
 
     with open(os.path.join(save_dir, 'lengths.pkl'), 'wb') as f:  # sequence lengths to be used for forward function?
         pickle.dump(id2len, f, protocol=4)
+
+
+def randomseg(wav_path, export_dir_path, min_len, max_len):
+
+    wav_original = AudioSegment.from_wav(wav_path)
+
+    total_len = len(wav_original)
+
+    t_start = 0
+    count = 0
+
+    while True:
+        rand_duration = random.randint(min_len, max_len)
+
+        if t_start + rand_duration >= total_len:
+            wav_segment = wav_original[t_start : total_len]
+            wav_segment.export(export_dir_path + str(count) + '.wav', format="wav")
+            break
+
+        wav_segment = wav_original[t_start : t_start + rand_duration]
+        wav_segment.export(export_dir_path + str(count) + '.wav', format="wav")
+        count += 1
+        t_start = t_start + rand_duration
+
+
+def process_wav_multiple(in_path, out_path, sr=160000, preemph=0.97, n_fft=2048, n_mels=80, hop_length=160,
+                win_length=400, fmin=50, top_db=80, bits=8, offset=0.0, duration=None):
+
+    for file in os.listdir(in_path):
+        if file.endswith('.wav'):
+            wav, _ = librosa.load(file, sr=sr, offset=offset, duration=duration)
+            wav = wav / np.abs(wav).max() * 0.999
+            mel = librosa.feature.melspectrogram(preemphasis(wav, preemph),
+                                                 sr=sr,
+                                                 n_fft=n_fft,
+                                                 n_mels=n_mels,
+                                                 hop_length=hop_length,
+                                                 win_length=win_length,
+                                                 fmin=fmin,
+                                                 power=1)
+            logmel = librosa.amplitude_to_db(mel, top_db=top_db)
+            logmel = logmel / top_db + 1
+
+            filename = Path(file).stem
+
+            np.save(out_path + '_' + filename + '_logmel.npy', np.transpose(logmel))

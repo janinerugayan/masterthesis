@@ -14,7 +14,7 @@ import torch.nn.functional as F
 
 from vqapc_model import GumbelAPCModel
 
-from prepare_data import process_wav, prepare_torch_lengths
+from prepare_data import process_wav, prepare_torch_lengths, randomseg, process_wav_multiple
 
 import argparse
 parser = argparse.ArgumentParser()
@@ -31,10 +31,20 @@ args = parser.parse_args()
 
 wav_path = args.sound_file
 out_path = './preprocessed/' + args.exp_name
+export_dir_path = './preprocessed'
 
-logmel_shape = process_wav(wav_path, out_path)
+# randomly segment combined sound file
+min_len = 10000
+max_len = 60000
+randomseg(wav_path, export_dir_path, min_len, max_len)
 
-print(logmel_shape)
+# process wav files to get log-mel feature vectors
+process_wav_multiple(export_dir_path, out_path)
+
+embed()
+
+# process_wav(wav_path, out_path)
+
 
 # x, sr = librosa.load(wav_path, sr=44100)
 # mel_per_wav = librosa.feature.melspectrogram(x, sr=sr, n_mels=80).T
@@ -114,6 +124,5 @@ with open('./preprocessed/lengths.pkl', 'rb') as f:
 frames_BxLxM = torch.load('./preprocessed/' + args.exp_name + '.pt')
 seq_lengths_B = torch.as_tensor(lengths[args.exp_name + '.pt'], dtype=torch.int64, device=torch.device('cpu'))
 testing = True
-embed()
 
 predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, seq_lengths_B, testing)
