@@ -59,7 +59,7 @@ save_dir = './preprocessed'
 utt_id = args.exp_name
 logmel_path = out_path + '_logmel.npy'
 
-prepare_torch_lengths(max_seq_len, save_dir, utt_id, logmel_path)
+prepare_torch_lengths(save_dir, utt_id, logmel_path)
 
 # max_seq_len = 32000
 # save_dir = './preprocessed'
