@@ -47,9 +47,9 @@ def process_wav(wav_path, out_path, sr=160000, preemph=0.97, n_fft=2048, n_mels=
     return logmel.shape[-1]
 
 
-def prepare_torch_lengths(max_seq_len, save_dir, utt_id, logmel_path):
+def prepare_torch_lengths(save_dir, utt_id, logmel_path):
 
-    max_seq_len = max_seq_len
+    # max_seq_len = max_seq_len
     save_dir = save_dir
     utt_id = utt_id
 
