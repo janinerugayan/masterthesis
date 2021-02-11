@@ -72,7 +72,9 @@ def prepare_torch_lengths(save_dir, utt_id, logmel_path):
         pickle.dump(id2len, f, protocol=4)
 
 
+# -----------------------------------------------------
 # for segmenting into multiple wav files and processing
+# -----------------------------------------------------
 
 
 def randomseg(wav_path, export_dir_path, min_len, max_len):
@@ -126,14 +128,14 @@ def prepare_torch_lengths_multiple(save_dir, logmel_path, max_seq_len):
 
     id2len = {}
     log_mel = []
-    
+
     for file in os.listdir(logmel_path):
         if file.endswith('.npy'):
             filename = Path(file).stem
             data = np.load(logmel_path + file)
             for row in range(len(data)):
                 feature_vector = data[row]
-                log_mel.append([float(i) for in in feature_vector])
+                log_mel.append([float(i) for i in feature_vector])
             id2len[filename + '.pt'] = len(log_mel)
 
     log_mel = torch.FloatTensor(log_mel)  # convert 2D list to a pytorch as_tensor
