@@ -3,6 +3,8 @@ import os
 import argparse
 from os import listdir
 from os.path import join
+import numpy as np
+import scipy
 
 from IPython import embed
 
@@ -11,6 +13,8 @@ from torch import nn, optim
 import torch.nn.functional as F
 
 from vqapc_model import GumbelAPCModel
+
+from prepare_data import process_wav
 
 import argparse
 parser = argparse.ArgumentParser()
@@ -26,20 +30,53 @@ args = parser.parse_args()
 '''
 
 wav_path = args.sound_file
+out_path = './preprocessed/' + args.exp_name
 
-x, sr = librosa.load(wav_path, sr=44100)
-mel_per_wav = librosa.feature.melspectrogram(x, sr=sr, n_mels=80).T
+def preemphasis(x, preemph):
+    return scipy.signal.lfilter([1, -preemph], [1], x)
 
-print("for wav file " + wav_path + ", mel spectrogram shape:")
-print(mel_per_wav.shape)
+sr=160000
+preemph=0.97
+n_fft=2048
+n_mels=80
+hop_length=160
+win_length=400
+fmin=50
+top_db=80
+bits=8
+offset=0.0
+duration=None
 
-n = len(mel_per_wav)
-f = open('mel_spectrogram.txt' , 'w')
-for i in range(n):
-    for item in mel_per_wav[i]:
-        f.write(str(item) + ' ')
-    f.write('\n')
-f.close()
+wav, _ = librosa.load(wav_path, sr=sr, offset=offset, duration=duration)
+wav = wav / np.abs(wav).max() * 0.999
+
+mel = librosa.feature.melspectrogram(preemphasis(wav, preemph),
+                                     sr=sr,
+                                     n_fft=n_fft,
+                                     n_mels=n_mels,
+                                     hop_length=hop_length,
+                                     win_length=win_length,
+                                     fmin=fmin,
+                                     power=1)
+logmel = librosa.amplitude_to_db(mel, top_db=top_db)
+logmel = logmel / top_db + 1
+
+print(logmel.shape[-1])
+
+
+# x, sr = librosa.load(wav_path, sr=44100)
+# mel_per_wav = librosa.feature.melspectrogram(x, sr=sr, n_mels=80).T
+#
+# print("for wav file " + wav_path + ", mel spectrogram shape:")
+# print(mel_per_wav.shape)
+#
+# n = len(mel_per_wav)
+# f = open('mel_spectrogram.txt' , 'w')
+# for i in range(n):
+#     for item in mel_per_wav[i]:
+#         f.write(str(item) + ' ')
+#     f.write('\n')
+# f.close()
 
 
 '''
