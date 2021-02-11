@@ -58,7 +58,7 @@ def prepare_torch_lengths(save_dir, utt_id, logmel_path):
     id2len = {}
     log_mel = []
 
-    for row in data:
+    for row in range(len(data)):
         feature_vector = data[row]
         log_mel.append([float(i) for i in feature_vector])
 
