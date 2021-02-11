@@ -40,6 +40,6 @@ def process_wav(wav_path, out_path, sr=160000, preemph=0.97, n_fft=2048, n_mels=
     # wav = mulaw_encode(wav, mu=2**bits)
 
     # np.save(out_path + '.wav.npy', wav)
-    np.save(out_path, logmel)
+    np.save(out_path + 'mel.npy', logmel)
     # return out_path, logmel.shape[-1]
     return logmel.shape[-1]

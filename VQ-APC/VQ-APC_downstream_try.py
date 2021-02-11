@@ -32,6 +32,8 @@ args = parser.parse_args()
 wav_path = args.sound_file
 out_path = './preprocessed/' + args.exp_name
 
+print(out_path)
+
 logmel_shape = process_wav(wav_path, out_path)
 
 print(logmel_shape)
