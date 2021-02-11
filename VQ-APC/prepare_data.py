@@ -139,7 +139,7 @@ def prepare_torch_lengths_multiple(save_dir, logmel_path, max_seq_len):
             id2len[filename + '.pt'] = len(log_mel)
 
     log_mel = torch.FloatTensor(log_mel)  # convert 2D list to a pytorch as_tensor
-    log_mel = pad(log_mel, (0, 0, 0, max_seq_len - log_mel.size(0))) # pad or truncate
+    log_mel = F.pad(log_mel, (0, 0, 0, max_seq_len - log_mel.size(0))) # pad or truncate
     torch.save(log_mel, os.path.join(save_dir, utt_id + '.pt'))
 
     with open(os.path.join(save_dir, 'lengths.pkl'), 'wb') as f:  # sequence lengths to be used for forward function?
