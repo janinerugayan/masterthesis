@@ -38,7 +38,8 @@ max_len = 60000
 randomseg(wav_path, export_dir_path, min_len, max_len)
 
 # process wav files to get log-mel feature vectors
-process_wav_multiple(export_dir_path, export_dir_path + args.exp_name)
+output_path = export_dir_path + args.exp_name
+process_wav_multiple(export_dir_path, output_path)
 
 
 # process_wav(wav_path, out_path)
