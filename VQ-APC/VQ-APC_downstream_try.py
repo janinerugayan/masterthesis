@@ -14,7 +14,7 @@ import torch.nn.functional as F
 
 from vqapc_model import GumbelAPCModel
 
-from prepare_data import process_wav
+from prepare_data import process_wav, prepare_torch_lengths
 
 import argparse
 parser = argparse.ArgumentParser()
@@ -31,8 +31,6 @@ args = parser.parse_args()
 
 wav_path = args.sound_file
 out_path = './preprocessed/' + args.exp_name
-
-print(out_path)
 
 logmel_shape = process_wav(wav_path, out_path)
 
@@ -57,26 +55,32 @@ print(logmel_shape)
     prepare data - following APC pipeline
 '''
 
-max_seq_len = 32000
 save_dir = './preprocessed'
 utt_id = args.exp_name
+logmel_path = out_path + '_logmel.npy'
 
-id2len = {}
-with open('mel_spectrogram.txt', 'r') as f:
-    # process the file line by line
-    log_mel = []
+prepare_torch_lengths(max_seq_len, save_dir, utt_id, logmel_path)
 
-    for line in f:
-        data = line.strip().split()
-        log_mel.append([float(i) for i in data])
-
-    id2len[utt_id + '.pt'] = min(len(log_mel), max_seq_len)
-    log_mel = torch.FloatTensor(log_mel)  # convert the 2D list to a pytorch tensor
-    log_mel = F.pad(log_mel, (0, 0, 0, max_seq_len - log_mel.size(0))) # pad or truncate
-    torch.save(log_mel, os.path.join(save_dir, utt_id + '.pt'))
-
-with open(os.path.join(save_dir, 'lengths.pkl'), 'wb') as f:  # sequence lengths to be used for forward function?
-    pickle.dump(id2len, f, protocol=4)
+# max_seq_len = 32000
+# save_dir = './preprocessed'
+# utt_id = args.exp_name
+#
+# id2len = {}
+# with open('mel_spectrogram.txt', 'r') as f:
+#     # process the file line by line
+#     log_mel = []
+#
+#     for line in f:
+#         data = line.strip().split()
+#         log_mel.append([float(i) for i in data])
+#
+#     id2len[utt_id + '.pt'] = min(len(log_mel), max_seq_len)
+#     log_mel = torch.FloatTensor(log_mel)  # convert the 2D list to a pytorch tensor
+#     log_mel = F.pad(log_mel, (0, 0, 0, max_seq_len - log_mel.size(0))) # pad or truncate
+#     torch.save(log_mel, os.path.join(save_dir, utt_id + '.pt'))
+#
+# with open(os.path.join(save_dir, 'lengths.pkl'), 'wb') as f:  # sequence lengths to be used for forward function?
+#     pickle.dump(id2len, f, protocol=4)
 
 
 '''
