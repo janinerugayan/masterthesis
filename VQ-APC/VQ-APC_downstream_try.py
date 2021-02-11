@@ -14,9 +14,12 @@ import torch.nn.functional as F
 
 from vqapc_model import GumbelAPCModel
 
-from prepare_data import process_wav, prepare_torch_lengths, randomseg, process_wav_multiple
+from prepare_data import process_wav, prepare_torch_lengths, randomseg
+from prepare_data import process_wav_multiple, prepare_torch_lengths_multiple
 
 import argparse
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--exp_name',   type=str)
 parser.add_argument('--sound_file',     type=str)
@@ -65,10 +68,14 @@ process_wav_multiple(export_dir_path, output_path)
 '''
 
 save_dir = './preprocessed'
-utt_id = args.exp_name
-logmel_path = out_path + '_logmel.npy'
+# utt_id = args.exp_name
+logmel_path = export_dir_path
+max_seq_len = 1600
 
-prepare_torch_lengths(save_dir, utt_id, logmel_path)
+prepare_torch_lengths_multiple(save_dir, logmel_path, max_seq_len)
+
+
+# prepare_torch_lengths(save_dir, utt_id, logmel_path)
 
 # max_seq_len = 32000
 # save_dir = './preprocessed'

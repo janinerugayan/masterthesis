@@ -72,6 +72,9 @@ def prepare_torch_lengths(save_dir, utt_id, logmel_path):
         pickle.dump(id2len, f, protocol=4)
 
 
+# for segmenting into multiple wav files and processing
+
+
 def randomseg(wav_path, export_dir_path, min_len, max_len):
 
     wav_original = AudioSegment.from_wav(wav_path)
@@ -117,3 +120,25 @@ def process_wav_multiple(in_path, out_path, sr=160000, preemph=0.97, n_fft=2048,
             filename = Path(file).stem
 
             np.save(out_path + '_' + filename + '_logmel.npy', np.transpose(logmel))
+
+
+def prepare_torch_lengths_multiple(save_dir, logmel_path, max_seq_len):
+
+    id2len = {}
+    log_mel = []
+    
+    for file in os.listdir(logmel_path):
+        if file.endswith('.npy'):
+            filename = Path(file).stem
+            data = np.load(logmel_path + file)
+            for row in range(len(data)):
+                feature_vector = data[row]
+                log_mel.append([float(i) for in in feature_vector])
+            id2len[filename + '.pt'] = len(log_mel)
+
+    log_mel = torch.FloatTensor(log_mel)  # convert 2D list to a pytorch as_tensor
+    log_mel = pad(log_mel, (0, 0, 0, max_seq_len - log_mel.size(0))) # pad or truncate
+    torch.save(log_mel, os.path.join(save_dir, utt_id + '.pt'))
+
+    with open(os.path.join(save_dir, 'lengths.pkl'), 'wb') as f:  # sequence lengths to be used for forward function?
+        pickle.dump(id2len, f, protocol=4)
