@@ -128,7 +128,8 @@ with open('./preprocessed/lengths.pkl', 'rb') as f:
     lengths = pickle.load(f)
 
 frames_BxLxM = torch.load('./preprocessed/' + args.exp_name + '.pt')
-seq_lengths_B = torch.as_tensor(lengths.values(), dtype=torch.int64, device=torch.device('cpu'))
+seq_lengths_B = lengths.values()
+# seq_lengths_B = torch.as_tensor(lengths[args.exp_name + '.pt'], dtype=torch.int64, device=torch.device('cpu'))
 testing = True
 
 predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, seq_lengths_B, testing)
