@@ -19,7 +19,7 @@
 #                       --exp_name feb-4_vqextract \
 #                       --store_path ./logs
 
-cd proprocessed/
+cd preprocessed/
 rm -v *.wav *.npy
 cd ..
 
