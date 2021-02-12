@@ -127,7 +127,7 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 seq_lengths_B = []
 with open('./preprocessed/lengths.pkl', 'rb') as f:
     lengths = pickle.load(f)
-seq_lengths_B = lengths.values()
+seq_lengths_B = list(lengths.values())
 
 embed()
 
