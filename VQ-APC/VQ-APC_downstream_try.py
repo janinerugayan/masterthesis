@@ -124,11 +124,14 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
     using forward method of model class with preprocessed data
 '''
 
+seq_lengths_B = []
 with open('./preprocessed/lengths.pkl', 'rb') as f:
     lengths = pickle.load(f)
+seq_lengths_B = lengths.values()
+
+embed()
 
 frames_BxLxM = torch.load('./preprocessed/' + args.exp_name + '.pt')
-seq_lengths_B = lengths.values()
 # seq_lengths_B = torch.as_tensor(lengths[args.exp_name + '.pt'], dtype=torch.int64, device=torch.device('cpu'))
 testing = True
 
