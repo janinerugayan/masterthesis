@@ -19,6 +19,10 @@
 #                       --exp_name feb-4_vqextract \
 #                       --store_path ./logs
 
+cd proprocessed/
+rm -v *.wav *.npy
+cd ..
+
 CUDA_VISIBLE_DEVICES=1 python VQ-APC_downstream_try.py --exp_name=combined_sounds_shuffled \
 --sound_file=./wavs/combined_sounds_shuffled.wav \
 --pretrained_weights=./logs/feb-4_vqextract.dir/feb-4_vqextract__epoch_1.model \
