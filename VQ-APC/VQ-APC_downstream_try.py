@@ -131,8 +131,6 @@ seq_lengths_B = list(lengths.values())
 
 frames_BxLxM = torch.load('./preprocessed/' + args.exp_name + '.pt')
 
-embed()
-
 seq_lengths_B = torch.as_tensor(seq_lengths_B, dtype=torch.int64, device=torch.device('cpu'))
 testing = True
 
