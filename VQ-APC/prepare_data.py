@@ -9,6 +9,7 @@ from pydub import AudioSegment
 import argparse
 import random
 from pathlib import Path
+from torch.utils import data
 
 
 def preemphasis(x, preemph):
@@ -124,7 +125,7 @@ def process_wav_multiple(in_path, out_path, sr=160000, preemph=0.97, n_fft=2048,
             np.save(out_path + '_' + filename + '_logmel.npy', np.transpose(logmel))
 
 
-def prepare_torch_lengths_multiple(save_dir, logmel_path, max_seq_len, wav_id):
+def prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id):
 
     id2len = {}
 
@@ -136,10 +137,27 @@ def prepare_torch_lengths_multiple(save_dir, logmel_path, max_seq_len, wav_id):
             for row in range(len(data)):
                 log_mel.append([float(i) for i in data[row]])
             id2len[filename + '.pt'] = min(len(log_mel), max_seq_len)
-            log_mel = torch.FloatTensor(log_mel)  # convert 2D list to a pytorch as_tensor
+            log_mel = torch.FloatTensor(log_mel)  # convert 2D list to a pytorch tensor
             log_mel = F.pad(log_mel, (0, 0, 0, max_seq_len - log_mel.size(0))) # pad or truncate
-            torch.save(log_mel, os.path.join(save_dir, filename + '.pt'))
+            torch.save(log_mel, os.path.join(logmel_path, filename + '.pt'))
             print(f'file: {filename} torch size: {log_mel.size()}')
 
-    with open(os.path.join(save_dir, 'lengths.pkl'), 'wb') as f:  # sequence lengths to be used for forward function?
+    with open(os.path.join(logmel_path, 'lengths.pkl'), 'wb') as f:  # sequence lengths to be used for forward function?
         pickle.dump(id2len, f, protocol=4)
+
+
+# for loading the combined speech data
+class CombinedSpeech(data.Dataset):
+  def __init__(self, path):
+    self.path = path
+    self.ids = [f for f in os.listdir(self.path) if f.endswith('.pt')]
+    with open(join(path, 'lengths.pkl'), 'rb') as f:
+      self.lengths = pickle.load(f)
+
+  def __len__(self):
+    return len(self.ids)
+
+  def __getitem__(self, index):
+    x = torch.load(join(self.path, self.ids[index]))
+    l = self.lengths[self.ids[index]]
+    return x, l

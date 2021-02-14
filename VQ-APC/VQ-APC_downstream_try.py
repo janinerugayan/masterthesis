@@ -11,11 +11,13 @@ from IPython import embed
 import torch
 from torch import nn, optim
 import torch.nn.functional as F
+from torch.utils import data
 
 from vqapc_model import GumbelAPCModel
 
 from prepare_data import process_wav, prepare_torch_lengths, randomseg
 from prepare_data import process_wav_multiple, prepare_torch_lengths_multiple
+from prepare_data import CombinedSpeech
 
 import argparse
 
@@ -67,12 +69,11 @@ process_wav_multiple(export_dir_path, output_path)
     prepare data - following APC pipeline
 '''
 
-save_dir = './preprocessed'
 wav_id = args.exp_name
 logmel_path = export_dir_path
 max_seq_len = 1600
 
-prepare_torch_lengths_multiple(save_dir, logmel_path, max_seq_len, wav_id)
+prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
 
 
 # prepare_torch_lengths(save_dir, utt_id, logmel_path)
@@ -124,14 +125,16 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
     using forward method of model class with preprocessed data
 '''
 
-seq_lengths_B = []
-with open('./preprocessed/lengths.pkl', 'rb') as f:
-    lengths = pickle.load(f)
-seq_lengths_B = list(lengths.values())
+dataset = CombinedSpeech('./preprocessed/')
+dataset_loader = data.DataLoader(dataset, batch_size=32, num_workers=8, shuffle=True, drop_last=True)
 
-frames_BxLxM = torch.load('./preprocessed/' + args.exp_name + '.pt')
+# seq_lengths_B = []
+# with open('./preprocessed/lengths.pkl', 'rb') as f:
+#     lengths = pickle.load(f)
+# seq_lengths_B = list(lengths.values())
+# seq_lengths_B = torch.as_tensor(seq_lengths_B, dtype=torch.int64, device=torch.device('cpu'))
 
-seq_lengths_B = torch.as_tensor(seq_lengths_B, dtype=torch.int64, device=torch.device('cpu'))
 testing = True
 
-predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, seq_lengths_B, testing)
+for frames_BxLxM, lengths_B in train_data_loader:
+    predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
