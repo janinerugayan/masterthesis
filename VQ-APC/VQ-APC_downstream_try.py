@@ -138,3 +138,8 @@ testing = True
 
 for frames_BxLxM, lengths_B in dataset_loader:
     predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+
+print('Predicted frames')
+print(predicted_BxLxM)
+print('Hidden frames')
+print(hiddens_NxBxLxH)
