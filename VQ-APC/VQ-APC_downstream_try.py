@@ -134,6 +134,8 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 dataset = CombinedSpeech('./preprocessed/')
 dataset_loader = data.DataLoader(dataset, batch_size=32, num_workers=8, shuffle=True, drop_last=True)
 
+embed()
+
 testing = True
 
 for frames_BxLxM, lengths_B in dataset_loader:
