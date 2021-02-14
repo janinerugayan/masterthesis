@@ -125,19 +125,17 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
     using forward method of model class with preprocessed data
 '''
 
-dataset = CombinedSpeech('./preprocessed/')
-dataset_loader = data.DataLoader(dataset, batch_size=32, num_workers=8, shuffle=True, drop_last=True)
-
 # seq_lengths_B = []
 # with open('./preprocessed/lengths.pkl', 'rb') as f:
 #     lengths = pickle.load(f)
 # seq_lengths_B = list(lengths.values())
 # seq_lengths_B = torch.as_tensor(seq_lengths_B, dtype=torch.int64, device=torch.device('cpu'))
 
+dataset = CombinedSpeech('./preprocessed/')
+dataset_loader = data.DataLoader(dataset, batch_size=32, num_workers=8, shuffle=True, drop_last=True)
+
 testing = True
 
-for frames_BxLxM in dataset_loader:
-    print(frames_BxLxM)
-
 for frames_BxLxM, lengths_B in dataset_loader:
+    print('inside data loader')
     predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
