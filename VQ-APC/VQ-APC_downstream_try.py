@@ -136,6 +136,8 @@ dataset_loader = data.DataLoader(dataset, batch_size=32, num_workers=8, shuffle=
 
 testing = True
 
+for frames_BxLxM in dataset_loader:
+    print(frames_BxLxM)
+
 for frames_BxLxM, lengths_B in dataset_loader:
     predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
-    print(f'predicted: {predicted_BxLxM.size()}, hidden: {hiddens_NxBxLxH.size()}, logits: {logits_NxBxLxC.size()}')
