@@ -138,6 +138,6 @@ dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=T
 testing = True
 
 for frames_BxLxM, lengths_B in dataset_loader:
-    frames_BxLxM = Variable(frames_BxLxM[indices_B]).cuda()
-    lengths_B = Variable(lengths_B[indices_B]).cuda()
+    frames_BxLxM = Variable(frames_BxLxM).cuda()
+    lengths_B = Variable(lengths_B).cuda()
     predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
