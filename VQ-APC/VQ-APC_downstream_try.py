@@ -132,7 +132,7 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 # seq_lengths_B = torch.as_tensor(seq_lengths_B, dtype=torch.int64, device=torch.device('cpu'))
 
 dataset = CombinedSpeech('./preprocessed/')
-dataset_loader = data.DataLoader(dataset, batch_size=32, num_workers=8, shuffle=True, drop_last=True)
+dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
 
 embed()
 
