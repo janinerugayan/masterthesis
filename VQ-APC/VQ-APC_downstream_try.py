@@ -141,3 +141,4 @@ for frames_BxLxM, lengths_B in dataset_loader:
     frames_BxLxM = Variable(frames_BxLxM).cuda()
     lengths_B = Variable(lengths_B).cuda()
     predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+    print(predicted_BxLxM)
