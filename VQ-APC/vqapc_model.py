@@ -156,12 +156,6 @@ class GumbelAPCModel(nn.Module):
     # Final regression layer
     self.postnet = nn.Linear(code_dim, input_size)
 
-  # for saving VQ Layer parameters
-  # def saveVQparam(self, model_dir, exp_name, epoch_i):
-  #   torch.save(self.vq_layers.state_dict(),
-  #     open(os.path.join(model_dir, exp_name + '-VQlayers__epoch_%d' %
-  #     (epoch_i + 1) + '.model'), 'wb'))
-
   def forward(self, frames_BxLxM, seq_lengths_B, testing):
     """
     Input:
@@ -224,4 +218,4 @@ class GumbelAPCModel(nn.Module):
     # Generate final output from codes.
     predicted_BxLxM = self.postnet(rnn_outputs_BxLxH)
 
-    return predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC
+    return predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC, rnn_outputs_BxLxH
