@@ -39,8 +39,8 @@ wav_path = args.sound_file
 export_dir_path = './preprocessed/'
 
 # randomly segment combined sound file
-min_len = 10000
-max_len = 60000
+min_len = 1000
+max_len = 5000
 randomseg(wav_path, export_dir_path, min_len, max_len)
 
 # process wav files to get log-mel feature vectors
@@ -96,8 +96,8 @@ for frames_BxLxM, lengths_B in dataset_loader:
     frames_BxLxM = Variable(frames_BxLxM).cuda()
     lengths_B = Variable(lengths_B).cuda()
     print(frames_BxLxM.size())
-    print(lengths_B.size())
+    print(lengths_B)
     predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC, rnn_outputs_BxLxH = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
-print(rnn_outputs_BxLxH.size())
 print(rnn_outputs_BxLxH)
+print(rnn_outputs_BxLxH.size())
