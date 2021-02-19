@@ -39,8 +39,8 @@ wav_path = args.sound_file
 export_dir_path = './preprocessed/'
 
 # randomly segment combined sound file
-min_len = 1000
-max_len = 5000
+min_len = 10000
+max_len = 60000
 randomseg(wav_path, export_dir_path, min_len, max_len)
 
 # process wav files to get log-mel feature vectors
