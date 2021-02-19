@@ -16,9 +16,8 @@ from torch.autograd import Variable
 
 from vqapc_model import GumbelAPCModel
 
-from prepare_data import process_wav, prepare_torch_lengths, randomseg
+from prepare_data import randomseg, CombinedSpeech
 from prepare_data import process_wav_multiple, prepare_torch_lengths_multiple
-from prepare_data import CombinedSpeech
 
 import argparse
 
@@ -31,9 +30,10 @@ parser.add_argument('--pretrained_VQ',      type=str)
 args = parser.parse_args()
 
 
-'''
-    mel spectrogram - 80-dimensional
-'''
+
+# ---------------------------------------------
+#   mel spectrogram - 80-dimensional
+# ---------------------------------------------
 
 wav_path = args.sound_file
 export_dir_path = './preprocessed/'
@@ -48,9 +48,10 @@ output_path = export_dir_path + args.exp_name
 process_wav_multiple(export_dir_path, output_path)
 
 
-'''
-    prepare data - following APC pipeline
-'''
+
+# ---------------------------------------------
+#   prepare data - following APC pipeline
+# ---------------------------------------------
 
 wav_id = args.exp_name
 logmel_path = export_dir_path
@@ -59,9 +60,10 @@ max_seq_len = 1600
 prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
 
 
-'''
-    loading pretrained model
-'''
+
+# ---------------------------------------------
+#   loading pretrained model
+# ---------------------------------------------
 
 pretrained_vqapc = GumbelAPCModel(input_size=80,
                      hidden_size=512,
@@ -80,9 +82,10 @@ pretrained_weights_path = args.pretrained_weights
 pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 
 
-'''
-    using forward method of model class with preprocessed data
-'''
+
+# -----------------------------------------------------------------
+#   using forward method of model class with preprocessed data
+# -----------------------------------------------------------------
 
 dataset = CombinedSpeech('./preprocessed/')
 dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)

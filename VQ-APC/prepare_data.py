@@ -73,6 +73,7 @@ def prepare_torch_lengths(save_dir, utt_id, logmel_path):
         pickle.dump(id2len, f, protocol=4)
 
 
+
 # -----------------------------------------------------
 # for segmenting into multiple wav files and processing
 # -----------------------------------------------------
@@ -146,7 +147,13 @@ def prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id):
         pickle.dump(id2len, f, protocol=4)
 
 
+
+# -----------------------------------------------------
 # for loading the combined speech data
+# -----------------------------------------------------
+
+
+# taken from APC datasets.py
 class CombinedSpeech(data.Dataset):
   def __init__(self, path):
     self.path = path
