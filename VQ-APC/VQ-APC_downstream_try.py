@@ -88,13 +88,15 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 # -----------------------------------------------------------------
 
 dataset = CombinedSpeech('./preprocessed/')
-dataset_loader = data.DataLoader(dataset, batch_size=32, num_workers=8, shuffle=True, drop_last=True)
+dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
 
 testing = True
 
 for frames_BxLxM, lengths_B in dataset_loader:
     frames_BxLxM = Variable(frames_BxLxM).cuda()
     lengths_B = Variable(lengths_B).cuda()
+    print(frames_BxLxM.size())
+    print(lengths_B.size())
     predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC, rnn_outputs_BxLxH = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
 print(rnn_outputs_BxLxH.size())
