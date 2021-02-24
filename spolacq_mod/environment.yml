@@ -1,0 +1,16 @@
+name: spolacq
+channels:
+  - conda-forge
+  - defaults
+  - pytorch
+dependencies:
+  - python=3.8
+  - librosa
+  - joblib
+  - pytorch
+  - numpy
+  - pandas
+  - pip
+  - pip:
+    - speechrecognition
+    - pydub

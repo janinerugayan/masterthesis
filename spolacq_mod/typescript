@@ -1,0 +1,272 @@
+Script started on 2020-10-19 09:57:45+02:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="206" LINES="48"]
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq]1;..ithub/spolacq[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq [43m[34m [30m  [30m master   [49m[33m[39m [K[111C[39m[0m[49m[30m[39m[40m[32m [32m✔ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[131D[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq]1;..ithub/spolacq[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq [43m[34m [30m  [30m master   [49m[33m[39m [K[101C[39m[0m[49m[31m[39m[41m[38;5;226m SIGINT(2)[38;5;226m ↵ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[131D[?1h=[?2004h[4ms[24m[4ms[4mc[24m[4ms[4mc[4mr[24m[4mr[4mi[24m[4mi[4mp[24m[24m[32ms[24m[32mc[24m[32mr[24m[32mi[24m[32mp[32mt[39m[4m[32ms[4m[32mc[4m[32mr[4m[32mi[4m[32mp[4m[32mt[4m[32ms[24m[39m[?1l>[?2004l
+]2;scripts]1;scripts[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[103C[39m[0m[49m[30m[39m[40m[32m [32m✔ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[32ml[39m[32ml[32ms[39m[?1l>[?2004l
+]2;ls --color=tty]1;ls[0m[01;32mmain.py[0m  [01;32mmfcc_downsampling.py[0m  [01;32mprep_combine_wavs.py[0m  [01;32mprep_mfcc_extraction.py[0m  process_recog_result.py  [01;34m__pycache__[0m  [01;32mutils.py[0m  [01;32mwav_segmentation.py[0m  [01;32mwav_segmentation_rand.py[0m
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[103C[39m[0m[49m[30m[39m[40m[32m [32m✔ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[4mp[24m[24m[1m[31mp[1m[31my[0m[39m[1m[31mp[1m[31my[1m[31mt[0m[39m[1m[31mt[1m[31mh[0m[39m[1m[31mh[1m[31mo[0m[39m[0m[32mp[0m[32my[0m[32mt[0m[32mh[0m[32mo[32mn[39m [4mm[24m[4mm[4ma[24m[4ma[4mi[24m[4mi[4mn[24m[4mn[4m.[24m[4m.[4mp[24m[4mp[4my[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+Traceback (most recent call last):
+  File "main.py", line 273, in <module>
+    plot_positions(last_position, agent_positions, i_episode)
+  File "main.py", line 72, in plot_positions
+    x = agent_positions[0:last_position+1, 0]
+TypeError: list indices must be integers or slices, not tuple
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[101C[39m[0m[49m[31m[39m[41m[38;5;226m 1[38;5;226m ↵ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[32mpython[39m [4mmain.py[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+<class 'int'>
+350
+Traceback (most recent call last):
+  File "main.py", line 275, in <module>
+    plot_positions(last_position, agent_positions, i_episode)
+  File "main.py", line 72, in plot_positions
+    x = agent_positions[0:last_position+1, 0]
+TypeError: list indices must be integers or slices, not tuple
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[101C[39m[0m[49m[31m[39m[41m[38;5;226m 1[38;5;226m ↵ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[32mpython[39m [4mmain.py[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+Traceback (most recent call last):
+  File "main.py", line 273, in <module>
+    plot_positions(last_position, agent_positions, i_episode)
+  File "main.py", line 72, in plot_positions
+    x = agent_positions[0:(last_position+1), 0]
+TypeError: list indices must be integers or slices, not tuple
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[101C[39m[0m[49m[31m[39m[41m[38;5;226m 1[38;5;226m ↵ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[32mpython[39m [4mmain.py[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+Traceback (most recent call last):
+  File "main.py", line 274, in <module>
+    plot_positions(last_position, agent_positions, i_episode)
+  File "main.py", line 73, in plot_positions
+    x = agent_positions[0:end_episode, 0]
+TypeError: list indices must be integers or slices, not tuple
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[101C[39m[0m[49m[31m[39m[41m[38;5;226m 1[38;5;226m ↵ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[93C[39m[0m[49m[31m[39m[41m[38;5;226m SIGINT(2)[38;5;226m ↵ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[32mpython[39m [4mmain.py[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+<class 'int'>
+Traceback (most recent call last):
+  File "main.py", line 274, in <module>
+    plot_positions(last_position, agent_positions, i_episode)
+  File "main.py", line 73, in plot_positions
+    x = agent_positions[0:(last_position+1), 0]
+TypeError: list indices must be integers or slices, not tuple
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[101C[39m[0m[49m[31m[39m[41m[38;5;226m 1[38;5;226m ↵ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[32mpython[39m [4mmain.py[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+<class 'int'>
+Traceback (most recent call last):
+  File "main.py", line 274, in <module>
+    plot_positions(last_position, agent_positions, i_episode)
+  File "main.py", line 79, in plot_positions
+    ax.scatter3D(x[last_position], y[last_position], z[last_position], 'red')
+IndexError: index 350 is out of bounds for axis 0 with size 3
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[101C[39m[0m[49m[31m[39m[41m[38;5;226m 1[38;5;226m ↵ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[32mpython[39m [4mmain.py[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 1 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 2 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 3 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 4 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 5 Complete
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[103C[39m[0m[49m[30m[39m[40m[32m [32m✔ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[32mpython[39m [4mmain.py[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 1 Complete
+Traceback (most recent call last):
+  File "main.py", line 289, in <module>
+    durations_fig.savefig(pic_name1)
+NameError: name 'durations_fig' is not defined
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[101C[39m[0m[49m[31m[39m[41m[38;5;226m 1[38;5;226m ↵ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[32mpython[39m [4mmain.py[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 1 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 2 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 3 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 4 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 5 Complete
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[103C[39m[0m[49m[30m[39m[40m[32m [32m✔ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[32mpython[39m [4mmain.py[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 1 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 2 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 3 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 4 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 5 Complete
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[103C[39m[0m[49m[30m[39m[40m[32m [32m✔ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[108C[39m[0m[49m[30m[39m[40m[32m [32m✔ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[128D[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[103C[39m[0m[49m[30m[39m[40m[32m [32m✔ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[32mpython[39m [4mmain.py[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 1 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 2 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 3 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 4 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 5 Complete
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[103C[39m[0m[49m[30m[39m[40m[32m [32m✔ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[32mpython[39m [4mmain.py[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 1 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 2 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 3 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 4 Complete
+n_actions: 566
+Episode: 0
+Episode: 1
+Episode: 2
+Episode: 3
+Episode: 4
+Seed 5 Complete
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                              ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[103C[39m[0m[49m[30m[39m[40m[32m [32m✔ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[123D[?1h=[?2004h[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[57C[39m[0m[49m[30m[39m[40m[32m [32m✔ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[77D[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[39m [K[57C[39m[0m[49m[30m[39m[40m[32m [32m✔ [39m[34m[39m[44m[30m (miniconda3)[30m [K[00m[39m[49m[77D[32mpython[39m [4mmain.py[24m[?1l>[?2004l
+]2;python main.py]1;pythonn_actions: 566
+Episode: 0
+Traceback (most recent call last):
+  File "main.py", line 289, in <module>
+    plot_positions(last_position, agent_positions, i_episode, seed)
+  File "main.py", line 94, in plot_positions
+    df.to_csv(position_file, index=True, header=False, mode='a')
+  File "/home/janine/miniconda3/lib/python3.8/site-packages/pandas/core/generic.py", line 3167, in to_csv
+    formatter.save()
+  File "/home/janine/miniconda3/lib/python3.8/site-packages/pandas/io/formats/csvs.py", line 185, in save
+    f, handles = get_handle(
+  File "/home/janine/miniconda3/lib/python3.8/site-packages/pandas/io/common.py", line 493, in get_handle
+    f = open(path_or_buf, mode, encoding=encoding, errors=errors, newline="")
+FileNotFoundError: [Errno 2] No such file or directory: '../exp/record_positions/seed1_ep0_positions.csv'
+[1m[7m%[27m[1m[0m                                                                                                                                                                ]2;janine@janine-UX490UA:~/Documents/github/spolacq/scripts]1;..olacq/scripts[0m[27m[24m[J[39m[0m[49m[40m [33mjanine@janine-UX490UA [44m[30m [30m [30m~/Documents/github/spolacq/scripts [43m[34m [30m  [30m master   [49m[33m[

@@ -1,0 +1,4 @@
+# ignore the following folders
+exp/*
+!exp/pkls
+__pycache__
