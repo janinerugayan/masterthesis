@@ -28,8 +28,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--data_name',   type=str)
 args = parser.parse_args()
 
-with open("../exp/pkls/" + args.data_name + ".pkl", "rb") as f:
-    res_dict = pickle.load(f)
+# read stt recog results - loaded from previous segmentation & recognition:
+# with open("../exp/pkls/" + args.data_name + ".pkl", "rb") as f:
+#     res_dict = pickle.load(f)
+
+res_dict = {'num_words': 100, 'up':5, 'down':5, 'left':5, 'right':5, 'forward':5, 'backward':5,
+            'one':5, 'two':5, 'three':5, 'four':5, 'five':5, 'six':5,
+            'seven':5, 'eight':5, 'nine':5}
 
 # read stt recog results - original code:
 # with open("../exp/pkls/recog_results_dict.pkl", "rb") as f:
@@ -221,7 +226,7 @@ record_file = "../exp/rl_results_" + args.data_name +".csv"
 
 
 # Random Seed
-for seed in range(1, 101):  # original range (1,6)
+for seed in range(1, 6):  # original range (1,6)
     random.seed(seed)
     torch.manual_seed(0)
 
@@ -276,7 +281,7 @@ for seed in range(1, 101):  # original range (1,6)
 
             # Select and perform an action
             action = select_action(state)
-            x_change, y_change, z_change = env.feedback(action)
+            x_change, y_change, z_change = env.feedback(num_steps, action)
             reward, done = agent.evaluate_reward(x_change, y_change, z_change)
 
             reward = torch.tensor([reward], device=device)

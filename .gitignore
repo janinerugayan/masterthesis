@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+spolacq_mod/exp/*
+!exp/pkls
+__pycache__
+
 # C extensions
 *.so
 

@@ -97,7 +97,4 @@ for frames_BxLxM, lengths_B in dataset_loader:
     lengths_B = Variable(lengths_B).cuda()
     print(frames_BxLxM.size())
     print(lengths_B)
-    predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC, rnn_outputs_BxLxH = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
-
-print(rnn_outputs_BxLxH)
-print(rnn_outputs_BxLxH.size())
+    __, feats = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
