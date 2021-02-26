@@ -97,4 +97,7 @@ for frames_BxLxM, lengths_B in dataset_loader:
     lengths_B = Variable(lengths_B).cuda()
     print(frames_BxLxM.size())
     print(lengths_B)
-    __, feats = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+    __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+
+print(features.size())
+print(features[-1, :, :, :])
