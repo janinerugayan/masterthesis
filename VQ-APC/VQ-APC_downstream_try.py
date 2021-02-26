@@ -26,7 +26,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--exp_name',   type=str)
 parser.add_argument('--sound_file',     type=str)
 parser.add_argument('--pretrained_weights',   type=str)
-parser.add_argument('--pretrained_VQ',      type=str)
+parser.add_argument('--out_path',      type=str)
 args = parser.parse_args()
 
 
@@ -92,19 +92,16 @@ dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=T
 
 testing = True
 
-prevq_rnn_outputs = []
-
-def hook(module, input, output):
-    prevq_rnn_outputs.append(output.clone())
-
-pretrained_vqapc.module.forward[-1].register_forward_hook(hook)
-
 for frames_BxLxM, lengths_B in dataset_loader:
     frames_BxLxM = Variable(frames_BxLxM).cuda()
     lengths_B = Variable(lengths_B).cuda()
     print(frames_BxLxM.size())
     print(lengths_B)
-    __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+    __, features, __, prevq_rnn_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
 print(features.size())
 print(features[-1, :, :, :])
+
+prevq = prevq_rnn_outputs.pop().squeeze().cpu().numpy()
+with open(args.out_path + args.exp_name + '.txt', 'w') as file:
+    np.savetext(file, prevq, fmt='%.16f')
