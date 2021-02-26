@@ -175,6 +175,9 @@ class GumbelAPCModel(nn.Module):
     hiddens_NxBxLxH = []
     logits_NxBxLxC = []
 
+    # for saving outputs pre-quantization layer
+    prevq_rnn_outputs = []
+
     # RNN
     # Prepare initial packed RNN input.
     packed_rnn_inputs = pack_padded_sequence(frames_BxLxM, seq_lengths_B,
@@ -203,6 +206,9 @@ class GumbelAPCModel(nn.Module):
 
       hiddens_NxBxLxH.append(rnn_outputs_BxLxH)
 
+      # saving pre-quantization RNN outputs
+      prevq_rnn_outputs.append(rnn_outputs_BxLxH)
+
       if vq_layer is not None:
         logits_BxLxC, rnn_outputs_BxLxH = vq_layer(rnn_outputs_BxLxH, testing)
         logits_NxBxLxC.append(logits_BxLxC)
@@ -218,4 +224,4 @@ class GumbelAPCModel(nn.Module):
     # Generate final output from codes.
     predicted_BxLxM = self.postnet(rnn_outputs_BxLxH)
 
-    return predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC
+    return predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC, prevq_rnn_outputs
