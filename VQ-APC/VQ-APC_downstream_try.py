@@ -92,13 +92,19 @@ dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=T
 
 testing = True
 
+prevq_rnn_outputs = []
+
+def hook(module, input, output):
+    prevq_rnn_outputs.append(output.clone())
+
+pretrained_vqapc.module.forward[-1].register_forward_hook(hook)
+
 for frames_BxLxM, lengths_B in dataset_loader:
     frames_BxLxM = Variable(frames_BxLxM).cuda()
     lengths_B = Variable(lengths_B).cuda()
     print(frames_BxLxM.size())
     print(lengths_B)
-    __, features, __, preVQ_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+    __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
 print(features.size())
 print(features[-1, :, :, :])
-print(type(preVQ_outputs))
