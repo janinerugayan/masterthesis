@@ -208,6 +208,7 @@ class GumbelAPCModel(nn.Module):
 
       # saving pre-quantization RNN outputs
       prevq_rnn_outputs.append(rnn_outputs_BxLxH)
+      prevq_rnn_outputs = torch.stack(prevq_rnn_outputs)
 
       if vq_layer is not None:
         logits_BxLxC, rnn_outputs_BxLxH = vq_layer(rnn_outputs_BxLxH, testing)
