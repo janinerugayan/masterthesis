@@ -208,7 +208,7 @@ class GumbelAPCModel(nn.Module):
 
       # saving pre-quantization RNN outputs
       prevq_rnn_outputs.append(rnn_outputs_BxLxH)
-      prevq_rnn_outputs = torch.stack(prevq_rnn_outputs)
+
 
       if vq_layer is not None:
         logits_BxLxC, rnn_outputs_BxLxH = vq_layer(rnn_outputs_BxLxH, testing)
@@ -220,7 +220,10 @@ class GumbelAPCModel(nn.Module):
       packed_rnn_inputs = pack_padded_sequence(rnn_outputs_BxLxH,
                                                seq_lengths_B, batch_first=True,
                                                enforce_sorted=False)
+
     hiddens_NxBxLxH = torch.stack(hiddens_NxBxLxH)
+
+    prevq_rnn_outputs = torch.stack(prevq_rnn_outputs)
 
     # Generate final output from codes.
     predicted_BxLxM = self.postnet(rnn_outputs_BxLxH)
