@@ -102,6 +102,8 @@ for frames_BxLxM, lengths_B in dataset_loader:
 print(features.size())
 print(features[-1, :, :, :])
 
+print(prevq_rnn_outputs)
+
 prevq = prevq_rnn_outputs.pop().squeeze().cpu().numpy()
 with open(args.out_path + args.exp_name + '.txt', 'w') as file:
     np.savetext(file, prevq, fmt='%.16f')

@@ -223,8 +223,6 @@ class GumbelAPCModel(nn.Module):
 
     hiddens_NxBxLxH = torch.stack(hiddens_NxBxLxH)
 
-    prevq_rnn_outputs = torch.stack(prevq_rnn_outputs)
-
     # Generate final output from codes.
     predicted_BxLxM = self.postnet(rnn_outputs_BxLxH)
 
