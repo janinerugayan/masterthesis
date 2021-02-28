@@ -40,7 +40,7 @@ export_dir_path = './preprocessed/'
 
 # randomly segment combined sound file
 min_len = 10000
-max_len = 60000
+max_len = 40000
 randomseg(wav_path, export_dir_path, min_len, max_len)
 
 # process wav files to get log-mel feature vectors
@@ -55,7 +55,7 @@ process_wav_multiple(export_dir_path, output_path)
 
 wav_id = args.exp_name
 logmel_path = export_dir_path
-max_seq_len = 1600
+max_seq_len = 30000
 
 prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
 
@@ -102,8 +102,9 @@ for frames_BxLxM, lengths_B in dataset_loader:
 print(features.size())
 print(features[-1, :, :, :])
 
-print(prevq_rnn_outputs)
+print(f'prevq rnn output: {prevq_rnn_outputs}')
 
 prevq = prevq_rnn_outputs.pop().squeeze().cpu().numpy()
-with open(args.out_path + args.exp_name + '.txt', 'w') as file:
-    np.savetext(file, prevq, fmt='%.16f')
+
+# with open(args.out_path + args.exp_name + '.txt', 'w') as file:
+#     np.savetext(file, prevq, fmt='%.16f')
