@@ -147,8 +147,11 @@ for file in os.listdir(logmel_path):
 
 # read pre-quantisation
 prevq_path = './results/'
-prevq = {}
+prevq_dict = {}
 for file in os.listdir(prevq_path):
     if file.endswith('.txt'):
         filename = Path(file).stem
-        prevq[filename] = np.loadtxt(prevq_path + file)
+        prevq_dict[filename] = np.loadtxt(prevq_path + file)
+
+for key in prevq_dict:
+    print(key)
