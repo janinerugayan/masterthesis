@@ -173,7 +173,7 @@ class CombinedSpeech(data.Dataset):
 class LoadSpeechSegment(data.Dataset):
     def __init__(self, path, file):
         self.path = path
-        self.id = file
+        self.id = [file]
         with open(os.path.join(path, 'lengths.pkl'), 'rb') as f:
             self.lengths = pickle.load(f)
 
