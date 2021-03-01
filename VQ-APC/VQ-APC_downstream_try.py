@@ -68,21 +68,21 @@ args = parser.parse_args()
 #   loading pretrained model
 # ---------------------------------------------
 
-pretrained_vqapc = GumbelAPCModel(input_size=80,
-                     hidden_size=512,
-                     num_layers=3,
-                     dropout=0.1,
-                     residual=' ',
-                     codebook_size=128,
-                     code_dim=512,
-                     gumbel_temperature=0.5,
-                     vq_hidden_size=-1,
-                     apply_VQ= [False, False, True]).cuda()
-
-pretrained_vqapc = nn.DataParallel(pretrained_vqapc)
-
-pretrained_weights_path = args.pretrained_weights
-pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
+# pretrained_vqapc = GumbelAPCModel(input_size=80,
+#                      hidden_size=512,
+#                      num_layers=3,
+#                      dropout=0.1,
+#                      residual=' ',
+#                      codebook_size=128,
+#                      code_dim=512,
+#                      gumbel_temperature=0.5,
+#                      vq_hidden_size=-1,
+#                      apply_VQ= [False, False, True]).cuda()
+#
+# pretrained_vqapc = nn.DataParallel(pretrained_vqapc)
+#
+# pretrained_weights_path = args.pretrained_weights
+# pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 
 
 
@@ -90,58 +90,35 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 #   using forward method of model class with preprocessed data
 # -----------------------------------------------------------------
 
-logmel_path = './preprocessed/'
-
-for file in os.listdir(logmel_path):
-
-    features = []
-    prevq_rnn_outputs = []
-
-    if file.endswith('.pt'):
-
-        print(f'VQ-APC working on: {file}')
-
-        filename = Path(file).stem
-
-        dataset = LoadSpeechSegment(logmel_path, file)
-        dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
-
-        testing = True
-
-        for frames_BxLxM, lengths_B in dataset_loader:
-            frames_BxLxM = Variable(frames_BxLxM).cuda()
-            lengths_B = Variable(lengths_B).cuda()
-            __, features, __, prevq_rnn_outputs, rnn_outputs_BxLxH = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
-
-        print(f'RNN output size: {rnn_outputs_BxLxH.size()}')
-
-        prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
-
-        with open(args.out_path + filename + '.txt', 'w') as file:
-            np.savetxt(file, prevq, fmt='%.16f')
-
-
-# dataset = CombinedSpeech('./preprocessed/')
-# dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
+# logmel_path = './preprocessed/'
 #
-# testing = True
+# for file in os.listdir(logmel_path):
 #
-# for frames_BxLxM, lengths_B in dataset_loader:
-#     frames_BxLxM = Variable(frames_BxLxM).cuda()
-#     lengths_B = Variable(lengths_B).cuda()
-#     print(frames_BxLxM.size())
-#     print(lengths_B)
-#     __, features, __, prevq_rnn_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
-
-# print(features.size())
-# print(features[-1, :, :, :])
-
-# print(f'prevq rnn output: {prevq_rnn_outputs}')
-
-# prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
+#     features = []
+#     prevq_rnn_outputs = []
 #
-# with open(args.out_path + args.exp_name + '.txt', 'w') as file:
-#     np.savetxt(file, prevq, fmt='%.16f')
+#     if file.endswith('.pt'):
+#
+#         print(f'VQ-APC working on: {file}')
+#
+#         filename = Path(file).stem
+#
+#         dataset = LoadSpeechSegment(logmel_path, file)
+#         dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
+#
+#         testing = True
+#
+#         for frames_BxLxM, lengths_B in dataset_loader:
+#             frames_BxLxM = Variable(frames_BxLxM).cuda()
+#             lengths_B = Variable(lengths_B).cuda()
+#             __, features, __, prevq_rnn_outputs, rnn_outputs_BxLxH = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+#
+#         print(f'RNN output size: {rnn_outputs_BxLxH.size()}')
+#
+#         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
+#
+#         with open(args.out_path + filename + '.txt', 'w') as file:
+#             np.savetxt(file, prevq, fmt='%.16f')
 
 
 
@@ -159,7 +136,7 @@ for file in os.listdir(prevq_path):
 
 
 # read embedding matrix
-embedding = rnn_outputs_BxLxH.numpy()
+embedding = rnn_outputs_BxLxH.eval()
 print(type(embedding))
 
 # segmentation
