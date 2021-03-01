@@ -153,5 +153,4 @@ for file in os.listdir(prevq_path):
         filename = Path(file).stem
         prevq_dict[filename] = np.loadtxt(prevq_path + file)
 
-for key in prevq_dict:
-    print(key)
+print(prevq_dict[combined_sounds_shuffled_0_logmel])
