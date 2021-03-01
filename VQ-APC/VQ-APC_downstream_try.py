@@ -5,6 +5,7 @@ from os import listdir
 from os.path import join
 import numpy as np
 import scipy
+from pathlib import Path
 
 from IPython import embed
 
@@ -16,7 +17,7 @@ from torch.autograd import Variable
 
 from vqapc_model import GumbelAPCModel
 
-from prepare_data import randomseg, CombinedSpeech
+from prepare_data import randomseg, CombinedSpeech, LoadSpeechSegment
 from prepare_data import process_wav_multiple, prepare_torch_lengths_multiple
 
 import argparse
@@ -87,24 +88,53 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 #   using forward method of model class with preprocessed data
 # -----------------------------------------------------------------
 
-dataset = CombinedSpeech('./preprocessed/')
-dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
+for file in os.listdir(logmel_path):
+    if file.endswith('.pt'):
 
-testing = True
+        filename = Path(file).stem
 
-for frames_BxLxM, lengths_B in dataset_loader:
-    frames_BxLxM = Variable(frames_BxLxM).cuda()
-    lengths_B = Variable(lengths_B).cuda()
-    print(frames_BxLxM.size())
-    print(lengths_B)
-    __, features, __, prevq_rnn_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+        dataset = LoadSpeechSegment(logmel_path, file)
+        dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
 
-print(features.size())
-print(features[-1, :, :, :])
+        testing = True
 
-print(f'prevq rnn output: {prevq_rnn_outputs}')
+        for frames_BxLxM, lengths_B in dataset_loader:
+            frames_BxLxM = Variable(frames_BxLxM).cuda()
+            lengths_B = Variable(lengths_B).cuda()
+            print(frames_BxLxM.size())
+            print(lengths_B)
+            __, features, __, prevq_rnn_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+
+        prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
+
+        with open(args.out_path + filename + '.txt', 'w') as file:
+            np.savetxt(file, prevq, fmt='%.16f')
+
+
+# dataset = CombinedSpeech('./preprocessed/')
+# dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
+#
+# testing = True
+#
+# for frames_BxLxM, lengths_B in dataset_loader:
+#     frames_BxLxM = Variable(frames_BxLxM).cuda()
+#     lengths_B = Variable(lengths_B).cuda()
+#     print(frames_BxLxM.size())
+#     print(lengths_B)
+#     __, features, __, prevq_rnn_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+
+# print(features.size())
+# print(features[-1, :, :, :])
+
+# print(f'prevq rnn output: {prevq_rnn_outputs}')
 
 prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
 
 with open(args.out_path + args.exp_name + '.txt', 'w') as file:
     np.savetxt(file, prevq, fmt='%.16f')
+
+
+
+# -----------------------------------------------------------------
+#   phone segmentation from VQ-seg code of Herman Kamper
+# -----------------------------------------------------------------

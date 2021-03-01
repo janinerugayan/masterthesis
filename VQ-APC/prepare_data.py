@@ -169,3 +169,18 @@ class CombinedSpeech(data.Dataset):
     x = torch.load(os.path.join(self.path, self.ids[index]))
     l = self.lengths[self.ids[index]]
     return x, l
+
+class LoadSpeechSegment(data.Dataset):
+    def __init__(self, path, file):
+        self.path = path
+        self.id = file
+        with open(os.path.join(path, 'lengths.pkl'), 'rb') as f:
+            self.lengths = pickle.load(f)
+
+    def __len__(self):
+        return len(self.id)
+
+    def __getitem__(self, index):
+        x = torch.load(os.path.join(self.path, self.id[index]))
+        l = self.lengths[self.id[index]]
+        return x, l
