@@ -90,35 +90,35 @@ args = parser.parse_args()
 #   using forward method of model class with preprocessed data
 # -----------------------------------------------------------------
 
-# logmel_path = './preprocessed/'
-#
-# for file in os.listdir(logmel_path):
-#
-#     features = []
-#     prevq_rnn_outputs = []
-#
-#     if file.endswith('.pt'):
-#
-#         print(f'VQ-APC working on: {file}')
-#
-#         filename = Path(file).stem
-#
-#         dataset = LoadSpeechSegment(logmel_path, file)
-#         dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
-#
-#         testing = True
-#
-#         for frames_BxLxM, lengths_B in dataset_loader:
-#             frames_BxLxM = Variable(frames_BxLxM).cuda()
-#             lengths_B = Variable(lengths_B).cuda()
-#             __, features, __, prevq_rnn_outputs, rnn_outputs_BxLxH = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
-#
-#         print(f'RNN output size: {rnn_outputs_BxLxH.size()}')
-#
-#         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
-#
-#         with open(args.out_path + filename + '.txt', 'w') as file:
-#             np.savetxt(file, prevq, fmt='%.16f')
+logmel_path = './preprocessed/'
+
+for file in os.listdir(logmel_path):
+
+    features = []
+    prevq_rnn_outputs = []
+
+    if file.endswith('.pt'):
+
+        print(f'VQ-APC working on: {file}')
+
+        filename = Path(file).stem
+
+        dataset = LoadSpeechSegment(logmel_path, file)
+        dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
+
+        testing = True
+
+        for frames_BxLxM, lengths_B in dataset_loader:
+            frames_BxLxM = Variable(frames_BxLxM).cuda()
+            lengths_B = Variable(lengths_B).cuda()
+            __, features, __, prevq_rnn_outputs, rnn_outputs_BxLxH = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+
+        print(f'RNN output size: {rnn_outputs_BxLxH.size()}')
+
+        prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
+
+        with open(args.out_path + filename + '.txt', 'w') as file:
+            np.savetxt(file, prevq, fmt='%.16f')
 
 
 
