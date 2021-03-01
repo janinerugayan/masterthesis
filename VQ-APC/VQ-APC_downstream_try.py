@@ -160,7 +160,7 @@ for file in os.listdir(prevq_path):
 
 # read embedding matrix
 embedding = rnn_outputs_BxLxH.cpu().detach().numpy()
-print(type(embedding))
+print(np.size(embedding))
 
 # segmentation
 boundaries_dict = {}
