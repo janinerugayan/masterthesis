@@ -136,7 +136,7 @@ for file in os.listdir(prevq_path):
 
 
 # read embedding matrix
-embedding = rnn_outputs_BxLxH.numpy()
+embedding = rnn_outputs_BxLxH.cpu().numpy()
 print(type(embedding))
 
 # segmentation
