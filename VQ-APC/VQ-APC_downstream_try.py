@@ -107,4 +107,4 @@ print(f'prevq rnn output: {prevq_rnn_outputs}')
 prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
 
 with open(args.out_path + args.exp_name + '.txt', 'w') as file:
-    np.savetext(file, prevq, fmt='%.16f')
+    np.savetxt(file, prevq, fmt='%.16f')
