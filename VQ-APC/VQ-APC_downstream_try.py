@@ -153,4 +153,11 @@ for file in os.listdir(prevq_path):
         filename = Path(file).stem
         prevq_dict[filename] = np.loadtxt(prevq_path + file)
 
-print(prevq_dict[combined_sounds_shuffled_0_logmel])
+print(prevq_dict['combined_sounds_shuffled_0_logmel'])
+
+# read embedding matrix
+
+
+# segmentation
+boundaries_dict = {}
+code_indices_dict = {}
