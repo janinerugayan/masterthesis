@@ -159,8 +159,8 @@ for file in os.listdir(prevq_path):
 
 
 # read embedding matrix
-embedding = rnn_outputs_BxLxH.cpu().detach().numpy()
-print(np.size(embedding))
+embedding = rnn_outputs_BxLxH
+print(type(embedding))
 
 # segmentation
 boundaries_dict = {}
