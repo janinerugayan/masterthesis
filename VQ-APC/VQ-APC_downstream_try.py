@@ -93,6 +93,8 @@ logmel_path = './preprocessed/'
 for file in os.listdir(logmel_path):
     if file.endswith('.pt'):
 
+        print(file)
+
         filename = Path(file).stem
 
         dataset = LoadSpeechSegment(logmel_path, file)
@@ -103,8 +105,6 @@ for file in os.listdir(logmel_path):
         for frames_BxLxM, lengths_B in dataset_loader:
             frames_BxLxM = Variable(frames_BxLxM).cuda()
             lengths_B = Variable(lengths_B).cuda()
-            print(frames_BxLxM.size())
-            print(lengths_B)
             __, features, __, prevq_rnn_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
@@ -130,10 +130,10 @@ for file in os.listdir(logmel_path):
 
 # print(f'prevq rnn output: {prevq_rnn_outputs}')
 
-prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
-
-with open(args.out_path + args.exp_name + '.txt', 'w') as file:
-    np.savetxt(file, prevq, fmt='%.16f')
+# prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
+#
+# with open(args.out_path + args.exp_name + '.txt', 'w') as file:
+#     np.savetxt(file, prevq, fmt='%.16f')
 
 
 
