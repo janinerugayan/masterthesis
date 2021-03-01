@@ -111,7 +111,7 @@ for file in os.listdir(logmel_path):
             lengths_B = Variable(lengths_B).cuda()
             __, features, __, prevq_rnn_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
-        prevq = prevq_rnn_outputs.pop().squeeze().cpu().numpy()
+        prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
 
         with open(args.out_path + filename + '.txt', 'w') as file:
             np.savetxt(file, prevq, fmt='%.16f')
