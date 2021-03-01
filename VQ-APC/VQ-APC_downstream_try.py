@@ -93,7 +93,7 @@ logmel_path = './preprocessed/'
 for file in os.listdir(logmel_path):
 
     features = []
-    prevq = []
+    prevq_rnn_outputs = []
 
     if file.endswith('.pt'):
 
