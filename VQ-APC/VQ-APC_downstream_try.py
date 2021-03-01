@@ -144,3 +144,11 @@ for file in os.listdir(logmel_path):
 # -----------------------------------------------------------------
 #   phone segmentation from VQ-seg code of Herman Kamper
 # -----------------------------------------------------------------
+
+# read pre-quantisation
+prevq_path = './results/'
+prevq = {}
+for file in os.listdir(prevq_path):
+    if file.endswith('.txt'):
+        filename = Path(file).stem
+        prevq[filename] = np.loadtxt(file)
