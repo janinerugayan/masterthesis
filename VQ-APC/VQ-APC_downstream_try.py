@@ -151,4 +151,4 @@ prevq = {}
 for file in os.listdir(prevq_path):
     if file.endswith('.txt'):
         filename = Path(file).stem
-        prevq[filename] = np.loadtxt(file)
+        prevq[filename] = np.loadtxt(prevq_path + file)
