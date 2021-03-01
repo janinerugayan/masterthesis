@@ -20,6 +20,8 @@ from vqapc_model import GumbelAPCModel
 from prepare_data import randomseg, CombinedSpeech, LoadSpeechSegment
 from prepare_data import process_wav_multiple, prepare_torch_lengths_multiple
 
+from phoneseg_algorithms import benji_l2_n_segments
+
 import argparse
 
 
@@ -109,7 +111,9 @@ for file in os.listdir(logmel_path):
         for frames_BxLxM, lengths_B in dataset_loader:
             frames_BxLxM = Variable(frames_BxLxM).cuda()
             lengths_B = Variable(lengths_B).cuda()
-            __, features, __, prevq_rnn_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+            __, features, __, prevq_rnn_outputs, rnn_outputs_BxLxH = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+
+        print(f'RNN output size: {rnn_outputs_BxLxH.size()}')
 
         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
 
@@ -153,11 +157,21 @@ for file in os.listdir(prevq_path):
         filename = Path(file).stem
         prevq_dict[filename] = np.loadtxt(prevq_path + file)
 
-print(prevq_dict['combined_sounds_shuffled_0_logmel'])
 
 # read embedding matrix
+
 
 
 # segmentation
 boundaries_dict = {}
 code_indices_dict = {}
+
+# using dp-nseg phoneseg algorithm: benji_l2_n_segments
+n_frames_per_segment = 3
+n_min_segments = 3
+
+for utt_key in prevq_dict:
+    z = prevq_dict[utt_key]
+    if z.ndim == 1:
+        continue
+    boundaries, code_indices = benji_l2_n_segments(embedding, z, n_frames_per_segment, n_min_segments)
