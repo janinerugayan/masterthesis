@@ -91,6 +91,10 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 logmel_path = './preprocessed/'
 
 for file in os.listdir(logmel_path):
+
+    features = []
+    prevq = []
+
     if file.endswith('.pt'):
 
         print(file)
@@ -107,7 +111,7 @@ for file in os.listdir(logmel_path):
             lengths_B = Variable(lengths_B).cuda()
             __, features, __, prevq_rnn_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
-        prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
+        prevq = prevq_rnn_outputs.pop().squeeze().cpu().numpy()
 
         with open(args.out_path + filename + '.txt', 'w') as file:
             np.savetxt(file, prevq, fmt='%.16f')
