@@ -97,7 +97,7 @@ for file in os.listdir(logmel_path):
 
     if file.endswith('.pt'):
 
-        print(file)
+        print(f'VQ-APC working on: {file}')
 
         filename = Path(file).stem
 
