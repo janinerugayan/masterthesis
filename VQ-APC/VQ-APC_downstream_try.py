@@ -88,6 +88,8 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 #   using forward method of model class with preprocessed data
 # -----------------------------------------------------------------
 
+logmel_path = './preprocessed/'
+
 for file in os.listdir(logmel_path):
     if file.endswith('.pt'):
 
