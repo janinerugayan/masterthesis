@@ -68,21 +68,21 @@ args = parser.parse_args()
 #   loading pretrained model
 # ---------------------------------------------
 
-# pretrained_vqapc = GumbelAPCModel(input_size=80,
-#                      hidden_size=512,
-#                      num_layers=3,
-#                      dropout=0.1,
-#                      residual=' ',
-#                      codebook_size=128,
-#                      code_dim=512,
-#                      gumbel_temperature=0.5,
-#                      vq_hidden_size=-1,
-#                      apply_VQ= [False, False, True]).cuda()
-#
-# pretrained_vqapc = nn.DataParallel(pretrained_vqapc)
-#
-# pretrained_weights_path = args.pretrained_weights
-# pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
+pretrained_vqapc = GumbelAPCModel(input_size=80,
+                     hidden_size=512,
+                     num_layers=3,
+                     dropout=0.1,
+                     residual=' ',
+                     codebook_size=128,
+                     code_dim=512,
+                     gumbel_temperature=0.5,
+                     vq_hidden_size=-1,
+                     apply_VQ= [False, False, True]).cuda()
+
+pretrained_vqapc = nn.DataParallel(pretrained_vqapc)
+
+pretrained_weights_path = args.pretrained_weights
+pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 
 
 
