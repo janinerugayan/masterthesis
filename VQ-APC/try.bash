@@ -19,9 +19,9 @@
 #                       --exp_name feb-4_vqextract \
 #                       --store_path ./logs
 
-# cd preprocessed/
-# rm -v *.wav *.npy *.pt
-# cd ..
+cd preprocessed/
+rm -v *.wav *.npy *.pt
+cd ..
 
 cd results/
 rm -v *.txt

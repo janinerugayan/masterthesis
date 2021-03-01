@@ -38,17 +38,17 @@ args = parser.parse_args()
 #   mel spectrogram - 80-dimensional
 # ---------------------------------------------
 
-# wav_path = args.sound_file
-# export_dir_path = './preprocessed/'
-#
-# # randomly segment combined sound file
-# min_len = 10000
-# max_len = 40000
-# randomseg(wav_path, export_dir_path, min_len, max_len)
-#
-# # process wav files to get log-mel feature vectors
-# output_path = export_dir_path + args.exp_name
-# process_wav_multiple(export_dir_path, output_path)
+wav_path = args.sound_file
+export_dir_path = './preprocessed/'
+
+# randomly segment combined sound file
+min_len = 1000
+max_len = 5000
+randomseg(wav_path, export_dir_path, min_len, max_len)
+
+# process wav files to get log-mel feature vectors
+output_path = export_dir_path + args.exp_name
+process_wav_multiple(export_dir_path, output_path)
 
 
 
@@ -56,11 +56,11 @@ args = parser.parse_args()
 #   prepare data - following APC pipeline
 # ---------------------------------------------
 
-# wav_id = args.exp_name
-# logmel_path = export_dir_path
-# max_seq_len = 30000
-#
-# prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
+wav_id = args.exp_name
+logmel_path = export_dir_path
+max_seq_len = 4000
+
+prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
 
 
 
