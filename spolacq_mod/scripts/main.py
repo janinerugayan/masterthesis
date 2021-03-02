@@ -58,8 +58,8 @@ Transition = namedtuple('Transition',
                         ('state', 'action', 'next_state', 'reward'))
 
 # for figure saving
-# durations_fig = plt.figure(2)
-# positions_fig = plt.figure(3)
+durations_fig = plt.figure(2)
+positions_fig = plt.figure(3)
 
 
 
