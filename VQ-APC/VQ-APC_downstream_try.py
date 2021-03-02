@@ -116,7 +116,7 @@ for file in os.listdir(logmel_path):
 
         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
 
-        with open(args.out_path + filename + '.txt', 'w') as file:
+        with open(args.out_path + 'logmel/' + filename + '.txt', 'w') as file:
             np.savetxt(file, prevq, fmt='%.16f')
 
 
@@ -126,7 +126,7 @@ for file in os.listdir(logmel_path):
 # -----------------------------------------------------------------
 
 # read pre-quantisation
-prevq_path = args.out_path
+prevq_path = args.out_path + 'logmel/'
 prevq_dict = {}
 for file in os.listdir(prevq_path):
     if file.endswith('.txt'):
