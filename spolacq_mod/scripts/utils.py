@@ -89,7 +89,7 @@ class Env:
             elif num_steps >= accum_steps[7] and num_steps < accum_steps [8]:
                 steps = 9
 
-        return x_change, y_change, z_change
+        return steps * x_change, steps * y_change, steps * z_change
 
 
 # Agent class

@@ -165,6 +165,22 @@ def select_action(state):
     else:
         return torch.tensor([[random.randrange(n_actions)]], device=device, dtype=torch.long)
 
+# for selecting the number of steps
+def select_num_steps(state):
+    global steps_done
+    sample = random.random()
+    eps_threshold = EPS_END + (EPS_START - EPS_END) * \
+        math.exp(-1. * steps_done / EPS_DECAY)
+    steps_done += 1
+    if sample > eps_threshold:
+        with torch.no_grad():
+            # t.max(1) will return largest column value of each row.
+            # second column on max result is index of where max element was
+            # found, so we pick action with the larger expected reward.
+            return policy_net(state).max(1)[1].view(1, 1)
+    else:
+        return torch.tensor([[random.randrange(n_actions)]], device=device, dtype=torch.long)
+
 def optimize_model():
     if len(memory) < BATCH_SIZE:
         return
@@ -281,6 +297,7 @@ for seed in range(1, 6):  # original range (1,6)
 
             # Select and perform an action
             action = select_action(state)
+            num_steps = select_num_steps(state)
             x_change, y_change, z_change = env.feedback(num_steps, action)
             reward, done = agent.evaluate_reward(x_change, y_change, z_change)
 
