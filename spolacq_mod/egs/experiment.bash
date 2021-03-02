@@ -1,6 +1,6 @@
 cd ../scripts/
 
-python main.py --data_name=recog_results_05-Dec_SHUFFLED_run1
+python main.py --data_name=mar-2_newDQNtask
 
 # echo "========= START RL for 05-Dec dictionary ========="
 # python main.py --data_name=recog_results_05-Dec_SHUFFLED_run1

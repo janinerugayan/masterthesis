@@ -288,7 +288,7 @@ for seed in range(1, 6):  # original range (1,6)
         state = current_state
 
         # for visualization
-        # agent_positions = []
+        agent_positions = []
 
         for t in count():
             # get position of agent
@@ -322,10 +322,10 @@ for seed in range(1, 6):  # original range (1,6)
             optimize_model()
             if done:
                 episode_durations.append(t + 1)
-                # plot_durations()
+                plot_durations()
                 # for agent position visualization
-                # last_position = t
-                # plot_positions(last_position, agent_positions, i_episode, seed)
+                last_position = t
+                plot_positions(last_position, agent_positions, i_episode, seed)
                 break
 
         # Update the target network, copying all weights and biases in DQN
@@ -336,8 +336,8 @@ for seed in range(1, 6):  # original range (1,6)
 
     plt.ioff()
     # pic_name1 = "../exp/res_imgs/result_" + str(seed) + ".png"
-    # pic_name1 = "../exp/res_imgs/" + args.data_name + "-seed" + str(seed) + ".png"  # for experiments bash script
-    # durations_fig.savefig(pic_name1)
+    pic_name1 = "../exp/res_imgs/" + args.data_name + "-seed" + str(seed) + ".png"  # for experiments bash script
+    durations_fig.savefig(pic_name1)
 
 
     df = pd.DataFrame(episode_durations, columns=["Seed" + str(seed)]).T
