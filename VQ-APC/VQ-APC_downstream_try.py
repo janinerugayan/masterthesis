@@ -43,7 +43,7 @@ export_dir_path = './preprocessed/'
 
 # randomly segment combined sound file
 min_len = 1000
-max_len = 2000
+max_len = 1700
 randomseg(wav_path, export_dir_path, min_len, max_len)
 
 # process wav files to get log-mel feature vectors
@@ -58,7 +58,7 @@ process_wav_multiple(export_dir_path, output_path)
 
 wav_id = args.exp_name
 logmel_path = export_dir_path
-max_seq_len = 1700
+max_seq_len = 1600
 
 prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
 
@@ -127,7 +127,7 @@ for file in os.listdir(logmel_path):
 # -----------------------------------------------------------------
 
 # read pre-quantisation
-prevq_path = './results/'
+prevq_path = args.out_path
 prevq_dict = {}
 for file in os.listdir(prevq_path):
     if file.endswith('.txt'):
@@ -152,3 +152,24 @@ for utt_key in prevq_dict:
     if z.ndim == 1:
         continue
     boundaries, code_indices = benji_l2_n_segments(embedding, z, n_frames_per_segment, n_min_segments)
+    # do we need to upsample it? was it downsampled in the first place?
+
+# write code indices
+output_dir = args.out_path + 'indices'
+output_dir.mkdir(exist_ok=True, parents=True)
+for utt_key in code_indices_dict:
+    np.save(output_dir + '/' + utt_key + '_indices.npy', np.array([i[-1] for i in code_indices_dict[utt_key]], dtype=np.int))
+
+# write boundaries
+output_dir = args.out_path + 'boundaries'
+output_dir.mkdir(exist_ok=True, parents=True)
+for utt_key in boundaries_dict:
+    np.save(output_dir + '/' + utt_key + '_boundaries.npy', np.array(boundaries_dict[utt_key], dtype=np.bool))
+
+# write intervals
+output_dir = args.out_path + 'intervals'
+output_dir.mkdir(exist_ok=True, parents=True)
+for utt_key in code_indices_dict:
+    with open(output_dir + '/' + utt_key + '_intervals.txt', 'w') as f:
+        for start, end, index in code_indices_dict[utt_key]:
+            f.write("{:d} {:d} {:d}\n".format(start, end, index))
