@@ -276,7 +276,7 @@ for seed in range(1, 6):  # original range (1,6)
 
     # Training Loop
 
-    num_episodes = 50
+    num_episodes = 10 # original num_episodes = 50
     # suc_per_100 = 0
     for i_episode in range(num_episodes):
         print(f"Episode: {i_episode}")
