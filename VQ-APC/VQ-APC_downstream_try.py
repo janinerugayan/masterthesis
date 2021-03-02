@@ -157,6 +157,8 @@ for utt_key in prevq_dict:
     boundaries, code_indices = l2_segmentation(embedding, z, n_min_frames,
                                 n_max_frames, dur_weight)
     # do we need to upsample it? was it downsampled in the first place?
+    boundaries_dict[utt_key] = boundaries
+    code_indices_dict[utt_key] = code_indices
 
 # write code indices
 output_dir = args.out_path + 'indices/'
