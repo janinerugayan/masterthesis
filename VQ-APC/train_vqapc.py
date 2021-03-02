@@ -174,7 +174,7 @@ def main():
       frames_BxLxM = Variable(frames_BxLxM[indices_B]).cuda()
       lengths_B = Variable(lengths_B[indices_B]).cuda()
 
-      predicted_BxLxM, _, _, _, _ = model(frames_BxLxM[:, :-config.n_future, :],
+      predicted_BxLxM, _, _, _, codebook = model(frames_BxLxM[:, :-config.n_future, :],
                                     lengths_B - config.n_future, testing=False)
 
       # predicted_BxLxM, _, _ = model(frames_BxLxM[:, :-config.n_future, :],
@@ -209,7 +209,7 @@ def main():
         val_lengths_B = Variable(val_lengths_B[val_indices_B]).cuda()
 
         # added output from the VQ layer which are codes produced
-        val_predicted_BxLxM, _, _, _, codebook = model(
+        val_predicted_BxLxM, _, _, _, _ = model(
           val_frames_BxLxM[:, :-config.n_future, :],
           val_lengths_B - config.n_future, testing=True)
 
