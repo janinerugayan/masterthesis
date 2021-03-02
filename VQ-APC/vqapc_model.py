@@ -178,6 +178,9 @@ class GumbelAPCModel(nn.Module):
     # for saving outputs pre-quantization layer
     prevq_rnn_outputs = []
 
+    # for extracting codebook
+    codebook = []
+
     # RNN
     # Prepare initial packed RNN input.
     packed_rnn_inputs = pack_padded_sequence(frames_BxLxM, seq_lengths_B,
@@ -226,4 +229,6 @@ class GumbelAPCModel(nn.Module):
     # Generate final output from codes.
     predicted_BxLxM = self.postnet(rnn_outputs_BxLxH)
 
-    return predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC, prevq_rnn_outputs, rnn_outputs_BxLxH
+    codebook = vq_layer.codebook_CxE
+
+    return predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC, prevq_rnn_outputs, codebook

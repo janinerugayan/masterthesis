@@ -209,7 +209,7 @@ def main():
         val_lengths_B = Variable(val_lengths_B[val_indices_B]).cuda()
 
         # added output from the VQ layer which are codes produced
-        val_predicted_BxLxM, _, _, _, rnn_outputs_BxLxH = model(
+        val_predicted_BxLxM, _, _, _, codebook = model(
           val_frames_BxLxM[:, :-config.n_future, :],
           val_lengths_B - config.n_future, testing=True)
 
@@ -232,7 +232,7 @@ def main():
       (epoch_i + 1) + '.model'), 'wb'))
 
     # saving the rnn outputs or codes form the VQ layer
-    embedding = rnn_outputs_BxLxH.squeeze().cpu().detach().numpy()
+    embedding = codebook.squeeze().cpu().detach().numpy()
     print(f'Embedding matrix shape: {embedding.shape}')
     np.save('./results/embedding_from_training/' + config.exp_name +'_embedding__epoch_%d' % (epoch_i + 1) + '.npy', embedding)
 
