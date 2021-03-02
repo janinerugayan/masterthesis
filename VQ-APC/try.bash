@@ -23,8 +23,9 @@ cd preprocessed/
 rm -v *.wav *.npy *.pt
 cd ..
 
-cd results/
+cd results/logmel/
 rm -v *.txt
+cd ..
 cd ..
 
 CUDA_VISIBLE_DEVICES=1 python VQ-APC_downstream_try.py --exp_name=combined_sounds_shuffled \
