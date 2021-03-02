@@ -145,15 +145,17 @@ print(f'Embedding matrix shape: {embedding.shape}')
 boundaries_dict = {}
 code_indices_dict = {}
 
-# using dp-nseg phoneseg algorithm: benji_l2_n_segments
-n_frames_per_segment = 3
-n_min_segments = 3
+# using phoneseg algorithm: L2 Segmentation
+n_min_frames = 0
+n_max_frames = 15
+dur_weight = 400  # 20**2
 
 for utt_key in prevq_dict:
     z = prevq_dict[utt_key]
     if z.ndim == 1:
         continue
-    boundaries, code_indices = benji_l2_n_segments(embedding, z, n_frames_per_segment, n_min_segments)
+    boundaries, code_indices = l2_segmentation(embedding, z, n_min_frames,
+                                n_max_frames, dur_weight)
     # do we need to upsample it? was it downsampled in the first place?
 
 # write code indices

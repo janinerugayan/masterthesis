@@ -234,7 +234,7 @@ def main():
     # saving the rnn outputs or codes form the VQ layer
     embedding = rnn_outputs_BxLxH.squeeze().cpu().detach().numpy()
     print(f'Embedding matrix shape: {embedding.shape}')
-    np.save('./results/embedding_epoch_%d' % (epoch_i + 1) + '.npy', embedding)
+    np.save('./results/embedding_from_training/' + config.exp_name +'_embedding__epoch_%d' % (epoch_i + 1) + '.npy', embedding)
 
 if __name__ == '__main__':
   main()
