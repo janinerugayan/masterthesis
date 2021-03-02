@@ -105,7 +105,7 @@ for file in os.listdir(logmel_path):
         filename = Path(file).stem
 
         dataset = LoadSpeechSegment(logmel_path, file)
-        dataset_loader = data.DataLoader(dataset, batch_size=32, num_workers=8, shuffle=True, drop_last=True)
+        dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
 
         testing = True
 
