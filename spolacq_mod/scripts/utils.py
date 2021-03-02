@@ -70,7 +70,7 @@ class Env:
                 y_change += 1  # move backward
 
         if probability < 0.9:
-             if num_steps >= 0 and num_steps < accum_steps[0]:
+            if num_steps >= 0 and num_steps < accum_steps[0]:
                 steps = 1
             elif num_steps >= accum_steps[0] and num_steps < accum_steps [1]:
                 steps = 2
