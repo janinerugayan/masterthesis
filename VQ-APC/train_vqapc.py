@@ -174,8 +174,11 @@ def main():
       frames_BxLxM = Variable(frames_BxLxM[indices_B]).cuda()
       lengths_B = Variable(lengths_B[indices_B]).cuda()
 
-      predicted_BxLxM, _, _ = model(frames_BxLxM[:, :-config.n_future, :],
+      predicted_BxLxM, _, _, _, _ = model(frames_BxLxM[:, :-config.n_future, :],
                                     lengths_B - config.n_future, testing=False)
+
+      # predicted_BxLxM, _, _ = model(frames_BxLxM[:, :-config.n_future, :],
+      #                               lengths_B - config.n_future, testing=False)
 
       optimizer.zero_grad()
       train_loss = criterion(predicted_BxLxM,
@@ -205,9 +208,14 @@ def main():
         val_frames_BxLxM = Variable(val_frames_BxLxM[val_indices_B]).cuda()
         val_lengths_B = Variable(val_lengths_B[val_indices_B]).cuda()
 
-        val_predicted_BxLxM, _, _ = model(
+        # added output from the VQ layer which are codes produced
+        val_predicted_BxLxM, _, _, _, rnn_outputs_BxLxH = model(
           val_frames_BxLxM[:, :-config.n_future, :],
           val_lengths_B - config.n_future, testing=True)
+
+        # val_predicted_BxLxM, _, _ = model(
+        #   val_frames_BxLxM[:, :-config.n_future, :],
+        #   val_lengths_B - config.n_future, testing=True)
 
         val_loss = criterion(val_predicted_BxLxM,
                              val_frames_BxLxM[:, config.n_future:, :])
@@ -222,8 +230,11 @@ def main():
     torch.save(model.module.state_dict(),
       open(os.path.join(model_dir, config.exp_name + '__epoch_%d' %
       (epoch_i + 1) + '.model'), 'wb'))
-      
 
+    # saving the rnn outputs or codes form the VQ layer
+    embedding = rnn_outputs_BxLxH.squeeze().cpu().detach().numpy()
+    print(f'Embedding matrix shape: {embedding.shape}')
+    np.save('./results/embedding_epoch_%d' % (epoch_i + 1) + '.npy', embedding)
 
 if __name__ == '__main__':
   main()
