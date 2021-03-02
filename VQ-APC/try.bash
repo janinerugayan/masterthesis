@@ -16,7 +16,7 @@ CUDA_VISIBLE_DEVICES=1 python train_vqapc.py --rnn_num_layers 3 \
                       --train_sampling 1. \
                       --val_partition dev-clean \
                       --val_sampling 1. \
-                      --exp_name mar2_phoneseg \
+                      --exp_name mar-2_phoneseg \
                       --store_path ./logs
 
 # cd preprocessed/
@@ -29,6 +29,6 @@ CUDA_VISIBLE_DEVICES=1 python train_vqapc.py --rnn_num_layers 3 \
 #
 # CUDA_VISIBLE_DEVICES=1 python VQ-APC_downstream_try.py --exp_name=combined_sounds_shuffled \
 # --sound_file=./wavs/combined_sounds_shuffled.wav \
-# --pretrained_weights=./logs/feb-4_vqextract.dir/feb-4_vqextract__epoch_5.model \
-# --embedding=./results/embedding_from_training/embedding_epoch_5.npy \
+# --pretrained_weights=./logs/mar2_phoneseg.dir/mar2_phoneseg__epoch_1.model \
+# --embedding=./results/embedding_from_training/embedding_epoch_1.npy \
 # --out_path=./results/

@@ -137,7 +137,8 @@ for file in os.listdir(prevq_path):
 # read embedding matrix
 # embedding = rnn_outputs_BxLxH.squeeze().cpu().detach().numpy()
 # print(f'Embedding matrix shape: {embedding.shape}')
-embedding = np.load(args.embedding)
+embedding_from_training = np.load(args.embedding)
+embedding = embedding_from_training.squeeze()
 print(f'Embedding matrix shape: {embedding.shape}')
 
 # segmentation
