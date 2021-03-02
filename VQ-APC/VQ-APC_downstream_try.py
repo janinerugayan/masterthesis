@@ -29,6 +29,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--exp_name',   type=str)
 parser.add_argument('--sound_file',     type=str)
 parser.add_argument('--pretrained_weights',   type=str)
+parser.add_argument('--embedding',     type=str)
 parser.add_argument('--out_path',      type=str)
 args = parser.parse_args()
 
@@ -42,7 +43,7 @@ wav_path = args.sound_file
 export_dir_path = './preprocessed/'
 
 # randomly segment combined sound file
-min_len = 1000
+min_len = 1500
 max_len = 1700
 randomseg(wav_path, export_dir_path, min_len, max_len)
 
@@ -104,16 +105,14 @@ for file in os.listdir(logmel_path):
         filename = Path(file).stem
 
         dataset = LoadSpeechSegment(logmel_path, file)
-        dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
+        dataset_loader = data.DataLoader(dataset, batch_size=32, num_workers=8, shuffle=True, drop_last=True)
 
         testing = True
 
         for frames_BxLxM, lengths_B in dataset_loader:
             frames_BxLxM = Variable(frames_BxLxM).cuda()
             lengths_B = Variable(lengths_B).cuda()
-            __, features, __, prevq_rnn_outputs, rnn_outputs_BxLxH = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
-
-        print(f'RNN output size: {rnn_outputs_BxLxH.size()}')
+            __, features, __, prevq_rnn_outputs, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
 
@@ -136,7 +135,9 @@ for file in os.listdir(prevq_path):
 
 
 # read embedding matrix
-embedding = rnn_outputs_BxLxH.squeeze().cpu().detach().numpy()
+# embedding = rnn_outputs_BxLxH.squeeze().cpu().detach().numpy()
+# print(f'Embedding matrix shape: {embedding.shape}')
+embedding = np.load(args.embedding)
 print(f'Embedding matrix shape: {embedding.shape}')
 
 # segmentation
