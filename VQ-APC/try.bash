@@ -24,7 +24,7 @@ rm -v *.wav *.npy *.pt
 cd ..
 
 cd results/
-rm -v *.txtf
+rm -v *.txt
 cd ..
 
 CUDA_VISIBLE_DEVICES=1 python VQ-APC_downstream_try.py --exp_name=combined_sounds_shuffled \
