@@ -229,7 +229,5 @@ class GumbelAPCModel(nn.Module):
     # Generate final output from codes.
     predicted_BxLxM = self.postnet(rnn_outputs_BxLxH)
 
-    # Codebook
-    codebook = vq_layer.codebook_CxE
 
-    return predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC, prevq_rnn_outputs, codebook
+    return predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC, prevq_rnn_outputs
