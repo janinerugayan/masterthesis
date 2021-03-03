@@ -178,8 +178,6 @@ class GumbelAPCModel(nn.Module):
     # for saving outputs pre-quantization layer
     prevq_rnn_outputs = []
 
-    # for extracting codebook
-    codebook = []
 
     # RNN
     # Prepare initial packed RNN input.
