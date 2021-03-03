@@ -208,7 +208,6 @@ def main():
         val_frames_BxLxM = Variable(val_frames_BxLxM[val_indices_B]).cuda()
         val_lengths_B = Variable(val_lengths_B[val_indices_B]).cuda()
 
-        # added output from the VQ layer which are codes produced
         val_predicted_BxLxM, _, _, _, _ = model(
           val_frames_BxLxM[:, :-config.n_future, :],
           val_lengths_B - config.n_future, testing=True)
@@ -233,8 +232,7 @@ def main():
 
     # saving the codebook
     codebook_weight = codebook.weight.cpu().detach().numpy()
-    print(codebook_weight.shape)
-    np.save(model_dir + config.exp_name + '_codebook__epoch_%d' % (epoch_i + 1) + '.npy', codebook_weight)
+    np.save(model_dir + '/' + config.exp_name + '_codebook__epoch_%d' % (epoch_i + 1) + '.npy', codebook_weight)
 
 if __name__ == '__main__':
   main()

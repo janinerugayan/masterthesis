@@ -136,17 +136,17 @@ for file in os.listdir(prevq_path):
 
 # read embedding matrix
 
-# embedding_from_training = np.load(args.embedding)
-# embedding = embedding_from_training.squeeze()
-# print(f'Embedding matrix shape: {embedding.shape}')
-
-n_embeddings = 128
-embedding_dim = 512
-init_bound = 1 / 512
-embedding = torch.Tensor(n_embeddings, embedding_dim)
-embedding.uniform_(-init_bound, init_bound)
-embedding = embedding.squeeze().cpu().numpy()
+codebook_from_training = np.load(args.embedding)
+embedding = np.transpose(codebook_from_training)
 print(f'Embedding matrix shape: {embedding.shape}')
+
+# n_embeddings = 128
+# embedding_dim = 512
+# init_bound = 1 / 512
+# embedding = torch.Tensor(n_embeddings, embedding_dim)
+# embedding.uniform_(-init_bound, init_bound)
+# embedding = embedding.squeeze().cpu().numpy()
+# print(f'Embedding matrix shape: {embedding.shape}')
 
 
 # segmentation
