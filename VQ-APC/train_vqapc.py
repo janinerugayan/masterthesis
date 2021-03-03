@@ -231,11 +231,8 @@ def main():
       open(os.path.join(model_dir, config.exp_name + '__epoch_%d' %
       (epoch_i + 1) + '.model'), 'wb'))
 
-    # saving the rnn outputs or codes form the VQ layer
-    print(type(codebook))
-    embedding = codebook.squeeze().cpu().detach().numpy()
-    print(f'Embedding matrix shape: {codebook.shape}')
-    np.save('./results/embedding_from_training/' + config.exp_name +'_embedding__epoch_%d' % (epoch_i + 1) + '.npy', codebook)
+    # saving the codebook
+    print(codebook)
 
 if __name__ == '__main__':
   main()
