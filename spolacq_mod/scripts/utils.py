@@ -30,22 +30,22 @@ class Env:
         "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
         """
 
-        accum_num = [self.res_dict['up'],
+        action = [self.res_dict['up'],
                     self.res_dict['up'] + self.res_dict['down'],
                     self.res_dict['up'] + self.res_dict['down'] + self.res_dict['left'],
                     self.res_dict['up'] + self.res_dict['down'] + self.res_dict['left'] + self.res_dict['right'],
                     self.res_dict['up'] + self.res_dict['down'] + self.res_dict['left'] + self.res_dict['right'] + self.res_dict['forward'],
                     self.res_dict['up'] + self.res_dict['down'] + self.res_dict['left'] + self.res_dict['right'] + self.res_dict['forward'] + self.res_dict['backward']]
 
-        # accum_steps = [self.res_dict['one'],
-        #                self.res_dict['one'] + self.res_dict['two'],
-        #                self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'],
-        #                self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'] + self.res_dict['four'],
-        #                self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'] + self.res_dict['four'] + self.res_dict['five'],
-        #                self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'] + self.res_dict['four'] + self.res_dict['five'] + self.res_dict['six'],
-        #                self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'] + self.res_dict['four'] + self.res_dict['five'] + self.res_dict['six'] + self.res_dict['seven'],
-        #                self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'] + self.res_dict['four'] + self.res_dict['five'] + self.res_dict['six'] + self.res_dict['seven'] + self.res_dict['eight'],
-        #                self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'] + self.res_dict['four'] + self.res_dict['five'] + self.res_dict['six'] + self.res_dict['seven'] + self.res_dict['eight'] + self.res_dict['nine']]
+        num_steps = [self.res_dict['one'],
+                       self.res_dict['one'] + self.res_dict['two'],
+                       self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'],
+                       self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'] + self.res_dict['four'],
+                       self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'] + self.res_dict['four'] + self.res_dict['five'],
+                       self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'] + self.res_dict['four'] + self.res_dict['five'] + self.res_dict['six'],
+                       self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'] + self.res_dict['four'] + self.res_dict['five'] + self.res_dict['six'] + self.res_dict['seven'],
+                       self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'] + self.res_dict['four'] + self.res_dict['five'] + self.res_dict['six'] + self.res_dict['seven'] + self.res_dict['eight'],
+                       self.res_dict['one'] + self.res_dict['two'] + self.res_dict['three'] + self.res_dict['four'] + self.res_dict['five'] + self.res_dict['six'] + self.res_dict['seven'] + self.res_dict['eight'] + self.res_dict['nine']]
 
         x_change = 0
         y_change = 0
@@ -53,21 +53,21 @@ class Env:
         # steps = 0
 
 
-        probability = random.uniform(0, 1)
-
-        if probability < 0.9:
-            if action >= 0 and action < accum_num[0]:
-                z_change += 1  # move up
-            elif action >= accum_num[0] and action < accum_num[1]:
-                z_change -= 1  # move down
-            elif action >= accum_num[1] and action < accum_num[2]:
-                x_change -= 1  # move left
-            elif action >= accum_num[2] and action < accum_num[3]:
-                x_change += 1  # move right
-            elif action >= accum_num[3] and action < accum_num[4]:
-                y_change -= 1  # move forward
-            elif action >= accum_num[4] and action < accum_num[5]:
-                y_change += 1  # move backward
+        # probability = random.uniform(0, 1)
+        #
+        # if probability < 0.9:
+        #     if action >= 0 and action < accum_num[0]:
+        #         z_change += 1  # move up
+        #     elif action >= accum_num[0] and action < accum_num[1]:
+        #         z_change -= 1  # move down
+        #     elif action >= accum_num[1] and action < accum_num[2]:
+        #         x_change -= 1  # move left
+        #     elif action >= accum_num[2] and action < accum_num[3]:
+        #         x_change += 1  # move right
+        #     elif action >= accum_num[3] and action < accum_num[4]:
+        #         y_change -= 1  # move forward
+        #     elif action >= accum_num[4] and action < accum_num[5]:
+        #         y_change += 1  # move backward
 
         # if probability < 0.9:
         #     if num_steps >= 0 and num_steps < accum_steps[0]:
