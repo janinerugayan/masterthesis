@@ -19,14 +19,12 @@
 #                       --exp_name mar-3_phoneseg \
 #                       --store_path ./logs
 
-cd preprocessed/
-rm -v *.wav *.npy *.pt
-cd ..
+# cd preprocessed/
+# rm -v *.wav *.npy *.pt
+# cd ..
+#
 
-cd results/logmel/
-rm -v *.txt
-cd ..
-cd intervals/
+cd results/intervals/
 rm -v *.txt
 cd ..
 cd indices/

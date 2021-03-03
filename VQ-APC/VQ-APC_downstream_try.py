@@ -39,17 +39,17 @@ args = parser.parse_args()
 #   mel spectrogram - 80-dimensional
 # ---------------------------------------------
 
-wav_path = args.sound_file
-export_dir_path = './preprocessed/'
-
-# randomly segment combined sound file
-min_len = 1500
-max_len = 1700
-randomseg(wav_path, export_dir_path, min_len, max_len)
-
-# process wav files to get log-mel feature vectors
-output_path = export_dir_path + args.exp_name
-process_wav_multiple(export_dir_path, output_path)
+# wav_path = args.sound_file
+# export_dir_path = './preprocessed/'
+#
+# # randomly segment combined sound file
+# min_len = 1500
+# max_len = 1700
+# randomseg(wav_path, export_dir_path, min_len, max_len)
+#
+# # process wav files to get log-mel feature vectors
+# output_path = export_dir_path + args.exp_name
+# process_wav_multiple(export_dir_path, output_path)
 
 
 
@@ -57,11 +57,11 @@ process_wav_multiple(export_dir_path, output_path)
 #   prepare data - following APC pipeline
 # ---------------------------------------------
 
-wav_id = args.exp_name
-logmel_path = export_dir_path
-max_seq_len = 1600
-
-prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
+# wav_id = args.exp_name
+# logmel_path = export_dir_path
+# max_seq_len = 1600
+#
+# prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
 
 
 
@@ -69,21 +69,21 @@ prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
 #   loading pretrained model
 # ---------------------------------------------
 
-pretrained_vqapc = GumbelAPCModel(input_size=80,
-                     hidden_size=512,
-                     num_layers=3,
-                     dropout=0.1,
-                     residual=' ',
-                     codebook_size=128,
-                     code_dim=512,
-                     gumbel_temperature=0.5,
-                     vq_hidden_size=-1,
-                     apply_VQ= [False, False, True]).cuda()
-
-pretrained_vqapc = nn.DataParallel(pretrained_vqapc)
-
-pretrained_weights_path = args.pretrained_weights
-pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
+# pretrained_vqapc = GumbelAPCModel(input_size=80,
+#                      hidden_size=512,
+#                      num_layers=3,
+#                      dropout=0.1,
+#                      residual=' ',
+#                      codebook_size=128,
+#                      code_dim=512,
+#                      gumbel_temperature=0.5,
+#                      vq_hidden_size=-1,
+#                      apply_VQ= [False, False, True]).cuda()
+#
+# pretrained_vqapc = nn.DataParallel(pretrained_vqapc)
+#
+# pretrained_weights_path = args.pretrained_weights
+# pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 
 
 
@@ -91,33 +91,33 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 #   using forward method of model class with preprocessed data
 # -----------------------------------------------------------------
 
-logmel_path = './preprocessed/'
-
-for file in os.listdir(logmel_path):
-
-    features = []
-    prevq_rnn_outputs = []
-
-    if file.endswith('.pt'):
-
-        print(f'VQ-APC working on: {file}')
-
-        filename = Path(file).stem
-
-        dataset = LoadSpeechSegment(logmel_path, file)
-        dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
-
-        testing = True
-
-        for frames_BxLxM, lengths_B in dataset_loader:
-            frames_BxLxM = Variable(frames_BxLxM).cuda()
-            lengths_B = Variable(lengths_B).cuda()
-            __, features, __, prevq_rnn_outputs, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
-
-        prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
-
-        with open(args.out_path + 'logmel/' + filename + '.txt', 'w') as file:
-            np.savetxt(file, prevq, fmt='%.16f')
+# logmel_path = './preprocessed/'
+#
+# for file in os.listdir(logmel_path):
+#
+#     features = []
+#     prevq_rnn_outputs = []
+#
+#     if file.endswith('.pt'):
+#
+#         print(f'VQ-APC working on: {file}')
+#
+#         filename = Path(file).stem
+#
+#         dataset = LoadSpeechSegment(logmel_path, file)
+#         dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
+#
+#         testing = True
+#
+#         for frames_BxLxM, lengths_B in dataset_loader:
+#             frames_BxLxM = Variable(frames_BxLxM).cuda()
+#             lengths_B = Variable(lengths_B).cuda()
+#             __, features, __, prevq_rnn_outputs, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+#
+#         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
+#
+#         with open(args.out_path + 'logmel/' + filename + '.txt', 'w') as file:
+#             np.savetxt(file, prevq, fmt='%.16f')
 
 
 
@@ -139,14 +139,6 @@ for file in os.listdir(prevq_path):
 codebook_from_training = np.load(args.embedding)
 embedding = np.transpose(codebook_from_training)
 print(f'Embedding matrix shape: {embedding.shape}')
-
-# n_embeddings = 128
-# embedding_dim = 512
-# init_bound = 1 / 512
-# embedding = torch.Tensor(n_embeddings, embedding_dim)
-# embedding.uniform_(-init_bound, init_bound)
-# embedding = embedding.squeeze().cpu().numpy()
-# print(f'Embedding matrix shape: {embedding.shape}')
 
 
 # segmentation
