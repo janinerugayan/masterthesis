@@ -141,6 +141,8 @@ embedding = np.transpose(codebook_from_training)
 print(f'Embedding matrix shape: {embedding.shape}')
 print(embedding)
 
+np.savetxt(args.out_path + 'embedding.txt', embedding)
+
 
 # segmentation
 boundaries_dict = {}
@@ -156,7 +158,6 @@ for utt_key in prevq_dict:
     if z.ndim == 1:
         continue
     print(f'Performing phone segmentation on {utt_key}')
-    print(z)
     boundaries, code_indices = l2_segmentation(embedding, z, n_min_frames,
                                 n_max_frames, dur_weight)
     # do we need to upsample it? was it downsampled in the first place?
