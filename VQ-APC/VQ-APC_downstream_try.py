@@ -141,7 +141,7 @@ embedding = np.transpose(codebook_from_training)
 print(f'Embedding matrix shape: {embedding.shape}')
 print(embedding)
 
-np.savetxt(args.out_path + 'embedding.txt', embedding)
+np.savetxt(args.out_path + 'embedding.txt', embedding, newline=',')
 
 
 # segmentation
