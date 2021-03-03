@@ -232,8 +232,8 @@ def main():
       (epoch_i + 1) + '.model'), 'wb'))
 
     # saving the codebook
-    codebook_param = list(codebook.parameters())
-    print(codebook_param)
+    codebook_weight = codebook.weight.numpy()
+    print(codebook_weight.shape)
 
 if __name__ == '__main__':
   main()
