@@ -232,8 +232,9 @@ def main():
       (epoch_i + 1) + '.model'), 'wb'))
 
     # saving the codebook
-    codebook_weight = codebook.weight.cpu().numpy()
+    codebook_weight = codebook.weight.cpu().detach().numpy()
     print(codebook_weight.shape)
+    np.save(model_dir + config.exp_name + '_codebook__epoch_%d' % (epoch_i + 1) + '.npy', codebook_weight)
 
 if __name__ == '__main__':
   main()
