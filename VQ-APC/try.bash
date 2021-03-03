@@ -26,7 +26,15 @@ cd ..
 cd results/logmel/
 rm -v *.txt
 cd ..
+cd intervals/
+rm -v *.txt
 cd ..
+cd indices/
+rm -v *.npy
+cd ..
+cd boundaries/
+rm -v *.npy
+cd ../..
 
 CUDA_VISIBLE_DEVICES=1 python VQ-APC_downstream_try.py --exp_name=combined_sounds_shuffled \
 --sound_file=./wavs/combined_sounds_shuffled.wav \
