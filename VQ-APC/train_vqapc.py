@@ -233,7 +233,7 @@ def main():
 
     # saving the rnn outputs or codes form the VQ layer
     print(type(codebook))
-    # embedding = codebook.squeeze().cpu().detach().numpy()
+    embedding = codebook.squeeze().cpu().detach().numpy()
     print(f'Embedding matrix shape: {codebook.shape}')
     np.save('./results/embedding_from_training/' + config.exp_name +'_embedding__epoch_%d' % (epoch_i + 1) + '.npy', codebook)
 
