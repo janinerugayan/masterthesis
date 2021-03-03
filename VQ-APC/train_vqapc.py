@@ -232,7 +232,7 @@ def main():
       (epoch_i + 1) + '.model'), 'wb'))
 
     # saving the codebook
-    codebook_weight = codebook.weight.numpy()
+    codebook_weight = codebook.weight.cpu().numpy()
     print(codebook_weight.shape)
 
 if __name__ == '__main__':
