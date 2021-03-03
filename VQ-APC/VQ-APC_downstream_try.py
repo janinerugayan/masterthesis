@@ -137,9 +137,18 @@ for file in os.listdir(prevq_path):
 # read embedding matrix
 # embedding = rnn_outputs_BxLxH.squeeze().cpu().detach().numpy()
 # print(f'Embedding matrix shape: {embedding.shape}')
-embedding_from_training = np.load(args.embedding)
-embedding = embedding_from_training.squeeze()
+# embedding_from_training = np.load(args.embedding)
+# embedding = embedding_from_training.squeeze()
+# print(f'Embedding matrix shape: {embedding.shape}')
+
+n_embeddings = 128
+embedding_dim = 512
+init_bound = 1 / 512
+embedding = torch.Tensor(n_embeddings, embedding_dim)
+embedding.uniform_(-init_bound, init_bound)
+embedding = embedding.squeeze().cpu().numpy()
 print(f'Embedding matrix shape: {embedding.shape}')
+
 
 # segmentation
 boundaries_dict = {}
