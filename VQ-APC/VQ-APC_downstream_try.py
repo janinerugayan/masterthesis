@@ -139,6 +139,7 @@ for file in os.listdir(prevq_path):
 codebook_from_training = np.load(args.embedding)
 embedding = np.transpose(codebook_from_training)
 print(f'Embedding matrix shape: {embedding.shape}')
+print(embedding)
 
 
 # segmentation
