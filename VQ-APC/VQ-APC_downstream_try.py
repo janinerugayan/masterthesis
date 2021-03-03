@@ -155,6 +155,7 @@ for utt_key in prevq_dict:
     z = prevq_dict[utt_key]
     if z.ndim == 1:
         continue
+    print(f'Performing phone segmentation on {utt_key}')
     boundaries, code_indices = l2_segmentation(embedding, z, n_min_frames,
                                 n_max_frames, dur_weight)
     # do we need to upsample it? was it downsampled in the first place?
