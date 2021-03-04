@@ -69,22 +69,25 @@ args = parser.parse_args()
 #   loading pretrained model
 # ---------------------------------------------
 
-# pretrained_vqapc = GumbelAPCModel(input_size=80,
-#                      hidden_size=512,
-#                      num_layers=3,
-#                      dropout=0.1,
-#                      residual=' ',
-#                      codebook_size=128,
-#                      code_dim=512,
-#                      gumbel_temperature=0.5,
-#                      vq_hidden_size=-1,
-#                      apply_VQ= [False, False, True]).cuda()
-#
-# pretrained_vqapc = nn.DataParallel(pretrained_vqapc)
-#
-# pretrained_weights_path = args.pretrained_weights
-# pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
+pretrained_vqapc = GumbelAPCModel(input_size=80,
+                     hidden_size=512,
+                     num_layers=3,
+                     dropout=0.1,
+                     residual=' ',
+                     codebook_size=128,
+                     code_dim=512,
+                     gumbel_temperature=0.5,
+                     vq_hidden_size=-1,
+                     apply_VQ= [False, False, True]).cuda()
 
+pretrained_vqapc = nn.DataParallel(pretrained_vqapc)
+
+pretrained_weights_path = args.pretrained_weights
+pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
+
+# get VQ layer codebook
+codebook = pretrained_vqapc.module.vq_layer.codebook_CxE
+print(codebook)
 
 
 # -----------------------------------------------------------------
@@ -140,14 +143,6 @@ codebook_from_training = np.load(args.embedding)
 embedding = np.transpose(codebook_from_training)
 print(f'Embedding matrix shape: {embedding.shape}')
 print(embedding)
-
-embedding_txt = open('embedding.txt', 'w')
-for col in embedding:
-    np.savetxt(embedding_txt, col)
-
-embedding_txt.close()
-
-# np.savetxt(args.out_path + 'embedding.txt', embedding, newline=',')
 
 
 # segmentation
