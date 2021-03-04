@@ -137,7 +137,7 @@ for file in os.listdir(logmel_path):
 # -----------------------------------------------------------------
 
 # read pre-quantisation
-prevq_path = args.out_path + args.exp_name + '/logmel/'
+prevq_path = args.out_path + args.exp_name + '/prevq/'
 prevq_dict = {}
 for file in os.listdir(prevq_path):
     if file.endswith('.txt'):
