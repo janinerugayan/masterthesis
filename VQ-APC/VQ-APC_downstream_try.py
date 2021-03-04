@@ -89,7 +89,7 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 vq_layer = pretrained_vqapc.module.vq_layers
 print(vq_layer)
 
-
+embed()
 # -----------------------------------------------------------------
 #   using forward method of model class with preprocessed data
 # -----------------------------------------------------------------
