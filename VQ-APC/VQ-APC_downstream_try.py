@@ -88,7 +88,7 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 print(pretrained_vqapc)
 
 # get VQ layer codebook
-codebook = pretrained_vqapc.module.vq_layer.codebook_CxE
+codebook = pretrained_vqapc.module.vq_layers.codebook_CxE
 print(codebook)
 
 
