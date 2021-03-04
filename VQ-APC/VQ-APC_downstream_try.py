@@ -100,6 +100,9 @@ codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 
 logmel_path = args.preprocess_path + args.exp_name + '/'
 
+output_dir = args.out_path + args.exp_name + '/logmel/'
+os.mkdir(output_dir)
+
 for file in os.listdir(logmel_path):
 
     features = []
@@ -122,9 +125,6 @@ for file in os.listdir(logmel_path):
             __, features, __, prevq_rnn_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
-
-        output_dir = args.out_path + args.exp_name + '/logmel/'
-        os.mkdir(output_dir)
 
         with open(output_dir + filename + '.txt', 'w') as file:
             np.savetxt(file, prevq, fmt='%.16f')
