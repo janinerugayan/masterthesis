@@ -101,7 +101,7 @@ codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 logmel_path = args.preprocess_path + args.exp_name + '/'
 
 output_dir = args.out_path + args.exp_name + '/logmel/'
-os.mkdir(output_dir)
+os.makedirs(output_dir)
 
 for file in os.listdir(logmel_path):
 
@@ -173,19 +173,19 @@ for utt_key in prevq_dict:
 
 # write code indices
 output_dir = args.out_path + args.exp_name + '/indices/'
-os.mkdir(output_dir)
+os.makedirs(output_dir)
 for utt_key in code_indices_dict:
     np.save(output_dir + utt_key + '_indices.npy', np.array([i[-1] for i in code_indices_dict[utt_key]], dtype=np.int))
 
 # write boundaries
 output_dir = args.out_path + args.exp_name + '/boundaries/'
-os.mkdir(output_dir)
+os.makedirs(output_dir)
 for utt_key in boundaries_dict:
     np.save(output_dir + utt_key + '_boundaries.npy', np.array(boundaries_dict[utt_key], dtype=np.bool))
 
 # write intervals
 output_dir = args.out_path + args.exp_name + '/intervals/'
-os.mkdir(output_dir)
+os.makedirs(output_dir)
 for utt_key in code_indices_dict:
     with open(output_dir + utt_key + '_intervals.txt', 'w') as f:
         for start, end, index in code_indices_dict[utt_key]:
