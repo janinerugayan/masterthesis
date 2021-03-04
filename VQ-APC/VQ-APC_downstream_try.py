@@ -29,7 +29,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--exp_name',   type=str)
 parser.add_argument('--sound_file',     type=str)
 parser.add_argument('--pretrained_weights',   type=str)
-parser.add_argument('--embedding',     type=str)
+parser.add_argument('--preprocess_path',    type=str)
 parser.add_argument('--out_path',      type=str)
 args = parser.parse_args()
 
@@ -39,17 +39,21 @@ args = parser.parse_args()
 #   mel spectrogram - 80-dimensional
 # ---------------------------------------------
 
-# wav_path = args.sound_file
-# export_dir_path = './preprocessed/'
-#
-# # randomly segment combined sound file
-# min_len = 1500
-# max_len = 1700
-# randomseg(wav_path, export_dir_path, min_len, max_len)
-#
-# # process wav files to get log-mel feature vectors
-# output_path = export_dir_path + args.exp_name
-# process_wav_multiple(export_dir_path, output_path)
+wav_path = args.sound_file
+export_dir_path = args.preprocess_path + args.exp_name
+os.mkdir(export_dir_path)
+
+# randomly segment combined sound file
+min_len = 1500
+max_len = 1700
+randomseg(wav_path, export_dir_path, min_len, max_len)
+
+# process wav files to get log-mel feature vectors
+in_path = export_dir_path
+out_path = export_dir_path
+process_wav_multiple(in_path, out_path)
+
+embed()
 
 
 
@@ -57,11 +61,11 @@ args = parser.parse_args()
 #   prepare data - following APC pipeline
 # ---------------------------------------------
 
-# wav_id = args.exp_name
-# logmel_path = export_dir_path
-# max_seq_len = 1600
-#
-# prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
+wav_id = args.exp_name
+logmel_path = export_dir_path
+max_seq_len = 1600
+
+prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
 
 
 
@@ -96,33 +100,36 @@ codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 #   using forward method of model class with preprocessed data
 # -----------------------------------------------------------------
 
-# logmel_path = './preprocessed/'
-#
-# for file in os.listdir(logmel_path):
-#
-#     features = []
-#     prevq_rnn_outputs = []
-#
-#     if file.endswith('.pt'):
-#
-#         print(f'VQ-APC working on: {file}')
-#
-#         filename = Path(file).stem
-#
-#         dataset = LoadSpeechSegment(logmel_path, file)
-#         dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
-#
-#         testing = True
-#
-#         for frames_BxLxM, lengths_B in dataset_loader:
-#             frames_BxLxM = Variable(frames_BxLxM).cuda()
-#             lengths_B = Variable(lengths_B).cuda()
-#             __, features, __, prevq_rnn_outputs, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
-#
-#         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
-#
-#         with open(args.out_path + 'logmel/' + filename + '.txt', 'w') as file:
-#             np.savetxt(file, prevq, fmt='%.16f')
+logmel_path = './preprocessed/'
+
+for file in os.listdir(logmel_path):
+
+    features = []
+    prevq_rnn_outputs = []
+
+    if file.endswith('.pt'):
+
+        print(f'VQ-APC working on: {file}')
+
+        filename = Path(file).stem
+
+        dataset = LoadSpeechSegment(logmel_path, file)
+        dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=True, drop_last=True)
+
+        testing = True
+
+        for frames_BxLxM, lengths_B in dataset_loader:
+            frames_BxLxM = Variable(frames_BxLxM).cuda()
+            lengths_B = Variable(lengths_B).cuda()
+            __, features, __, prevq_rnn_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+
+        prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
+
+        output_dir = args.out_path + args.exp_name + '/logmel/'
+        os.mkdir(output_dir)
+
+        with open(output_dir + filename + '.txt', 'w') as file:
+            np.savetxt(file, prevq, fmt='%.16f')
 
 
 
@@ -131,7 +138,7 @@ codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 # -----------------------------------------------------------------
 
 # read pre-quantisation
-prevq_path = args.out_path + 'logmel/'
+prevq_path = args.out_path + args.exp_name + '/logmel/'
 prevq_dict = {}
 for file in os.listdir(prevq_path):
     if file.endswith('.txt'):
@@ -167,17 +174,20 @@ for utt_key in prevq_dict:
     code_indices_dict[utt_key] = code_indices
 
 # write code indices
-output_dir = args.out_path + 'indices/'
+output_dir = args.out_path + args.exp_name + '/indices/'
+os.mkdir(output_dir)
 for utt_key in code_indices_dict:
     np.save(output_dir + utt_key + '_indices.npy', np.array([i[-1] for i in code_indices_dict[utt_key]], dtype=np.int))
 
 # write boundaries
-output_dir = args.out_path + 'boundaries/'
+output_dir = args.out_path + args.exp_name + '/boundaries/'
+os.mkdir(output_dir)
 for utt_key in boundaries_dict:
     np.save(output_dir + utt_key + '_boundaries.npy', np.array(boundaries_dict[utt_key], dtype=np.bool))
 
 # write intervals
-output_dir = args.out_path + 'intervals/'
+output_dir = args.out_path + args.exp_name + '/intervals/'
+os.mkdir(output_dir)
 for utt_key in code_indices_dict:
     with open(output_dir + utt_key + '_intervals.txt', 'w') as f:
         for start, end, index in code_indices_dict[utt_key]:
