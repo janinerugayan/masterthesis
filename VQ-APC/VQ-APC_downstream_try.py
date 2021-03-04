@@ -39,21 +39,19 @@ args = parser.parse_args()
 #   mel spectrogram - 80-dimensional
 # ---------------------------------------------
 
-wav_path = args.sound_file
-export_dir_path = args.preprocess_path + args.exp_name + '/'
-os.mkdir(export_dir_path)
-
-# randomly segment combined sound file
-min_len = 1500
-max_len = 1700
-randomseg(wav_path, export_dir_path, min_len, max_len)
-
-# process wav files to get log-mel feature vectors
-in_path = export_dir_path
-out_path = export_dir_path
-process_wav_multiple(in_path, out_path)
-
-embed()
+# wav_path = args.sound_file
+# export_dir_path = args.preprocess_path + args.exp_name + '/'
+# os.mkdir(export_dir_path)
+#
+# # randomly segment combined sound file
+# min_len = 1500
+# max_len = 1700
+# randomseg(wav_path, export_dir_path, min_len, max_len)
+#
+# # process wav files to get log-mel feature vectors
+# in_path = export_dir_path
+# out_path = export_dir_path
+# process_wav_multiple(in_path, out_path)
 
 
 
@@ -100,7 +98,7 @@ codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 #   using forward method of model class with preprocessed data
 # -----------------------------------------------------------------
 
-logmel_path = './preprocessed/'
+logmel_path = args.preprocess_path + args.exp_name + '/'
 
 for file in os.listdir(logmel_path):
 
