@@ -122,9 +122,10 @@ for file in os.listdir(logmel_path):
         for frames_BxLxM, lengths_B in dataset_loader:
             frames_BxLxM = Variable(frames_BxLxM).cuda()
             lengths_B = Variable(lengths_B).cuda()
-            __, features, __, prevq_rnn_outputs = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+            __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
-        embed()
+        prevq_rnn_outputs.append(features[-1, :, :, :])
+        prevq = prevq_rnn_outputs.pop().squeeze().cpu().numpy()
 
         with open(output_dir + filename + '.txt', 'w') as file:
             np.savetxt(file, prevq, fmt='%.16f')

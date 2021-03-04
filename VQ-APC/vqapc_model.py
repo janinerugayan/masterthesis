@@ -208,7 +208,7 @@ class GumbelAPCModel(nn.Module):
       hiddens_NxBxLxH.append(rnn_outputs_BxLxH)
 
       # saving pre-quantization RNN outputs
-      prevq_rnn_outputs.append(rnn_outputs_BxLxH)
+      # prevq_rnn_outputs.append(rnn_outputs_BxLxH)
 
 
       if vq_layer is not None:
@@ -227,5 +227,5 @@ class GumbelAPCModel(nn.Module):
     # Generate final output from codes.
     predicted_BxLxM = self.postnet(rnn_outputs_BxLxH)
 
-    
-    return predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC, prevq_rnn_outputs
+
+    return predicted_BxLxM, hiddens_NxBxLxH, logits_NxBxLxC
