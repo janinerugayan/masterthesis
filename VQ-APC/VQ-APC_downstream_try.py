@@ -125,7 +125,7 @@ for file in os.listdir(logmel_path):
             __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq_rnn_outputs.append(features[-1, :, :, :])
-        prevq = prevq_rnn_outputs.pop().squeeze().cpu().numpy()
+        prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
 
         with open(output_dir + filename + '.txt', 'w') as file:
             np.savetxt(file, prevq, fmt='%.16f')
