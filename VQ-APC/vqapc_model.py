@@ -207,10 +207,6 @@ class GumbelAPCModel(nn.Module):
 
       hiddens_NxBxLxH.append(rnn_outputs_BxLxH)
 
-      # saving pre-quantization RNN outputs
-      # prevq_rnn_outputs.append(rnn_outputs_BxLxH)
-
-
       if vq_layer is not None:
         logits_BxLxC, rnn_outputs_BxLxH = vq_layer(rnn_outputs_BxLxH, testing)
         logits_NxBxLxC.append(logits_BxLxC)
