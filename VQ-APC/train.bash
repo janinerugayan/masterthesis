@@ -16,5 +16,5 @@ CUDA_VISIBLE_DEVICES=1 python train_vqapc.py --rnn_num_layers 3 \
                       --train_sampling 1. \
                       --val_partition dev-clean \
                       --val_sampling 1. \
-                      --exp_name mar-4_phoneseg \
+                      --exp_name mar-5_training \
                       --store_path ./logs
