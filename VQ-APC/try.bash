@@ -37,5 +37,4 @@ cd ../..
 CUDA_VISIBLE_DEVICES=1 python VQ-APC_downstream_try.py --exp_name=combined_sounds_shuffled \
 --sound_file=./wavs/combined_sounds_shuffled.wav \
 --pretrained_weights=./logs/mar-3_phoneseg.dir/mar-3_phoneseg__epoch_1.model \
---embedding=./logs/mar-3_phoneseg.dir/mar-3_phoneseg_codebook__epoch_1.npy \
 --out_path=./results/

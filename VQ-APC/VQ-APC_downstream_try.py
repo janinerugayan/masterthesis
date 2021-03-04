@@ -87,9 +87,11 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 
 # get VQ layer codebook
 vq_layer = pretrained_vqapc.module.vq_layers
-print(vq_layer)
+codebook_weight = vq_layer[2].codebook_CxE.weights
+codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 
-embed()
+
+
 # -----------------------------------------------------------------
 #   using forward method of model class with preprocessed data
 # -----------------------------------------------------------------
@@ -139,8 +141,7 @@ for file in os.listdir(prevq_path):
 
 # read embedding matrix
 
-codebook_from_training = np.load(args.embedding)
-embedding = np.transpose(codebook_from_training)
+embedding = codebook
 print(f'Embedding matrix shape: {embedding.shape}')
 print(embedding)
 

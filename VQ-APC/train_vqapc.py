@@ -174,7 +174,7 @@ def main():
       frames_BxLxM = Variable(frames_BxLxM[indices_B]).cuda()
       lengths_B = Variable(lengths_B[indices_B]).cuda()
 
-      predicted_BxLxM, _, _, _, codebook = model(frames_BxLxM[:, :-config.n_future, :],
+      predicted_BxLxM, _, _, _ = model(frames_BxLxM[:, :-config.n_future, :],
                                     lengths_B - config.n_future, testing=False)
 
       # predicted_BxLxM, _, _ = model(frames_BxLxM[:, :-config.n_future, :],
@@ -208,7 +208,7 @@ def main():
         val_frames_BxLxM = Variable(val_frames_BxLxM[val_indices_B]).cuda()
         val_lengths_B = Variable(val_lengths_B[val_indices_B]).cuda()
 
-        val_predicted_BxLxM, _, _, _, _ = model(
+        val_predicted_BxLxM, _, _, _ = model(
           val_frames_BxLxM[:, :-config.n_future, :],
           val_lengths_B - config.n_future, testing=True)
 
@@ -230,9 +230,6 @@ def main():
       open(os.path.join(model_dir, config.exp_name + '__epoch_%d' %
       (epoch_i + 1) + '.model'), 'wb'))
 
-    # saving the codebook
-    codebook_weight = codebook.weight.cpu().detach().numpy()
-    np.save(model_dir + '/' + config.exp_name + '_codebook__epoch_%d' % (epoch_i + 1) + '.npy', codebook_weight)
 
 if __name__ == '__main__':
   main()
