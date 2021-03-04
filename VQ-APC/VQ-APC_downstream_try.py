@@ -41,17 +41,17 @@ args = parser.parse_args()
 
 wav_path = args.sound_file
 export_dir_path = args.preprocess_path + args.exp_name + '/'
-# os.mkdir(export_dir_path)
-#
-# # randomly segment combined sound file
-# min_len = 1500
-# max_len = 1700
-# randomseg(wav_path, export_dir_path, min_len, max_len)
-#
-# # process wav files to get log-mel feature vectors
-# in_path = export_dir_path
-# out_path = export_dir_path
-# process_wav_multiple(in_path, out_path)
+os.mkdir(export_dir_path)
+
+# randomly segment combined sound file
+min_len = 1500
+max_len = 1700
+randomseg(wav_path, export_dir_path, min_len, max_len)
+
+# process wav files to get log-mel feature vectors
+in_path = export_dir_path
+out_path = export_dir_path
+process_wav_multiple(in_path, out_path)
 
 
 
@@ -141,6 +141,7 @@ prevq_dict = {}
 for file in os.listdir(prevq_path):
     if file.endswith('.txt'):
         filename = Path(file).stem
+        print(f'Reading pre-quantisation for {file}')
         prevq_dict[filename] = np.loadtxt(prevq_path + file)
 
 

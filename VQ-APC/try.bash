@@ -1,13 +1,3 @@
-cd results/intervals/
-rm -v *.txt
-cd ..
-cd indices/
-rm -v *.npy
-cd ..
-cd boundaries/
-rm -v *.npy
-cd ../..
-
 CUDA_VISIBLE_DEVICES=1 python VQ-APC_downstream_try.py --exp_name=4-mar_combined_shuffled \
 --sound_file=./wavs/combined_sounds_shuffled.wav \
 --pretrained_weights=./logs/mar-3_phoneseg.dir/mar-3_phoneseg__epoch_1.model \
