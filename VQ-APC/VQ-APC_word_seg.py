@@ -48,6 +48,7 @@ for file in os.listdir(phoneseg_dir):
         start = int(start)
         end = int(end)
         phoneseg_interval_dict[fn].append((start, end, label))
+    f.close()
 
 utterances = phoneseg_interval_dict.keys()
 
@@ -79,10 +80,10 @@ for i_utt, utt_key in tqdm(enumerate(utterances)):
             i_word += 1
 
 # Write intervals
-output_dir = (Path(args.output_dir/args.exp_name/'intervals'))
-output_dir.mkdir(exist_ok=True, parents=True)
+output_dir = args.output_dir + args.exp_name + '/intervals/'
+os.makedirs(output_dir)
 print("Writing to: {}".format(output_dir))
-for utt_key in tqdm(wordseg_interval_dict):
-    with open((output_dir/utt_key).with_suffix(".txt"), "w") as f:
+for utt_key in wordseg_interval_dict:
+    with open(output_dir + utt_key + '_wordseg_intervals.txt', 'w') as f:
         for start, end, label in wordseg_interval_dict[utt_key]:
             f.write("{:d} {:d} {}\n".format(start, end, label))
