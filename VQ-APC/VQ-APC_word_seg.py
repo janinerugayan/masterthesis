@@ -41,7 +41,6 @@ for file in os.listdir(phoneseg_dir):
     phoneseg_interval_dict[fn] = []
     f = open(phoneseg_dir + file, 'r')
     for line in f:
-        print(line)
         if len(line) == 0:
             phoneseg_interval_dict.pop(fn)
             continue
@@ -49,7 +48,6 @@ for file in os.listdir(phoneseg_dir):
         start = int(start)
         end = int(end)
         phoneseg_interval_dict[fn].append((start, end, label))
-        print(phoneseg_interval_dict[fn])
 
 utterances = phoneseg_interval_dict.keys()
 
@@ -60,8 +58,9 @@ for utt_key in utterances:
     prepared_text.append(
         " ".join([i[2] + "_" for i in phoneseg_interval_dict[utt_key]])
         )
+print(prepared_text)
 word_segmentation = segment_func(prepared_text, **kwargs)
-print(prepared_text[:10])
+# print(prepared_text[:10])
 wordseg_interval_dict = {}
 for i_utt, utt_key in tqdm(enumerate(utterances)):
     words_segmented = word_segmentation[i_utt].split(" ")
