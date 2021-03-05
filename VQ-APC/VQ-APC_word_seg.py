@@ -36,11 +36,11 @@ segment_func = getattr(wordseg_algorithms, args.wordseg_algorithm)
 phoneseg_interval_dict = {}
 filenames = []
 print("Reading: {}".format(args.phoneseg_interval_dir))
-filenames = [(Path(args.phoneseg_interval_dir)/i) for i in filenames]
+filenames = [(Path(args.phoneseg_interval_dir)/i).with_suffix(".txt") for i in filenames]
 for file in tqdm(filenames):
-    fn = Path(file).stem
+    fn = file.stem
     phoneseg_interval_dict[fn] = []
-    for i in Path(file).read_text().strip().split('\n'):
+    for i in file.read_text().strip().split('\n'):
         if len(i) == 0:
             phoneseg_interval_dict.pop(fn)
             continue
@@ -59,7 +59,7 @@ for utt_key in utterances:
         " ".join([i[2] + "_" for i in phoneseg_interval_dict[utt_key]])
         )
 print(prepared_text)
-print(kwargs)
+
 word_segmentation = segment_func(prepared_text, **kwargs)
 # print(prepared_text[:10])
 wordseg_interval_dict = {}
