@@ -41,7 +41,7 @@ for file in os.listdir(phoneseg_dir):
     phoneseg_interval_dict[fn] = []
     f = open(phoneseg_dir + file, 'r')
     for line in f:
-        if len(i) == 0:
+        if len(line) == 0:
             phoneseg_interval_dict.pop(fn)
             continue
         start, end, label = line.split()
