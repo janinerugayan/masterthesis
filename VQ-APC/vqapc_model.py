@@ -175,10 +175,6 @@ class GumbelAPCModel(nn.Module):
     hiddens_NxBxLxH = []
     logits_NxBxLxC = []
 
-    # for saving outputs pre-quantization layer
-    prevq_rnn_outputs = []
-
-
     # RNN
     # Prepare initial packed RNN input.
     packed_rnn_inputs = pack_padded_sequence(frames_BxLxM, seq_lengths_B,
