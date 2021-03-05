@@ -120,11 +120,10 @@ for file in os.listdir(logmel_path):
         testing = True
 
         for frames_BxLxM, lengths_B in dataset_loader:
-            print(f'lengths: {lengths_B}')
-            print(f'frames: {frames_BxLxM}')
             frames_BxLxM = Variable(frames_BxLxM).cuda()
             lengths_B = Variable(lengths_B).cuda()
             __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+            print(features)
             prevq_rnn_outputs.append(features[-1, :, :, :])
 
         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
