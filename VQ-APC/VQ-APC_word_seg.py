@@ -34,6 +34,7 @@ segment_func = getattr(wordseg_algorithms, args.wordseg_algorithm)
 
 # Read phone intervals
 phoneseg_interval_dict = {}
+filenames = []
 print("Reading: {}".format(args.phoneseg_interval_dir))
 filenames = [(Path(args.phoneseg_interval_dir)/i) for i in filenames]
 for file in tqdm(filenames):
