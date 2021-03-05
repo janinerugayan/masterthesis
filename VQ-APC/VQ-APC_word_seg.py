@@ -23,11 +23,11 @@ args = parser.parse_args()
 # wordseg algorithm configurations
 kwargs = {}
 if args.wordseg_algorithm == 'dpseg':
-    kwargs = {nfolds: 1, args: "--randseed 1"}
+    kwargs = {'nfolds': 1, 'args': "--randseed 1"}
 elif args.wordseg_algorithm == 'tp':
-    kwargs = {threshold: "relative"}
+    kwargs = {'threshold': "relative"}
 elif args.wordseg_algorithm == 'ag':
-    kwargs = {function: "ag", nruns: 4, njobs: 3, args: "-n 100"}
+    kwargs = {'nruns': 4, 'njobs': 3, 'args': "-n 100"}
 
 # Algorithm
 segment_func = getattr(wordseg_algorithms, args.wordseg_algorithm)
