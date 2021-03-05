@@ -14,5 +14,5 @@
 # conda activate wordseg
 python VQ-APC_word_seg.py --exp_name=5-mar_wordseg \
 --wordseg_algorithm=ag \
---phoneseg_interval_dir=./results/5-mar_phoneseg/intervals \
+--phoneseg_interval_dir=./results/5-mar_phoneseg/intervals/ \
 --output_dir=./results/5-mar_wordseg
