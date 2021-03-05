@@ -16,8 +16,8 @@ import wordseg_algorithms
 parser = argparse.ArgumentParser()
 parser.add_argument('--exp_name',   type=str)
 parser.add_argument('--wordseg_algorithm',   type=str)
-parser.add_argument('--phoneseg_interval_dir'   type=str)
-parser.add_argument('--output_dir'  type=str)
+parser.add_argument('--phoneseg_interval_dir',   type=str)
+parser.add_argument('--output_dir',  type=str)
 args = parser.parse_args()
 
 # wordseg algorithm configurations
