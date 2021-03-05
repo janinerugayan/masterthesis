@@ -38,7 +38,7 @@ print("Reading: {}".format(args.phoneseg_interval_dir))
 for file in os.listdir(args.phoneseg_interval_dir):
     filename = Path(file).stem
     phoneseg_interval_dict[filename] = []
-    for i in file.read_text().strip().split('\n'):
+    for i in Path(file).read_text().strip().split('\n'):
         if len(i) == 0:
             phoneseg_interval_dict.pop(filename)
             continue
