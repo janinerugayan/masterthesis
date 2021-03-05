@@ -34,17 +34,17 @@ segment_func = getattr(wordseg_algorithms, args.wordseg_algorithm)
 
 # Read phone intervals
 phoneseg_interval_dict = {}
-filenames = []
-print("Reading: {}".format(args.phoneseg_interval_dir))
-filenames = [(Path(args.phoneseg_interval_dir)/i).with_suffix(".txt") for i in filenames]
-for file in tqdm(filenames):
-    fn = file.stem
+phoneseg_dir = args.phoneseg_interval_dir
+print("Reading: {}".format(phoneseg_dir))
+for file in os.listdir(phoneseg_dir):
+    fn = Path(file).stem
     phoneseg_interval_dict[fn] = []
-    for i in file.read_text().strip().split('\n'):
+    f = open(phoneseg_dir + file, 'r')
+    for line in f:
         if len(i) == 0:
             phoneseg_interval_dict.pop(fn)
             continue
-        start, end, label = i.split()
+        start, end, label = line.split()
         start = int(start)
         end = int(end)
         phoneseg_interval_dict[fn].append((start, end, label))
