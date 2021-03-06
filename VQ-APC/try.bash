@@ -5,7 +5,7 @@
 # rm -rv 4-mar_combined_shuffled
 # cd ..
 
-conda activate vq-apc
+# conda activate vq-apc
 # CUDA_VISIBLE_DEVICES=1
 python VQ-APC_downstream_try.py --exp_name=6-mar_phoneseg \
 --sound_file=./wavs/combined_sounds_shuffled.wav \
