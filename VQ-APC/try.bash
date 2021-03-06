@@ -1,11 +1,11 @@
 eval "$(conda shell.bash hook)"
 
-conda activate vq-apc
-python VQ-APC_downstream_try.py --exp_name=6-mar_phoneseg \
---sound_file=./wavs/combined_sounds_shuffled.wav \
---pretrained_weights=./logs/mar-5_training_run2.dir/mar-5_training_run2__epoch_5.model \
---preprocess_path=./preprocessed/ \
---out_path=./results/
+# conda activate vq-apc
+# python VQ-APC_downstream_try.py --exp_name=6-mar_phoneseg \
+# --sound_file=./wavs/combined_sounds_shuffled.wav \
+# --pretrained_weights=./logs/mar-5_training_run2.dir/mar-5_training_run2__epoch_5.model \
+# --preprocess_path=./preprocessed/ \
+# --out_path=./results/
 
 conda activate wordseg
 

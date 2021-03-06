@@ -19,7 +19,7 @@ for file in os.listdir(wordseg_dir):
     wordseg_interval_dict[fn] = []
     f = open(wordseg_dir + file, 'r')
     for line in f:
-        if len(line) == 0
+        if len(line) == 0:
             wordseg_interval_dict.pop(fn)
             continue
         start, end, label = line.split()
