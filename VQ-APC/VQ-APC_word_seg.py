@@ -14,7 +14,6 @@ import wordseg_algorithms
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--exp_name',   type=str)
 parser.add_argument('--wordseg_algorithm',   type=str)
 parser.add_argument('--phoneseg_interval_dir',   type=str)
 parser.add_argument('--output_dir',  type=str)
@@ -80,7 +79,7 @@ for i_utt, utt_key in tqdm(enumerate(utterances)):
             i_word += 1
 
 # Write intervals
-output_dir = args.output_dir + args.exp_name + '/intervals/'
+output_dir = args.output_dir + '/intervals/'
 os.makedirs(output_dir)
 print("Writing to: {}".format(output_dir))
 for utt_key in wordseg_interval_dict:
