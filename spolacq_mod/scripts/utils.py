@@ -90,12 +90,10 @@ class Agent:
     def evaluate_reward(self, chosen_number, index):
         target_num_list = np.arange(1,10)
 
-        old_list = self.num_list.copy()
-
         self.num_list[index] = chosen_number
         new_list = self.num_list.copy()
 
-        reward = levenshtein(old_list, new_list)
+        reward = levenshtein(target_num_list, new_list)
         reward = (9 - reward) / 9
 
         if reward == 0:
