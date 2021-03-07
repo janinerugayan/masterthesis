@@ -94,10 +94,10 @@ class Agent:
         new_list = self.num_list.copy()
 
         reward = levenshtein(target_num_list, new_list)
-        reward = (9 - reward) / 9
+        reward = ((9 - reward) / 9)*10
 
         if reward == 0:
-            reward -= 10
+            reward -= 1
         if (self.num_list == target_num_list).all():
             done = 1
         else:
