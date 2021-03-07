@@ -28,7 +28,6 @@ recog_dict['backward'] = 0
 for filename in enumerate(filenames):
 
     if '.wav' not in filename:
-        print(filename)
         continue
 
     with sr.AudioFile(wav_path + '/' + filename) as source:
