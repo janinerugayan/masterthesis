@@ -43,5 +43,5 @@ for utt_key in utterances:
     count = 0
     for (word_start, word_end) in wordseg_interval_dict[utt_key]:
         wav_segment = wav_original[word_start : word_end]
-        wav_segment.export(export_dir + utt_key + '_word' + str(count) + '.wav', format='wav')
+        wav_segment.export(export_dir + wav_name + '_word_' + str(count) + '.wav', format='wav')
         count += 1
