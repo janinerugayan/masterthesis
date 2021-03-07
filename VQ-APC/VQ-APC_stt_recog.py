@@ -11,6 +11,7 @@ args = parser.parse_args()
 wav_path = args.wav_path
 output_dir = args.output_dir
 __, __, filenames = next(walk(wav_path), (None, None, []))
+print(filenames)
 f = open(output_dir + '/stt_results.txt', 'a')
 r = sr.Recognizer()
 
