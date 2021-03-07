@@ -26,6 +26,8 @@ recog_dict['backward'] = 0
 
 for filename in enumerate(filenames):
 
+    print(filename)
+
     if '.wav' not in filename:
         continue
 
