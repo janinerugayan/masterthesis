@@ -11,7 +11,6 @@ args = parser.parse_args()
 wav_path = args.wav_path
 output_dir = args.output_dir
 __, __, filenames = next(walk(wav_path), (None, None, []))
-print(filenames)
 f = open(output_dir + '/stt_results.txt', 'a')
 r = sr.Recognizer()
 
@@ -25,9 +24,10 @@ recog_dict['right'] = 0
 recog_dict['forward'] = 0
 recog_dict['backward'] = 0
 
-for filename in enumerate(filenames):
+for filename in filenames:
 
     if '.wav' not in filename:
+        print(filename)
         continue
 
     with sr.AudioFile(wav_path + '/' + filename) as source:
