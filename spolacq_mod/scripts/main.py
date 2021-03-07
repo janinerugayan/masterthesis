@@ -26,14 +26,14 @@ from mpl_toolkits import mplot3d
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_name',   type=str)
+parser.add_argument('--output_dir',  type=str)
 args = parser.parse_args()
 
 # read stt recog results - loaded from previous segmentation & recognition:
 # with open("../exp/pkls/" + args.data_name + ".pkl", "rb") as f:
 #     res_dict = pickle.load(f)
 
-res_dict = {'num_words': 100, 'up':5, 'down':5, 'left':5, 'right':5, 'forward':5, 'backward':5,
-            'one':5, 'two':5, 'three':5, 'four':5, 'five':5, 'six':5,
+res_dict = {'num_words': 100, 'one':5, 'two':5, 'three':5, 'four':5, 'five':5, 'six':5,
             'seven':5, 'eight':5, 'nine':5}
 
 # read stt recog results - original code:
@@ -59,7 +59,7 @@ Transition = namedtuple('Transition',
 
 # for figure saving
 durations_fig = plt.figure(2)
-positions_fig = plt.figure(3)
+# positions_fig = plt.figure(3)
 
 
 
@@ -256,7 +256,9 @@ for seed in range(1, 6):  # original range (1,6)
     steps_done = 0
     episode_durations = []
 
-
+    # for visualization
+    f = open(args.output_dir + args.data_name + 'Seed' + str(seed) + '_numberlist.txt', 'w')
+    f.write(f'Number List for SEED {seed} \n')
 
     # Training Loop
 
@@ -272,17 +274,22 @@ for seed in range(1, 6):  # original range (1,6)
         state = current_state
 
         # for visualization
-        agent_positions = []
+        number_list = np.zeros(9)
+        f.write(f'EPISODE {i_episode}: \n')
 
         for t in count():
             # get position of agent
-            agent_positions.append(agent.get_position())
+            # agent_positions.append(agent.get_position())
 
             # Select and perform an action
             action = select_action(state)
-            x_change, y_change, z_change = env.feedback(action)
-            reward, done = agent.evaluate_reward(x_change, y_change, z_change)
+            chosen_number, index = env.feedback(action)
 
+            # for visualization
+            number_list[index] = chosen_number
+            f.write(str(number_list) + '\n')
+
+            reward, done = agent.evaluate_reward(chosen_number, index)
             reward = torch.tensor([reward], device=device)
 
             # Observe new state
@@ -306,13 +313,16 @@ for seed in range(1, 6):  # original range (1,6)
                 episode_durations.append(t + 1)
                 plot_durations()
                 # for agent position visualization
-                last_position = t
-                plot_positions(last_position, agent_positions, i_episode, seed)
+                # last_position = t
+                # plot_positions(last_position, agent_positions, i_episode, seed)
                 break
 
         # Update the target network, copying all weights and biases in DQN
         if i_episode % TARGET_UPDATE == 0:
             target_net.load_state_dict(policy_net.state_dict())
+
+    # for visualization
+    f.close()
 
     print(f'Seed {seed} Complete')
 
