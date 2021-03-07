@@ -83,6 +83,6 @@ output_dir = args.output_dir + '/intervals/'
 os.makedirs(output_dir)
 print("Writing to: {}".format(output_dir))
 for utt_key in wordseg_interval_dict:
-    with open(output_dir + utt_key + '_wordseg_intervals.txt', 'w') as f:
+    with open(output_dir + utt_key + '_wordseg.txt', 'w') as f:
         for start, end, label in wordseg_interval_dict[utt_key]:
             f.write("{:d} {:d} {}\n".format(start, end, label))

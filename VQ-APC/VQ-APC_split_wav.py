@@ -32,11 +32,13 @@ for file in os.listdir(wordseg_dir):
 utterances = wordseg_interval_dict.keys()
 
 # segment the combined wav file
+split_word = '_intervals'
 wav_path = args.preprocessed_wav_path
 export_dir = args.output_dir + '/wavs/'
 os.makedirs(export_dir)
 for utt_key in utterances:
-    wav_original = AudioSegment.from_wav(wav_path + utt_key + '.wav')
+    wav_name = utt_key.split(split_word)[0]
+    wav_original = AudioSegment.from_wav(wav_path + wav_name + '.wav')
     total_len = len(wav_original)
     count = 0
     for (word_start, word_end) in wordseg_interval_dict[utt_key]:
