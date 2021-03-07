@@ -32,7 +32,7 @@ for file in os.listdir(wordseg_dir):
 utterances = wordseg_interval_dict.keys()
 
 # segment the combined wav file
-split_word = '_intervals'
+split_word = '_logmel'
 wav_path = args.preprocessed_wav_path
 export_dir = args.output_dir + '/wavs/'
 os.makedirs(export_dir)
