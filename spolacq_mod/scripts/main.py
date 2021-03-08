@@ -33,7 +33,7 @@ args = parser.parse_args()
 # with open("../exp/pkls/" + args.data_name + ".pkl", "rb") as f:
 #     res_dict = pickle.load(f)
 
-res_dict = {'num_words': 100, 'one':5, 'two':5, 'three':5, 'four':5, 'five':5, 'six':5,
+res_dict = {'num_words': 100, 'zero':5, 'one':5, 'two':5, 'three':5, 'four':5, 'five':5, 'six':5,
             'seven':5, 'eight':5, 'nine':5}
 
 # read stt recog results - original code:
@@ -262,7 +262,7 @@ for seed in range(1, 6):  # original range (1,6)
 
     # Training Loop
 
-    num_episodes = 10 # original num_episodes = 50
+    num_episodes = 50 # original num_episodes = 50
     # suc_per_100 = 0
     for i_episode in range(num_episodes):
         print(f"Episode: {i_episode}")
@@ -274,7 +274,6 @@ for seed in range(1, 6):  # original range (1,6)
         state = current_state
 
         # for visualization
-        number_list = np.zeros(9)
         f.write(f'EPISODE {i_episode}: \n')
 
         for t in count():
@@ -285,12 +284,11 @@ for seed in range(1, 6):  # original range (1,6)
             action = select_action(state)
             chosen_number, index = env.feedback(action)
 
-            # for visualization
-            number_list[index] = chosen_number
-            f.write(str(number_list) + '\n')
-
             reward, done = agent.evaluate_reward(chosen_number, index)
             reward = torch.tensor([reward], device=device)
+
+            # for visualization
+            f.write(str(agent.num_list) + '\n')
 
             # Observe new state
             last_state = current_state
