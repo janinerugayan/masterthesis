@@ -215,7 +215,7 @@ GAMMA = 0.5  #0.999, tokyo uni value = 0.5
 EPS_START = 0.9  # used in episode threshold calculation
 EPS_END = 0.05  # used in episode threshold calculation
 EPS_DECAY = 200  # tokyo uni value = 200
-TARGET_UPDATE = 10  # for updating the target network
+TARGET_UPDATE = 10  # for updating the target network, tokyo uni value = 10
 
 
 # for the experiments bash script:
@@ -260,6 +260,9 @@ for seed in range(1, 6):  # original range (1,6)
     f = open(args.output_dir + args.data_name + 'Seed' + str(seed) + '_numberlist.txt', 'w')
     f.write(f'Number List for SEED {seed} \n')
 
+    # for recording agent state
+    agent_state = []
+
     # Training Loop
 
     num_episodes = 50 # original num_episodes = 50
@@ -282,13 +285,13 @@ for seed in range(1, 6):  # original range (1,6)
 
             # Select and perform an action
             action = select_action(state)
-            chosen_number, index = env.feedback(action)
+            chosen_number = env.feedback(action)
 
-            reward, done = agent.evaluate_reward(chosen_number, index)
+            reward, done = agent.evaluate_reward(chosen_number)
             reward = torch.tensor([reward], device=device)
 
             # for visualization
-            f.write(str(agent.num_list) + '\n')
+            f.write(str(agent.my_list) + '\n')
 
             # Observe new state
             last_state = current_state
@@ -299,6 +302,10 @@ for seed in range(1, 6):  # original range (1,6)
                 next_state = None
 
             # print(f"Episode: {i_episode}, Action: {action.data}, Done: {done}, Last State: {last_state.data}, Current State: {current_state.data}, Reward: {reward}")
+
+            # for recording agent state
+            agent_state.append(np.asarray([i_episode, str(action.data), str(last_state), str(current_state), str(reward)]))
+
             # Store the transitions in memory
             memory.push(state, action, next_state, reward)
 
@@ -321,6 +328,12 @@ for seed in range(1, 6):  # original range (1,6)
 
     # for visualization
     f.close()
+
+    # for recording agent state
+    state_file = '../exp/' + args.data_name + 'Seed' + str(seed) + '_state_list.csv'
+    df_state = pd.DataFrame(agent_state)
+    df_state.to_csv(state_file, index=True, header=False, mode='w')
+
 
     print(f'Seed {seed} Complete')
 
