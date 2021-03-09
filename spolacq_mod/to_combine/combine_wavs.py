@@ -14,17 +14,17 @@ def rename(path, name):
         dst = path + dst
         os.rename(src, dst)
 
-# rename("notshuffled/up/", "up_noise")
+# rename("numbers_shuffled/9_nine/", "9_nine")
 
-# _, _, filenames = next(os.walk("words/"), (None, None, []))
 
-_, _, filenames = next(os.walk("notshuffled/words/"), (None, None, []))
 
-filenames.sort()
+_, _, filenames = next(os.walk("numbers_shuffled/segments/"), (None, None, []))
 
-# random.shuffle(filenames)
+# filenames.sort()
 
-f = open('notshuffled/words_wav_list.txt', 'a')
+random.shuffle(filenames)
+
+f = open('numbers_shuffled/words_wav_list.txt', 'a')
 
 for filename in enumerate(filenames):
     f.write(str(filename) + ' ' + '\n')
@@ -36,11 +36,11 @@ from pydub import AudioSegment
 combined_sounds = None
 for i, filename in enumerate(filenames):
     if combined_sounds is None:
-        combined_sounds = AudioSegment.from_wav("notshuffled/words/" + filename)
+        combined_sounds = AudioSegment.from_wav("numbers_shuffled/segments/" + filename)
     else:
-        combined_sounds = combined_sounds + AudioSegment.from_wav("notshuffled/words/" + filename)
+        combined_sounds = combined_sounds + AudioSegment.from_wav("numbers_shuffled/segments/" + filename)
 
-combined_sounds.export("notshuffled/notshuffled_combined_sounds.wav", format="wav")
+combined_sounds.export("numbers_shuffled/numbers_shuffled.wav", format="wav")
 
 print('done combining!')
 

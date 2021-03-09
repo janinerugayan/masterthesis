@@ -256,10 +256,6 @@ for seed in range(1, 6):  # original range (1,6)
     steps_done = 0
     episode_durations = []
 
-    # for visualization
-    f = open(args.output_dir + args.data_name + 'Seed' + str(seed) + '_numberlist.txt', 'w')
-    f.write(f'Number List for SEED {seed} \n')
-
     # for recording agent state
     agent_state = []
 
@@ -276,9 +272,6 @@ for seed in range(1, 6):  # original range (1,6)
         current_state = agent.get_state().to(device)
         state = current_state
 
-        # for visualization
-        f.write(f'EPISODE {i_episode}: \n')
-
         for t in count():
             # get position of agent
             # agent_positions.append(agent.get_position())
@@ -289,9 +282,6 @@ for seed in range(1, 6):  # original range (1,6)
 
             reward, done = agent.evaluate_reward(chosen_number)
             reward = torch.tensor([reward], device=device)
-
-            # for visualization
-            f.write(str(agent.my_list) + '\n')
 
             # Observe new state
             last_state = current_state
@@ -326,11 +316,9 @@ for seed in range(1, 6):  # original range (1,6)
         if i_episode % TARGET_UPDATE == 0:
             target_net.load_state_dict(policy_net.state_dict())
 
-    # for visualization
-    f.close()
 
     # for recording agent state
-    state_file = '../exp/' + args.data_name + 'Seed' + str(seed) + '_state_list.csv'
+    state_file = '../exp/state_list/' + args.data_name + '_Seed' + str(seed) + '_state_list.csv'
     df_state = pd.DataFrame(agent_state)
     df_state.to_csv(state_file, index=True, header=False, mode='w')
 

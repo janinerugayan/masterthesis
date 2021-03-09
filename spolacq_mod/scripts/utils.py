@@ -98,7 +98,7 @@ class Agent:
         # list of target order of numbers
         target_num_list = np.arange(10)
 
-        reward = 0
+        old_sl = -(levenshtein(target_num_list, self.num_list))
 
         # to check if there is anything inside agent's list
         count = len(self.my_list)
@@ -109,22 +109,18 @@ class Agent:
             if count == i:
                 if chosen_number == target_num_list[i]:
                     self.my_list.append(chosen_number)
+                    self.num_list[i] = chosen_number
 
-        # when the agent list is not empty, assign accumulated values to
-        # num_list used for agent's state
-        if count > 0:
-            for i in range(count):
-                self.num_list[i] = self.my_list[i]
+        new_sl = -(levenshtein(target_num_list, self.num_list))
+
+        reward = new_sl - old_sl
 
         # giving the reward based on the numbers placed on the agent's list
-        if count == 0:
-            reward -= 100
-        else:
-            seq_diff = levenshtein(target_num_list, self.num_list)
-            reward = ((10 - seq_diff) / 10) * 10
+        if reward == 0:
+            reward -= 10
 
         # done and not done condition based on perfect reward
-        if reward == 10:
+        if (self.num_list == target_num_list).all():
             done = 1
         else:
             done = 0
