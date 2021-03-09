@@ -1,5 +1,6 @@
 # from spolacq_mod
 spolacq_mod/exp/*
+spolacq_mod/tools/eskmeans/results/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
