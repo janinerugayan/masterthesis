@@ -14,27 +14,39 @@ f = open(recog_result_path, "r")
 lines = f.readlines()
 
 res_dict['num_words'] = len(lines)
-res_dict['up'] = 0
-res_dict['down'] = 0
-res_dict['left'] = 0
-res_dict['right'] = 0
-res_dict['forward'] = 0
-res_dict['backward'] = 0
+res_dict['zero'] = 0
+res_dict['one'] = 0
+res_dict['two'] = 0
+res_dict['three'] = 0
+res_dict['four'] = 0
+res_dict['five'] = 0
+res_dict['six'] = 0
+res_dict['seven'] = 0
+res_dict['eight'] = 0
+res_dict['nine'] = 0
 
 for line in lines:
     line_words = line.split(" ")
-    if "up" in line_words[1]:
-        res_dict['up'] += 1
-    elif "down" in line_words[1]:
-        res_dict['down'] += 1
-    elif "left" in line_words[1]:
-        res_dict['left'] += 1
-    elif "right" in line_words[1]:
-        res_dict['right'] += 1
-    elif "forward" in line_words[1]:
-        res_dict['forward'] += 1
-    elif "backward" in line_words[1]:
-        res_dict['backward'] += 1
+    if "zero" in line_words[1]:
+        res_dict['zero'] += 1
+    elif "one" in line_words[1]:
+        res_dict['one'] += 1
+    elif "two" in line_words[1]:
+        res_dict['two'] += 1
+    elif "three" in line_words[1]:
+        res_dict['three'] += 1
+    elif "four" in line_words[1]:
+        res_dict['four'] += 1
+    elif "five" in line_words[1]:
+        res_dict['five'] += 1
+    elif "six" in line_words[1]:
+        res_dict['six'] += 1
+    elif "seven" in line_words[1]:
+        res_dict['seven'] += 1
+    elif "eight" in line_words[1]:
+        res_dict['eight'] += 1
+    elif "nine" in line_words[1]:
+        res_dict['nine'] += 1
 
 print(res_dict)
 

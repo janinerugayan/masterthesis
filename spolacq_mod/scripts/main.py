@@ -37,8 +37,8 @@ res_dict = {'num_words': 100, 'zero':5, 'one':5, 'two':5, 'three':5, 'four':5, '
             'seven':5, 'eight':5, 'nine':5}
 
 # read stt recog results - original code:
-# with open("../exp/pkls/recog_results_dict.pkl", "rb") as f:
-#     res_dict = pickle.load(f)
+with open("../exp/pkls/recog_results_dict.pkl", "rb") as f:
+    res_dict = pickle.load(f)
 
 env = Env(res_dict)
 
@@ -219,10 +219,10 @@ TARGET_UPDATE = 10  # for updating the target network, tokyo uni value = 10
 
 
 # for the experiments bash script:
-record_file = "../exp/rl_results_" + args.data_name +".csv"
+# record_file = "../exp/rl_results_" + args.data_name +".csv"
 
 # File for recording episode durations - original code:
-# record_file = "../exp/rl_results.csv"
+record_file = "../exp/rl_results.csv"
 
 
 # Random Seed
