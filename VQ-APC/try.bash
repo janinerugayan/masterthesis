@@ -16,7 +16,7 @@ python VQ-APC_word_seg.py --wordseg_algorithm=ag \
 
 conda activate vq-apc
 
-python VQ-APC_split_wav.py --preprocessed_wav_path=./preprocessed/8-mar_phoneseg/ \
+python VQ-APC_split_wav.py --preprocessed_wav_path=./preprocessed/9-mar_phoneseg/ \
 --wordseg_interval_dir=./results/9-mar_wordseg_ag/intervals/ \
 --output_dir=./results/9-mar_wordseg_ag
 
