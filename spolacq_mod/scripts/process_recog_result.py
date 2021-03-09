@@ -27,25 +27,25 @@ res_dict['nine'] = 0
 
 for line in lines:
     line_words = line.split(" ")
-    if "zero" in line_words[1]:
+    if "0" in line_words[1]:
         res_dict['zero'] += 1
-    elif "one" in line_words[1]:
+    elif "1" in line_words[1]:
         res_dict['one'] += 1
-    elif "two" in line_words[1]:
+    elif "2" in line_words[1]:
         res_dict['two'] += 1
-    elif "three" in line_words[1]:
+    elif "3" in line_words[1]:
         res_dict['three'] += 1
-    elif "four" in line_words[1]:
+    elif "4" in line_words[1]:
         res_dict['four'] += 1
-    elif "five" in line_words[1]:
+    elif "5" in line_words[1]:
         res_dict['five'] += 1
-    elif "six" in line_words[1]:
+    elif "6" in line_words[1]:
         res_dict['six'] += 1
-    elif "seven" in line_words[1]:
+    elif "7" in line_words[1]:
         res_dict['seven'] += 1
-    elif "eight" in line_words[1]:
+    elif "8" in line_words[1]:
         res_dict['eight'] += 1
-    elif "nine" in line_words[1]:
+    elif "9" in line_words[1]:
         res_dict['nine'] += 1
 
 print(res_dict)

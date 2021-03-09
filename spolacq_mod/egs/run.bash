@@ -59,6 +59,6 @@ cd -
 cd ../scripts/
 mkdir -p ../exp/res_imgs
 python process_recog_result.py --data_name=$1
-python main.py
+python main.py --data_name=$1
 
 cd -
