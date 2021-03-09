@@ -33,6 +33,8 @@ for filename in filenames:
     with sr.AudioFile(wav_path + '/' + filename) as source:
         audio = r.record(source)
 
+    print(f'Google stt recog on: {filename}')
+
     for j in range(5):
         try:
             recog_result = r.recognize_google(audio)
