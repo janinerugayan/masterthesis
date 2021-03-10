@@ -9,7 +9,7 @@ CUDA_VISIBLE_DEVICES=1 python train_vqapc.py --rnn_num_layers 3 \
                       --optimizer adam \
                       --batch_size 32  \
                       --learning_rate 0.0001 \
-                      --epochs 10 \
+                      --epochs 100 \
                       --n_future 5 \
                       --librispeech_home ./librispeech_data/preprocessed \
                       --train_partition train-clean-360 \

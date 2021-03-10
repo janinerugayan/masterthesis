@@ -88,18 +88,18 @@ pretrained_weights_path = args.pretrained_weights
 pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 
 # get VQ layer codebook
-# vq_layer = pretrained_vqapc.module.vq_layers
-# codebook_weight = vq_layer[-1].codebook_CxE.weight
-# codebook = np.transpose(codebook_weight.cpu().detach().numpy())
+vq_layer = pretrained_vqapc.module.vq_layers
+codebook_weight = vq_layer[-1].codebook_CxE.weight
+codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 
 # dummy codebook
-n_embeddings = 128
-embedding_dim = 512
-init_bound = 1 / 512
-embedding = torch.Tensor(n_embeddings, embedding_dim)
-embedding.uniform_(-init_bound, init_bound)
-codebook = embedding.cpu().detach().numpy()
-print(np.shape(codebook))
+# n_embeddings = 128
+# embedding_dim = 512
+# init_bound = 1 / 512
+# embedding = torch.Tensor(n_embeddings, embedding_dim)
+# embedding.uniform_(-init_bound, init_bound)
+# codebook = embedding.cpu().detach().numpy()
+# print(np.shape(codebook))
 
 
 
