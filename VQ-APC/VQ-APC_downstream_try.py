@@ -19,6 +19,7 @@ from vqapc_model import GumbelAPCModel
 
 from prepare_data import randomseg, CombinedSpeech, LoadSpeechSegment
 from prepare_data import process_wav_multiple, prepare_torch_lengths_multiple
+from perpare_data import process_wav, prepare_torch_lengths
 
 from phoneseg_algorithms import l2_segmentation
 
@@ -44,14 +45,17 @@ export_dir_path = args.preprocess_path + args.exp_name + '/'
 os.mkdir(export_dir_path)
 
 # randomly segment combined sound file
-min_len = 1500
-max_len = 2100
-randomseg(wav_path, export_dir_path, min_len, max_len)
+# min_len = 1500
+# max_len = 2100
+# randomseg(wav_path, export_dir_path, min_len, max_len)
 
 # process wav files to get log-mel feature vectors
-in_path = export_dir_path
-out_path = export_dir_path
-process_wav_multiple(in_path, out_path)
+# in_path = export_dir_path
+# out_path = export_dir_path
+# process_wav_multiple(in_path, out_path)
+
+# process one combined sound utterance
+process_wav(wav_path, export_dir_path)
 
 
 
@@ -59,12 +63,17 @@ process_wav_multiple(in_path, out_path)
 #   prepare data - following APC pipeline
 # ---------------------------------------------
 
+# wav_id = args.exp_name
+# logmel_path = export_dir_path
+# max_seq_len = 2000
+#
+# prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
+
+# process one combined sound utterance
+save_dir = args.preprocess_path + args.exp_name + '/'
 wav_id = args.exp_name
-logmel_path = export_dir_path
-max_seq_len = 2000
-
-prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id)
-
+logmel_path = export_dir_path + '_logmel.npy'
+prepare_torch_lengths(save_dir, wav_id, logmel_path)
 
 
 # ---------------------------------------------
