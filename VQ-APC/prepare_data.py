@@ -50,7 +50,7 @@ def process_wav(wav_path, out_path, sr=160000, preemph=0.97, n_fft=2048, n_mels=
     # np.save(out_path + '.wav.npy', wav)
     np.save(out_path + '_logmel.npy', np.transpose(logmel))
     # return out_path, logmel.shape[-1]
-    return logmel.shape[-1]
+    # return logmel.shape[-1]
 
 
 def prepare_torch_lengths(save_dir, utt_id, logmel_path):
