@@ -19,7 +19,7 @@ from vqapc_model import GumbelAPCModel
 
 from prepare_data import randomseg, CombinedSpeech, LoadSpeechSegment
 from prepare_data import process_wav_multiple, prepare_torch_lengths_multiple
-from perpare_data import process_wav, prepare_torch_lengths
+from prepare_data import process_wav, prepare_torch_lengths
 
 from phoneseg_algorithms import l2_segmentation
 
