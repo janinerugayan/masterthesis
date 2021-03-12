@@ -88,9 +88,9 @@ pretrained_weights_path = args.pretrained_weights
 pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 
 # get VQ layer codebook
-vq_layer = pretrained_vqapc.module.vq_layers
-codebook_weight = vq_layer[-1].codebook_CxE.weight
-codebook = np.transpose(codebook_weight.cpu().detach().numpy())
+# vq_layer = pretrained_vqapc.module.vq_layers
+# codebook_weight = vq_layer[-1].codebook_CxE.weight
+# codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 
 # dummy codebook
 # n_embeddings = 128
@@ -157,7 +157,10 @@ for file in os.listdir(prevq_path):
 
 
 # read embedding matrix
-embedding = codebook
+vq_layer = pretrained_vqapc.module.vq_layers
+codebook_weight = vq_layer[-1].codebook_CxE.weight
+embedding = np.transpose(codebook_weight.cpu().detach().numpy())
+# embedding = codebook
 print(f'Embedding matrix shape: {embedding.shape}')
 print(embedding)
 
@@ -165,7 +168,7 @@ print(embedding)
 # segmentation
 boundaries_dict = {}
 code_indices_dict = {}
-downsample_factor = 2
+downsample_factor = 1
 
 # using phoneseg algorithm: L2 Segmentation
 n_min_frames = 0
