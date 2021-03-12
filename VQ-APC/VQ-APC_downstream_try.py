@@ -45,7 +45,7 @@ os.mkdir(export_dir_path)
 
 # randomly segment combined sound file
 min_len = 1500
-max_len = 2100
+max_len = 2000
 randomseg(wav_path, export_dir_path, min_len, max_len)
 
 # process wav files to get log-mel feature vectors
