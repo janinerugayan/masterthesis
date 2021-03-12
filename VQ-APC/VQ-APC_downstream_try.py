@@ -51,11 +51,9 @@ randomseg(wav_path, export_dir_path, min_len, max_len)
 # process wav files to get log-mel feature vectors
 in_path = export_dir_path
 out_path = export_dir_path
-logmel_shape = process_wav_multiple(in_path, out_path)
+process_wav_multiple(in_path, out_path)
 
-print(logmel_shape)
 
-embed()
 
 # ---------------------------------------------
 #   prepare data - following APC pipeline
