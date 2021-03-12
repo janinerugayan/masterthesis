@@ -124,6 +124,8 @@ def process_wav_multiple(in_path, out_path, sr=160000, preemph=0.97, n_fft=2048,
 
             np.save(out_path + filename + '_logmel.npy', np.transpose(logmel))
 
+    return logmel.shape[-1]
+
 
 def prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id):
 
