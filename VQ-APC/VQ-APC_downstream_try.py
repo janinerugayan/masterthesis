@@ -165,6 +165,7 @@ print(embedding)
 # segmentation
 boundaries_dict = {}
 code_indices_dict = {}
+downsample_factor = 2
 
 # using phoneseg algorithm: L2 Segmentation
 n_min_frames = 0
@@ -179,6 +180,18 @@ for utt_key in prevq_dict:
     boundaries, code_indices = l2_segmentation(embedding, z, n_min_frames,
                                 n_max_frames, dur_weight)
     # do we need to upsample it? was it downsampled in the first place?
+    # (vqseg source: convert boundaries to same frequency as reference)
+    if downsample_factor > 1:
+        boundaries_upsampled = np.zeros(len(boundaries) * downsample_factor, dtype=bool)
+        for i, bound in enumerate(boundaries):
+            boundaries_upsampled[i * downsample_factor + 1] = bound
+        boundaries = boundaries_upsampled
+
+    code_indices_upsampled = []
+    for start, end, index in code_indices:
+        code_indices_upsampled.append((start*downsample_factor, end*downsample_factor, index))
+    code_indices = code_indices_upsampled
+
     boundaries_dict[utt_key] = boundaries
     code_indices_dict[utt_key] = code_indices
 
