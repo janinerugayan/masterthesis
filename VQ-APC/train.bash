@@ -16,5 +16,5 @@ python train_vqapc.py --rnn_num_layers 3 \
                       --train_sampling 1. \
                       --val_partition dev-clean \
                       --val_sampling 1. \
-                      --exp_name mar-10_training_100epochs \
+                      --exp_name mar-13_training_100epochs \
                       --store_path ./logs
