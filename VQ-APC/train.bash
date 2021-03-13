@@ -1,4 +1,4 @@
-python train_vqapc.py --rnn_num_layers 3 \
+CUDA_VISIBLE_DEVICES=1 python train_vqapc.py --rnn_num_layers 3 \
                       --rnn_hidden_size 512 \
                       --rnn_dropout 0.1 \
                       --rnn_residual \
