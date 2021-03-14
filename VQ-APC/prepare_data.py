@@ -32,7 +32,7 @@ def process_wav(wav_path, out_path, sr=160000, preemph=0.97, n_fft=2048, n_mels=
                 win_length=400, fmin=50, top_db=80, bits=8, offset=0.0, duration=None):
     wav, _ = librosa.load(wav_path, sr=sr,
                           offset=offset, duration=duration)
-    wav = wav / np.abs(wav).max() * 0.999
+    # wav = wav / np.abs(wav).max() * 0.999
 
     mel = librosa.feature.melspectrogram(preemphasis(wav, preemph),
                                          sr=sr,
@@ -43,7 +43,7 @@ def process_wav(wav_path, out_path, sr=160000, preemph=0.97, n_fft=2048, n_mels=
                                          fmin=fmin,
                                          power=1)
     logmel = librosa.amplitude_to_db(mel, top_db=top_db)
-    # logmel = logmel / top_db + 1
+    logmel = logmel / top_db + 1
 
     # wav = mulaw_encode(wav, mu=2**bits)
 
