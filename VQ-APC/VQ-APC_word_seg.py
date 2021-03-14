@@ -59,7 +59,7 @@ for utt_key in utterances:
         " ".join([i[2] + "_" for i in phoneseg_interval_dict[utt_key]])
         )
 word_segmentation = segment_func(prepared_text, **kwargs)
-print(prepared_text[:10])
+# print(prepared_text[:10])
 wordseg_interval_dict = {}
 for i_utt, utt_key in tqdm(enumerate(utterances)):
     words_segmented = word_segmentation[i_utt].split(" ")
