@@ -159,7 +159,6 @@ for file in os.listdir(prevq_path):
 # read embedding matrix
 embedding = codebook
 print(f'Embedding matrix shape: {embedding.shape}')
-print(embedding)
 
 
 # segmentation
@@ -174,7 +173,6 @@ dur_weight = 400  # 20**2
 
 for utt_key in prevq_dict:
     z = prevq_dict[utt_key]
-    print(np.shape(z))
     if z.ndim == 1:
         continue
     print(f'Performing phone segmentation on {utt_key}')
@@ -188,10 +186,10 @@ for utt_key in prevq_dict:
             boundaries_upsampled[i * downsample_factor + 1] = bound
         boundaries = boundaries_upsampled
 
-    code_indices_upsampled = []
-    for start, end, index in code_indices:
-        code_indices_upsampled.append((start*downsample_factor, end*downsample_factor, index))
-    code_indices = code_indices_upsampled
+        code_indices_upsampled = []
+        for start, end, index in code_indices:
+            code_indices_upsampled.append((start*downsample_factor, end*downsample_factor, index))
+        code_indices = code_indices_upsampled
 
     boundaries_dict[utt_key] = boundaries
     code_indices_dict[utt_key] = code_indices
