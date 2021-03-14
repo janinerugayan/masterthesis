@@ -174,6 +174,7 @@ dur_weight = 400  # 20**2
 
 for utt_key in prevq_dict:
     z = prevq_dict[utt_key]
+    print(z)
     if z.ndim == 1:
         continue
     print(f'Performing phone segmentation on {utt_key}')
