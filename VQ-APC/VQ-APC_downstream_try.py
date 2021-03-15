@@ -128,11 +128,12 @@ for file in os.listdir(logmel_path):
 
         testing = True
 
-        # with torch.set_grad_enabled(False):
-        for frames_BxLxM, lengths_B in dataset_loader:
-            frames_BxLxM = Variable(frames_BxLxM).cuda()
-            lengths_B = Variable(lengths_B).cuda()
-            __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+        with torch.set_grad_enabled(False):
+            for frames_BxLxM, lengths_B in dataset_loader:
+                _, indices_B = torch.sort(lengths_B, descending=True)
+                frames_BxLxM = Variable(frames_BxLxM[indices_B]).cuda()
+                lengths_B = Variable(lengths_B[indices_B]).cuda()
+                __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq_rnn_outputs.append(features[-1, :, :, :])
         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
