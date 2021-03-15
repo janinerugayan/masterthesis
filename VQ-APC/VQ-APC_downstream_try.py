@@ -157,8 +157,6 @@ for file in os.listdir(prevq_path):
         filename = Path(file).stem
         print(f'Reading pre-quantisation for {file}')
         prevq_dict[filename] = np.loadtxt(prevq_path + file)
-        z = prevq_dict[filename]
-        print(np.shape(z))
 
 
 # read embedding matrix

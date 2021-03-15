@@ -47,9 +47,11 @@ for file in os.listdir(phoneseg_dir):
         start = int(start)
         end = int(end)
         phoneseg_interval_dict[fn].append((start, end, label))
+        print(phoneseg_interval_dict[fn])
     f.close()
 
 utterances = phoneseg_interval_dict.keys()
+print(utterances)
 
 # Segmentation
 print("Segmenting:")
