@@ -130,13 +130,14 @@ for file in os.listdir(logmel_path):
 
         with torch.set_grad_enabled(False):
             for frames_BxLxM, lengths_B in dataset_loader:
+                print(lengths_B)
                 _, indices_B = torch.sort(lengths_B, descending=True)
                 frames_BxLxM = Variable(frames_BxLxM[indices_B]).cuda()
                 lengths_B = Variable(lengths_B[indices_B]).cuda()
-                __, features, __ = pretrained_vqapc(frames_BxLxM, lengths_B, testing)
+                __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq_rnn_outputs.append(features[-1, :, :, :])
-        prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
+        prevq = prevq_rnn_outputs.squeeze().cpu().detach().numpy()
 
         print(f'Pre-VQ shape: {np.shape(prevq)}')
 
