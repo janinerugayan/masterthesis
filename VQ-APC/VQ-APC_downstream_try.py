@@ -88,7 +88,7 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 pretrained_vqapc.eval()
 
 # get VQ layer codebook
-vq_layer = pretrained_vqapc.module.vq_layers
+vq_layer = pretrained_vqapc.vq_layers
 codebook_weight = vq_layer[-1].codebook_CxE.weight
 codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 
@@ -133,7 +133,7 @@ for file in os.listdir(logmel_path):
                 _, indices_B = torch.sort(lengths_B, descending=True)
                 frames_BxLxM = Variable(frames_BxLxM[indices_B]).cuda()
                 lengths_B = Variable(lengths_B[indices_B]).cuda()
-                __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+                __, features, __ = pretrained_vqapc(frames_BxLxM, lengths_B, testing)
 
         prevq_rnn_outputs.append(features[-1, :, :, :])
         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
