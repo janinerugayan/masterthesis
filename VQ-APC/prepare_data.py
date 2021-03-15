@@ -108,7 +108,7 @@ def process_wav_multiple(in_path, out_path, sr=160000, preemph=0.97, n_fft=2048,
     for file in os.listdir(in_path):
         if file.endswith('.wav'):
             path = in_path + file
-            wav, _ = librosa.load(path, sr=sr, offset=offset, duration=duration)
+            wav, _ = librosa.load(path, sr=sr)
             wav = wav / np.abs(wav).max() * 0.999
             mel = librosa.feature.melspectrogram(preemphasis(wav, preemph),
                                                  sr=sr,
@@ -125,7 +125,7 @@ def process_wav_multiple(in_path, out_path, sr=160000, preemph=0.97, n_fft=2048,
 
             np.save(out_path + filename + '_logmel.npy', np.transpose(logmel))
             with open(out_path + filename + '_logmel.txt', 'w') as file:
-                np.savetxt(file, logmel, fmt='%.6f')
+                np.savetxt(file, np.transpose(logmel), fmt='%.6f')
 
 
 def prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id):
