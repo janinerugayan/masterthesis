@@ -88,9 +88,9 @@ pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 pretrained_vqapc.eval()
 
 # get VQ layer codebook
-vq_layer = pretrained_vqapc.module.vq_layers
-codebook_weight = vq_layer[-1].codebook_CxE.weight
-codebook = np.transpose(codebook_weight.cpu().detach().numpy())
+# vq_layer = pretrained_vqapc.module.vq_layers
+# codebook_weight = vq_layer[-1].codebook_CxE.weight
+# codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 
 # dummy codebook
 # n_embeddings = 128
@@ -160,8 +160,10 @@ for file in os.listdir(prevq_path):
 
 
 # read embedding matrix
-embedding = codebook
-print(f'Embedding matrix shape: {embedding.shape}')
+vq_layer = pretrained_vqapc.module.vq_layers
+codebook_weight = vq_layer[-1].codebook_CxE.weight
+codebook = np.transpose(codebook_weight.cpu().detach().numpy())
+print(f'Embedding matrix shape: {codebook.shape}')
 
 
 # segmentation
@@ -179,7 +181,8 @@ for utt_key in prevq_dict:
     if z.ndim == 1:
         continue
     print(f'Performing phone segmentation on {utt_key}')
-    boundaries, code_indices = l2_segmentation(embedding, z, n_min_frames,
+    print(z.shape[0])
+    boundaries, code_indices = l2_segmentation(codebook, z, n_min_frames,
                                 n_max_frames, dur_weight)
     # do we need to upsample it? was it downsampled in the first place?
     # (vqseg source: convert boundaries to same frequency as reference)
