@@ -137,9 +137,9 @@ for file in os.listdir(logmel_path):
 
         prevq_rnn_outputs = features[-1, :, :, :]
 
-        prevq = prevq_rnn_outputs.pop().squeeze().cpu().numpy()
-
         embed()
+
+        prevq = prevq_rnn_outputs.squeeze().cpu().numpy()
 
         print(f'Pre-VQ shape: {np.shape(prevq)}')
 
