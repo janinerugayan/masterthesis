@@ -15,8 +15,8 @@ f = open(output_dir + '/stt_results.txt', 'a')
 r = sr.Recognizer()
 
 recog_dict = {}
-num_words = 0
 
+recog_dict['num_words'] = 0
 recog_dict['zero'] = 0
 recog_dict['one'] = 0
 recog_dict['two'] = 0
@@ -44,7 +44,7 @@ for filename in filenames:
         try:
             recog_result = r.recognize_google(audio)
             f.write(filename + ' ' + recog_result + '\n')
-            num_words += 1
+            recog_dict['num_words'] += 1
             if recog_result == "0":
                 recog_dict['zero'] += 1
             elif recog_result == "1":
@@ -72,7 +72,7 @@ for filename in filenames:
 
         if 4 == j:
             f.write(filename + ' ' + 'Google Speech Recognition could not understand audio' + '\n')
-            num_words += 1
+            recog_dict['num_words'] += 1
 
 f.close()
 
