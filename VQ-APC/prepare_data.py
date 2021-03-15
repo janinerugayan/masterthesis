@@ -108,7 +108,7 @@ def process_wav_multiple(in_path, out_path, sr=160000, preemph=0.97, n_fft=2048,
     for file in os.listdir(in_path):
         if file.endswith('.wav'):
             path = in_path + file
-            wav, _ = librosa.load(path, sr=sr)
+            wav, _ = librosa.load(path, sr=sr, offset=offset, duration=duration)  # removed offset and duration, because individual wav files are processed
             wav = wav / np.abs(wav).max() * 0.999
             mel = librosa.feature.melspectrogram(preemphasis(wav, preemph),
                                                  sr=sr,
