@@ -139,6 +139,8 @@ for file in os.listdir(logmel_path):
 
         prevq = prevq_rnn_outputs.pop().squeeze().cpu().numpy()
 
+        embed()
+
         print(f'Pre-VQ shape: {np.shape(prevq)}')
 
         with open(output_dir + filename + '.txt', 'w') as file:
