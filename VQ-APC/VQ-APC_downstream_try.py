@@ -135,7 +135,7 @@ for file in os.listdir(logmel_path):
 
         prevq_rnn_outputs.append(features[-1, :, :, :])
         prevq = prevq_rnn_outputs.pop().squeeze().cpu().detach().numpy()
-        
+
         print(f'Pre-VQ shape: {np.shape(prevq)}')
 
         with open(output_dir + filename + '.txt', 'w') as file:
@@ -165,7 +165,7 @@ print(f'Embedding matrix shape: {embedding.shape}')
 # segmentation
 boundaries_dict = {}
 code_indices_dict = {}
-downsample_factor = 1
+downsample_factor = 1 # downsampling not required because vq-apc doesnt have convolutional layer
 
 # using phoneseg algorithm: L2 Segmentation
 n_min_frames = 0
