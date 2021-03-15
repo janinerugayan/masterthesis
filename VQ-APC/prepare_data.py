@@ -121,6 +121,7 @@ def process_wav_multiple(in_path, out_path, sr=160000, preemph=0.97, n_fft=2048,
             # logmel = librosa.amplitude_to_db(mel, top_db=top_db)
             # logmel = logmel / top_db + 1
             wav, sr = librosa.load(path, sr=44100, offset=offset, duration=duration)
+            wav = wav / np.abs(wav).max() * 0.999
             mel = librosa.feature.melspectrogram(wav,
                                                  sr=sr,
                                                  n_fft=n_fft,
@@ -130,7 +131,6 @@ def process_wav_multiple(in_path, out_path, sr=160000, preemph=0.97, n_fft=2048,
                                                  fmin=fmin,
                                                  power=1)
             logmel = librosa.amplitude_to_db(mel, top_db=top_db)
-            logmel = logmel / top_db + 1
 
             filename = Path(file).stem
 
