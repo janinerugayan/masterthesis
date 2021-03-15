@@ -108,7 +108,7 @@ def process_wav_multiple(in_path, out_path, sr=160000, preemph=0.97, n_fft=2048,
     for file in os.listdir(in_path):
         if file.endswith('.wav'):
             path = in_path + file
-            wav, _ = librosa.load(path, sr=sr, offset=offset, duration=duration)  # removed offset and duration, because individual wav files are processed
+            wav, _ = librosa.load(path, sr=sr)  # removed offset and duration, because individual wav files are processed
             wav = wav / np.abs(wav).max() * 0.999
             mel = librosa.feature.melspectrogram(preemphasis(wav, preemph),
                                                  sr=sr,
@@ -128,15 +128,16 @@ def process_wav_multiple(in_path, out_path, sr=160000, preemph=0.97, n_fft=2048,
                 np.savetxt(file, np.transpose(logmel), fmt='%.6f')
 
 
-def prepare_torch_lengths_multiple(logmel_path, max_seq_len, wav_id):
+def prepare_torch_lengths_multiple(logmel_path, max_seq_len):
 
     id2len = {}
 
     for file in os.listdir(logmel_path):
-        log_mel = []
         if file.endswith('.npy'):
+            log_mel = []
             filename = Path(file).stem
             data = np.load(logmel_path + file)
+            print(len(data))
             for row in range(len(data)):
                 log_mel.append([float(i) for i in data[row]])
             id2len[filename + '.pt'] = min(len(log_mel), max_seq_len)
