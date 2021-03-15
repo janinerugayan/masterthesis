@@ -39,19 +39,19 @@ args = parser.parse_args()
 #   mel spectrogram - 80-dimensional
 # ---------------------------------------------
 
-wav_path = args.sound_file
-export_dir_path = args.preprocess_path + args.exp_name + '/'
-os.mkdir(export_dir_path)
-
-# randomly segment combined sound file
-min_len = 1500
-max_len = 2000
-randomseg(wav_path, export_dir_path, min_len, max_len)
-
-# process wav files to get log-mel feature vectors
-in_path = export_dir_path
-out_path = export_dir_path
-process_wav_multiple(in_path, out_path)
+# wav_path = args.sound_file
+# export_dir_path = args.preprocess_path + args.exp_name + '/'
+# os.mkdir(export_dir_path)
+#
+# # randomly segment combined sound file
+# min_len = 1500
+# max_len = 2000
+# randomseg(wav_path, export_dir_path, min_len, max_len)
+#
+# # process wav files to get log-mel feature vectors
+# in_path = export_dir_path
+# out_path = export_dir_path
+# process_wav_multiple(in_path, out_path)
 
 
 
@@ -59,10 +59,10 @@ process_wav_multiple(in_path, out_path)
 #   prepare data - following APC pipeline
 # ---------------------------------------------
 
-logmel_path = export_dir_path
-max_seq_len = 2000
-
-prepare_torch_lengths_multiple(logmel_path, max_seq_len)
+# logmel_path = export_dir_path
+# max_seq_len = 2000
+#
+# prepare_torch_lengths_multiple(logmel_path, max_seq_len)
 
 
 
@@ -85,6 +85,7 @@ pretrained_vqapc = nn.DataParallel(pretrained_vqapc)
 
 pretrained_weights_path = args.pretrained_weights
 pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
+pretrained_vqapc.eval()
 
 # get VQ layer codebook
 vq_layer = pretrained_vqapc.module.vq_layers
@@ -127,6 +128,7 @@ for file in os.listdir(logmel_path):
 
         testing = True
 
+        # with torch.set_grad_enabled(False):
         for frames_BxLxM, lengths_B in dataset_loader:
             frames_BxLxM = Variable(frames_BxLxM).cuda()
             lengths_B = Variable(lengths_B).cuda()

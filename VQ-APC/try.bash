@@ -1,6 +1,6 @@
-cd preprocessed
-rm -rv 14-mar_check*
-cd ../results
+# cd preprocessed
+# rm -rv 14-mar_check*
+cd results
 rm -rv 14-mar_check*
 cd ..
 

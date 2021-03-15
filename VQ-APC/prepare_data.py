@@ -140,7 +140,6 @@ def prepare_torch_lengths_multiple(logmel_path, max_seq_len):
             for row in range(len(data)):
                 log_mel.append([float(i) for i in data[row]])
             id2len[filename + '.pt'] = min(len(log_mel), max_seq_len)
-            print(id2len[filename + '.pt'])
             # id2len[filename + '.pt'] = len(log_mel)
             log_mel = torch.FloatTensor(log_mel)  # convert 2D list to a pytorch tensor
             log_mel = F.pad(log_mel, (0, 0, 0, max_seq_len - log_mel.size(0))) # pad or truncate
