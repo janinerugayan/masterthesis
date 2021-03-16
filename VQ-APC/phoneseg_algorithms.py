@@ -146,7 +146,7 @@ def l2_segmentation(embedding, z, n_min_frames=0, n_max_frames=15,
 
     # Distances between each z and each embedding (squared Euclidean)
     embedding_distances = distance.cdist(z, embedding, metric="sqeuclidean")
-    print("embedding_distances shape: {}".format(embedding_distances.shape))
+    # print("embedding_distances shape: {}".format(embedding_distances.shape))
 
     # Costs for segment intervals
     segment_intervals = get_segment_intervals(z.shape[0], n_max_frames)
