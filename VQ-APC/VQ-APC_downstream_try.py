@@ -133,13 +133,15 @@ for file in os.listdir(logmel_path):
                 _, indices_B = torch.sort(lengths_B, descending=True)
                 frames_BxLxM = Variable(frames_BxLxM[indices_B]).cuda()
                 lengths_B = Variable(lengths_B[indices_B]).cuda()
-                __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+                __, __, features = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq_rnn_outputs = features[-1, :, :, :]
 
         prevq = prevq_rnn_outputs.squeeze().cpu().numpy()
 
         print(f'Pre-VQ shape: {np.shape(prevq)}')
+
+        embed()
 
         with open(output_dir + filename + '.txt', 'w') as file:
             np.savetxt(file, prevq, fmt='%.16f')
