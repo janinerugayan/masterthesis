@@ -87,10 +87,10 @@ pretrained_weights_path = args.pretrained_weights
 pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 pretrained_vqapc.eval()
 
-# get VQ layer codebook
-# vq_layer = pretrained_vqapc.module.vq_layers
-# codebook_weight = vq_layer[-1].codebook_CxE.weight
-# codebook = np.transpose(codebook_weight.cpu().detach().numpy())
+# read embedding matrix, get VQ layer codebook
+vq_layer = pretrained_vqapc.module.vq_layers
+codebook_weight = vq_layer[-1].codebook_CxE.weight
+codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 
 # dummy codebook
 # n_embeddings = 128
@@ -131,11 +131,13 @@ for file in os.listdir(logmel_path):
         with torch.set_grad_enabled(False):
             for frames_BxLxM, lengths_B in dataset_loader:
                 _, indices_B = torch.sort(lengths_B, descending=True)
+                print(indices_B)
+
+                embed()
+                
                 frames_BxLxM = Variable(frames_BxLxM[indices_B]).cuda()
                 lengths_B = Variable(lengths_B[indices_B]).cuda()
-                __, __, features = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
-
-        embed()
+                __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq_rnn_outputs = features[-1, :, :, :]
 
@@ -161,13 +163,7 @@ for file in os.listdir(prevq_path):
         print(f'Reading pre-quantisation for {file}')
         prevq_dict[filename] = np.loadtxt(prevq_path + file)
 
-
-# read embedding matrix
-vq_layer = pretrained_vqapc.module.vq_layers
-codebook_weight = vq_layer[-1].codebook_CxE.weight
-codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 print(f'Embedding matrix shape: {codebook.shape}')
-
 
 # segmentation
 boundaries_dict = {}
