@@ -17,12 +17,12 @@ eval "$(conda shell.bash hook)"
 conda activate wordseg
 
 python VQ-APC_word_seg.py --wordseg_algorithm=ag \
---phoneseg_interval_dir=./results/16-mar_check_phoneseg_ag/intervals/ \
+--phoneseg_interval_dir=./results/16-mar_check_phoneseg/intervals/ \
 --output_dir=./results/16-mar_check_wordseg_ag
 
 conda activate vq-apc
 
-python VQ-APC_split_wav.py --preprocessed_wav_path=./preprocessed/16-mar_check_phoneseg_ag/ \
+python VQ-APC_split_wav.py --preprocessed_wav_path=./preprocessed/16-mar_check_phoneseg/ \
 --wordseg_interval_dir=./results/16-mar_check_wordseg_ag/intervals/ \
 --output_dir=./results/16-mar_check_wordseg_ag
 
