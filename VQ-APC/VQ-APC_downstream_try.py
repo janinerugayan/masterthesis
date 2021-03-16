@@ -130,13 +130,8 @@ for file in os.listdir(logmel_path):
 
         with torch.set_grad_enabled(False):
             for frames_BxLxM, lengths_B in dataset_loader:
-                _, indices_B = torch.sort(lengths_B, descending=True)
-                print(indices_B)
-
-                embed()
-                
-                frames_BxLxM = Variable(frames_BxLxM[indices_B]).cuda()
-                lengths_B = Variable(lengths_B[indices_B]).cuda()
+                frames_BxLxM = Variable(frames_BxLxM).cuda()
+                lengths_B = Variable(lengths_B).cuda()
                 __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq_rnn_outputs = features[-1, :, :, :]

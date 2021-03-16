@@ -10,7 +10,7 @@ conda activate vq-apc
 
 python VQ-APC_downstream_try.py --exp_name=14-mar_check_phoneseg \
 --sound_file=./wavs/numbers_shuffled.wav \
---pretrained_weights=./logs/mar-10_training_100epochs.dir/mar-10_training_100epochs__epoch_79.model \
+--pretrained_weights=./logs/mar-13_training_100epochs.dir/mar-13_training_100epochs__epoch_100.model \
 --preprocess_path=./preprocessed/ \
 --out_path=./results/
 
