@@ -8,7 +8,7 @@ eval "$(conda shell.bash hook)"
 
 conda activate vq-apc
 
-python VQ-APC_downstream_try.py --exp_name=16-mar_check_phoneseg \
+python VQ-APC_downstream_try.py --exp_name=16-mar_check_phoneseg_ag \
 --sound_file=./wavs/numbers_shuffled.wav \
 --pretrained_weights=./logs/mar-13_training_100epochs.dir/mar-13_training_100epochs__epoch_100.model \
 --preprocess_path=./preprocessed/ \
