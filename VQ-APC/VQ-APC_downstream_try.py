@@ -39,19 +39,19 @@ args = parser.parse_args()
 #   mel spectrogram - 80-dimensional
 # ---------------------------------------------
 
-# wav_path = args.sound_file
-# export_dir_path = args.preprocess_path + args.exp_name + '/'
-# os.mkdir(export_dir_path)
-#
-# # randomly segment combined sound file
-# min_len = 1500
-# max_len = 2000
-# randomseg(wav_path, export_dir_path, min_len, max_len)
-#
-# # process wav files to get log-mel feature vectors
-# in_path = export_dir_path
-# out_path = export_dir_path
-# process_wav_multiple(in_path, out_path)
+wav_path = args.sound_file
+export_dir_path = args.preprocess_path + args.exp_name + '/'
+os.mkdir(export_dir_path)
+
+# randomly segment combined sound file
+min_len = 1500
+max_len = 2000
+randomseg(wav_path, export_dir_path, min_len, max_len)
+
+# process wav files to get log-mel feature vectors
+in_path = export_dir_path
+out_path = export_dir_path
+process_wav_multiple(in_path, out_path)
 
 
 
@@ -59,10 +59,10 @@ args = parser.parse_args()
 #   prepare data - following APC pipeline
 # ---------------------------------------------
 
-# logmel_path = export_dir_path
-# max_seq_len = 2000
-#
-# prepare_torch_lengths_multiple(logmel_path, max_seq_len)
+logmel_path = export_dir_path
+max_seq_len = 2000
+
+prepare_torch_lengths_multiple(logmel_path, max_seq_len)
 
 
 
@@ -107,41 +107,41 @@ codebook = np.transpose(codebook_weight.cpu().detach().numpy())
 #   using forward method of model class with preprocessed data
 # -----------------------------------------------------------------
 
-# logmel_path = args.preprocess_path + args.exp_name + '/'
-#
-# output_dir = args.out_path + args.exp_name + '/prevq/'
-# os.makedirs(output_dir)
-#
-# for file in os.listdir(logmel_path):
-#
-#     features = []
-#     prevq_rnn_outputs = []
-#
-#     if file.endswith('.pt'):
-#
-#         print(f'VQ-APC working on: {file}')
-#
-#         filename = Path(file).stem
-#
-#         dataset = LoadSpeechSegment(logmel_path, file)
-#         dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=False, drop_last=True)
-#
-#         testing = True
-#
-#         with torch.set_grad_enabled(False):
-#             for frames_BxLxM, lengths_B in dataset_loader:
-#                 frames_BxLxM = Variable(frames_BxLxM).cuda()
-#                 lengths_B = Variable(lengths_B).cuda()
-#                 __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
-#
-#         prevq_rnn_outputs = features[-1, :, :, :]
-#
-#         prevq = prevq_rnn_outputs.squeeze().cpu().numpy()
-#
-#         print(f'Pre-VQ shape: {np.shape(prevq)}')
-# 
-#         with open(output_dir + filename + '.txt', 'w') as file:
-#             np.savetxt(file, prevq, fmt='%.16f')
+logmel_path = args.preprocess_path + args.exp_name + '/'
+
+output_dir = args.out_path + args.exp_name + '/prevq/'
+os.makedirs(output_dir)
+
+for file in os.listdir(logmel_path):
+
+    features = []
+    prevq_rnn_outputs = []
+
+    if file.endswith('.pt'):
+
+        print(f'VQ-APC working on: {file}')
+
+        filename = Path(file).stem
+
+        dataset = LoadSpeechSegment(logmel_path, file)
+        dataset_loader = data.DataLoader(dataset, batch_size=1, num_workers=8, shuffle=False, drop_last=True)
+
+        testing = True
+
+        with torch.set_grad_enabled(False):
+            for frames_BxLxM, lengths_B in dataset_loader:
+                frames_BxLxM = Variable(frames_BxLxM).cuda()
+                lengths_B = Variable(lengths_B).cuda()
+                __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+
+        prevq_rnn_outputs = features[-1, :, :, :]
+
+        prevq = prevq_rnn_outputs.squeeze().cpu().numpy()
+
+        print(f'Pre-VQ shape: {np.shape(prevq)}')
+
+        with open(output_dir + filename + '.txt', 'w') as file:
+            np.savetxt(file, prevq, fmt='%.16f')
 
 
 
