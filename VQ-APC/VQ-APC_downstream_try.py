@@ -168,7 +168,7 @@ downsample_factor = 1 # downsampling not required because vq-apc doesnt have con
 # using phoneseg algorithm: L2 Segmentation
 n_min_frames = 0
 n_max_frames = 15
-dur_weight = 100  # 20**2
+dur_weight = 400  # 20**2
 
 for utt_key in prevq_dict:
     z = prevq_dict[utt_key]
