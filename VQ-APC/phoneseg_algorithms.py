@@ -176,14 +176,11 @@ def l2_segmentation(embedding, z, output_path, utt_key, n_min_frames=0, n_max_fr
         for j in np.where(boundaries)[0]:
             i_start = j_prev
             i_end = j + 1
+
             # for observing the resulting embedding distances
             distances = np.sum(embedding_distances[i_start:i_end, :], axis=0)
-            code = np.argmin(distances)
-
-            embed()
-
             distances_record.append(distances)
-            distances_record.append(code)
+
             # code = np.argmin(np.sum(embedding_distances[i_start:i_end, :], axis=0))  # original code
             segmented_codes.append((i_start, i_end, code))
             j_prev = j + 1
