@@ -1,8 +1,8 @@
-# cd preprocessed
-# rm -rv 16-mar_check*
-# cd ../results
-# rm -rv 16-mar_check*
-# cd ..
+cd preprocessed
+rm -rv 18-mar_check*
+cd ../results
+rm -rv 18-mar_check*
+cd ..
 
 eval "$(conda shell.bash hook)"
 
