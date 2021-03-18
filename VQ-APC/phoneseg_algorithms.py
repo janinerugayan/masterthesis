@@ -142,54 +142,54 @@ def custom_viterbi(costs, n_frames):
 
 def l2_segmentation(embedding, z, n_min_frames=0, n_max_frames=15, dur_weight=20**2, output_path, utt_key):
 
-    # Hyperparameters
-    count_weight = 0
+        # Hyperparameters
+        count_weight = 0
 
-    # Distances between each z and each embedding (squared Euclidean)
-    embedding_distances = distance.cdist(z, embedding, metric="sqeuclidean")
-    # print("embedding_distances shape: {}".format(embedding_distances.shape))
+        # Distances between each z and each embedding (squared Euclidean)
+        embedding_distances = distance.cdist(z, embedding, metric="sqeuclidean")
+        # print("embedding_distances shape: {}".format(embedding_distances.shape))
 
-    # Costs for segment intervals
-    segment_intervals = get_segment_intervals(z.shape[0], n_max_frames)
-    costs = np.inf*np.ones(len(segment_intervals))
-    for i_seg, interval in enumerate(segment_intervals):
-        if interval is None:
-            continue
-        i_start, i_end = interval
-        dur = i_end - i_start
-        if dur < n_min_frames:
-            continue
-        cost = np.min(
-            np.sum(embedding_distances[i_start:i_end, :], axis=0)
-            ) - dur_weight*(dur - 1) + count_weight
-        costs[i_seg] = cost
+        # Costs for segment intervals
+        segment_intervals = get_segment_intervals(z.shape[0], n_max_frames)
+        costs = np.inf*np.ones(len(segment_intervals))
+        for i_seg, interval in enumerate(segment_intervals):
+            if interval is None:
+                continue
+            i_start, i_end = interval
+            dur = i_end - i_start
+            if dur < n_min_frames:
+                continue
+            cost = np.min(
+                np.sum(embedding_distances[i_start:i_end, :], axis=0)
+                ) - dur_weight*(dur - 1) + count_weight
+            costs[i_seg] = cost
 
-    # Viterbi segmentation
-    summed_cost, boundaries = custom_viterbi(costs, z.shape[0])
+        # Viterbi segmentation
+        summed_cost, boundaries = custom_viterbi(costs, z.shape[0])
 
-    # for recording embedding distances:
-    distances_record = []
+        # for recording embedding distances:
+        distances_record = []
 
-    # Code assignments
-    segmented_codes = []
-    j_prev = 0
-    for j in np.where(boundaries)[0]:
-        i_start = j_prev
-        i_end = j + 1
-        # for observing the resulting embedding distances
-        distances = np.sum(embedding_distances[i_start:i_end, :], axis=0)
-        code = np.argmin(distances)
-        distances_record.append(distances, code)
-        # code = np.argmin(np.sum(embedding_distances[i_start:i_end, :], axis=0))  # original code
-        segmented_codes.append((i_start, i_end, code))
-        j_prev = j + 1
+        # Code assignments
+        segmented_codes = []
+        j_prev = 0
+        for j in np.where(boundaries)[0]:
+            i_start = j_prev
+            i_end = j + 1
+            # for observing the resulting embedding distances
+            distances = np.sum(embedding_distances[i_start:i_end, :], axis=0)
+            code = np.argmin(distances)
+            distances_record.append(distances, code)
+            # code = np.argmin(np.sum(embedding_distances[i_start:i_end, :], axis=0))  # original code
+            segmented_codes.append((i_start, i_end, code))
+            j_prev = j + 1
 
-    # for recording embedding distances:
-    embedding_file = output_path + utt_key + '_embedding_dist.csv'
-    df_embedding = pd.DataFrame(distances_record)
-    df_embedding.to_csv(embedding_file, index=True, header=False, mode='w')
+        # for recording embedding distances:
+        embedding_file = output_path + utt_key + '_embedding_dist.csv'
+        df_embedding = pd.DataFrame(distances_record)
+        df_embedding.to_csv(embedding_file, index=True, header=False, mode='w')
 
-    return boundaries, segmented_codes
+        return boundaries, segmented_codes
 
 
 #-----------------------------------------------------------------------------#
