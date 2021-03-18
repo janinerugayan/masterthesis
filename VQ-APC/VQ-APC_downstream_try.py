@@ -180,7 +180,7 @@ for utt_key in prevq_dict:
     output_path = args.out_path + args.exp_name + '/embedding_dist/'
     os.makedirs(output_path)
 
-    boundaries, code_indices = l2_segmentation(codebook, z, n_min_frames, n_max_frames, dur_weight, output_path, utt_key)
+    boundaries, code_indices = l2_segmentation(codebook, z, output_path, utt_key, n_min_frames, n_max_frames, dur_weight)
     # boundaries, code_indices = l2_segmentation(codebook, z, n_min_frames,
     #                             n_max_frames, dur_weight)  # original code
     # do we need to upsample it? np, it was not downsampled by a conv layer
