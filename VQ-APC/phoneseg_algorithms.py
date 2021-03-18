@@ -11,7 +11,7 @@ from sklearn.cluster import AgglomerativeClustering
 import numpy as np
 
 import pandas as pd
-
+from IPython import embed
 
 #-----------------------------------------------------------------------------#
 #                             GREEDY SEGMENTATION                             #
