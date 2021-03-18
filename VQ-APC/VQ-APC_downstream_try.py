@@ -175,9 +175,14 @@ for utt_key in prevq_dict:
     if z.ndim == 1:
         continue
     print(f'Performing phone segmentation on {utt_key}')
+    # for observing the embedding distance output:
+    output_path = args.out_path + args.exp_name + '/embedding_dist/'
+    os.makedirs(output_path)
     boundaries, code_indices = l2_segmentation(codebook, z, n_min_frames,
-                                n_max_frames, dur_weight)
-    # do we need to upsample it? was it downsampled in the first place?
+                                n_max_frames, dur_weight, output_path, utt_key)
+    # boundaries, code_indices = l2_segmentation(codebook, z, n_min_frames,
+    #                             n_max_frames, dur_weight)  # original code
+    # do we need to upsample it? np, it was not downsampled by a conv layer
     # (vqseg source: convert boundaries to same frequency as reference)
     if downsample_factor > 1:
         boundaries_upsampled = np.zeros(len(boundaries) * downsample_factor, dtype=bool)
