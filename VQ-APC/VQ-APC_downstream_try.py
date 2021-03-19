@@ -170,15 +170,15 @@ n_min_frames = 0
 n_max_frames = 15
 dur_weight = 400  # 20**2
 
+# for observing the embedding distance output:
+output_path = args.out_path + args.exp_name + '/embedding_dist/'
+os.makedirs(output_path)
+
 for utt_key in prevq_dict:
     z = prevq_dict[utt_key]
     if z.ndim == 1:
         continue
     print(f'Performing phone segmentation on {utt_key}')
-
-    # for observing the embedding distance output:
-    output_path = args.out_path + args.exp_name + '/embedding_dist/'
-    os.makedirs(output_path)
 
     boundaries, code_indices = l2_segmentation(codebook, z, output_path, utt_key, n_min_frames, n_max_frames, dur_weight)
     # boundaries, code_indices = l2_segmentation(codebook, z, n_min_frames,
