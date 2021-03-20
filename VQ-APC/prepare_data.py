@@ -99,7 +99,7 @@ def randomseg(wav_path, export_dir_path, min_len, max_len):
         wav_segment.export(export_dir_path + str(count) + '.wav', format="wav")
         count += 1
         t_start = t_start + rand_duration
-        break # remove later, this is just for testing 1 segment of speech
+        # break # remove later, this is just for testing 1 segment of speech
 
 
 def process_wav_multiple(in_path, out_path, sr=160000, preemph=0.97, n_fft=2048, n_mels=80, hop_length=160,
