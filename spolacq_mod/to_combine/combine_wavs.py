@@ -18,13 +18,13 @@ def rename(path, name):
 
 
 
-_, _, filenames = next(os.walk("numbers_shuffled/segments/"), (None, None, []))
+_, _, filenames = next(os.walk("1utt_numbers/zero-to-nine/"), (None, None, []))
 
-# filenames.sort()
+filenames.sort()
 
-random.shuffle(filenames)
+# random.shuffle(filenames)
 
-f = open('numbers_shuffled/words_wav_list.txt', 'a')
+f = open('1utt_numbers/words_wav_list.txt', 'a')
 
 for filename in enumerate(filenames):
     f.write(str(filename) + ' ' + '\n')
@@ -36,11 +36,11 @@ from pydub import AudioSegment
 combined_sounds = None
 for i, filename in enumerate(filenames):
     if combined_sounds is None:
-        combined_sounds = AudioSegment.from_wav("numbers_shuffled/segments/" + filename)
+        combined_sounds = AudioSegment.from_wav("1utt_numbers/zero-to-nine/" + filename)
     else:
-        combined_sounds = combined_sounds + AudioSegment.from_wav("numbers_shuffled/segments/" + filename)
+        combined_sounds = combined_sounds + AudioSegment.from_wav("1utt_numbers/zero-to-nine/" + filename)
 
-combined_sounds.export("numbers_shuffled/numbers_shuffled.wav", format="wav")
+combined_sounds.export("1utt_numbers/1utt_numbers.wav", format="wav")
 
 print('done combining!')
 
