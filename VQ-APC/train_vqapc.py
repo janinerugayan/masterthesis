@@ -138,8 +138,8 @@ def main():
 
 
   # loading checkpoint weights
-  if args.checkpoint_model != None:
-    pretrained_weights_path = args.checkpoint_model
+  if config.checkpoint_model != None:
+    pretrained_weights_path = config.checkpoint_model
     model.module.load_state_dict(torch.load(pretrained_weights_path))
 
 
@@ -174,10 +174,10 @@ def main():
 
 
   # for setting the start epoch number of training if loading from checkpoint
-  if args.checkpoint_epoch == 0:
+  if config.checkpoint_epoch == 0:
     start = 0
   else:
-    start = args.checkpoint_epoch + 1
+    start = config.checkpoint_epoch + 1
 
 
   for epoch_i in range(start, config.epochs):
