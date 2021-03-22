@@ -80,6 +80,10 @@ def main():
                       default="./logs",
                       help="Where to save the trained models and logs.")
 
+  # checkpoint configuration
+  parser.add_argument("--checkpoint_model", default=None, type=str)
+  parser.add_argument("--checkpoint_epoch", default=0, type=int)
+
   config = parser.parse_args()
 
   # Create the directory to dump exp logs and models.
@@ -132,6 +136,13 @@ def main():
                          apply_VQ=apply_VQ).cuda()
   model = nn.DataParallel(model)
 
+
+  # loading checkpoint weights
+  if args.checkpoint_model != None:
+    pretrained_weights_path = args.checkpoint_model
+    model.module.load_state_dict(torch.load(pretrained_weights_path))
+
+
   criterion = nn.L1Loss()
   optimizer = optim.Adam(model.parameters(), lr=config.learning_rate)
 
@@ -160,7 +171,16 @@ def main():
     open(os.path.join(model_dir, config.exp_name + '__epoch_0.model'), 'wb'))
 
   global_step = 0
-  for epoch_i in range(config.epochs):
+
+
+  # for setting the start epoch number of training if loading from checkpoint
+  if args.checkpoint_epoch == 0:
+    start = 0
+  else:
+    start = args.checkpoint_epoch + 1
+
+
+  for epoch_i in range(start, config.epochs):
 
     ####################
     ##### Training #####
