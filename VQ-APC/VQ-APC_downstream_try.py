@@ -220,7 +220,7 @@ for utt_key in code_indices_dict:
         for start, end, index in code_indices_dict[utt_key]:
             f.write("{:d} {:d} {:d}\n".format(start, end, index))
             intervals.append((start, end, index))
-# recording intervals on csv files
-intervals_file = output_dir + utt_key + '_intervals.csv'
-df_intervals = pd.DataFrame(intervals)
-df_intervals.to_csv(intervals_file, index=True, header=False, mode='w')
+    # recording intervals on csv files
+    intervals_file = output_dir + utt_key + '_intervals.csv'
+    df_intervals = pd.DataFrame(intervals)
+    df_intervals.to_csv(intervals_file, index=True, header=False, mode='w')
