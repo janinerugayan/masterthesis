@@ -177,7 +177,7 @@ def main():
   if config.checkpoint_epoch == 0:
     start = 0
   else:
-    start = config.checkpoint_epoch + 1
+    start = config.checkpoint_epoch
 
 
   for epoch_i in range(start, config.epochs):
