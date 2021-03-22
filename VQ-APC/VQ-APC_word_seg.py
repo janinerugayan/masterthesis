@@ -36,18 +36,19 @@ phoneseg_interval_dict = {}
 phoneseg_dir = args.phoneseg_interval_dir
 print("Reading: {}".format(phoneseg_dir))
 for file in os.listdir(phoneseg_dir):
-    fn = Path(file).stem
-    phoneseg_interval_dict[fn] = []
-    f = open(phoneseg_dir + file, 'r')
-    for line in f:
-        if len(line) == 0:
-            phoneseg_interval_dict.pop(fn)
-            continue
-        start, end, label = line.split()
-        start = int(start)
-        end = int(end)
-        phoneseg_interval_dict[fn].append((start, end, label))
-    f.close()
+    if file.endswith('.txt'):
+        fn = Path(file).stem
+        phoneseg_interval_dict[fn] = []
+        f = open(phoneseg_dir + file, 'r')
+        for line in f:
+            if len(line) == 0:
+                phoneseg_interval_dict.pop(fn)
+                continue
+            start, end, label = line.split()
+            start = int(start)
+            end = int(end)
+            phoneseg_interval_dict[fn].append((start, end, label))
+        f.close()
 
 utterances = phoneseg_interval_dict.keys()
 
