@@ -9,7 +9,7 @@ python train_vqapc.py --rnn_num_layers 3 \
                       --apply_VQ 0 0 1 \
                       --optimizer adam \
                       --batch_size 32  \
-                      --learning_rate 0.0001 \
+                      --learning_rate 0.001 \
                       --epochs 1000 \
                       --n_future 5 \
                       --librispeech_home ./librispeech_data/preprocessed \
