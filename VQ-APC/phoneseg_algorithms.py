@@ -180,7 +180,7 @@ def l2_segmentation(embedding, z, output_path, utt_key, n_min_frames=0, n_max_fr
             # for observing the resulting embedding distances
             distances = np.sum(embedding_distances[i_start:i_end, :], axis=0)
             distances_record.append(distances)
-            code = np.argmax(distances)  # original: argmin, try to use argmax
+            code = np.argmin(distances)  # original: argmin, try to use argmax??
 
             # code = np.argmin(np.sum(embedding_distances[i_start:i_end, :], axis=0))  # original code
             segmented_codes.append((i_start, i_end, code))
