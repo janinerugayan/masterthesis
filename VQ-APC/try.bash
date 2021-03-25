@@ -6,7 +6,7 @@ conda activate vq-apc
 
 python VQ-APC_downstream_try.py --exp_name=$1 \
 --sound_file=./wavs/1utt_numbers.wav \
---pretrained_weights=./logs/mar-24_training_1000epochs.dir/mar-24_training_1000epochs__epoch_407.model \
+--pretrained_weights=./logs/mar-24_training_1000epochs.dir/mar-24_training_1000epochs__epoch_423.model \
 --preprocess_path=./preprocessed/ \
 --out_path=./results/
 
