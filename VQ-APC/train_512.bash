@@ -18,3 +18,5 @@ CUDA_VISIBLE_DEVICES=1 python train_vqapc.py --rnn_num_layers 3 \
                       --val_sampling 1. \
                       --exp_name mar-25_training_codesize512_1000epochs \
                       --store_path ./logs \
+                      --checkpoint_model ./logs/mar-25_training_codesize512_1000epochs.dir/mar-25_training_codesize512_1000epochs__epoch_25.model \
+                      --checkpoint_epoch 25
