@@ -206,13 +206,13 @@ for utt_key in prevq_dict:
 output_dir = args.out_path + args.exp_name + '/indices/'
 os.makedirs(output_dir)
 for utt_key in code_indices_dict:
-    np.save(output_dir + utt_key + '_indices.npy', np.array([i[-1] for i in code_indices_dict[utt_key]], dtype=np.int))
+    np.save(output_dir + utt_key + '_indices.npy', np.array([i[-1] for i in code_indices_dict[utt_key]], dtype=int))
 
 # write boundaries
 output_dir = args.out_path + args.exp_name + '/boundaries/'
 os.makedirs(output_dir)
 for utt_key in boundaries_dict:
-    np.save(output_dir + utt_key + '_boundaries.npy', np.array(boundaries_dict[utt_key], dtype=np.bool))
+    np.save(output_dir + utt_key + '_boundaries.npy', np.array(boundaries_dict[utt_key], dtype=bool))
 
 # write intervals
 output_dir = args.out_path + args.exp_name + '/intervals/'
