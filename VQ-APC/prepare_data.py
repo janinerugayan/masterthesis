@@ -169,8 +169,8 @@ def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False
                                                           dither=dither,
                                                           num_mel_bins=num_mel_bins,
                                                           htk_compat=htk_compat)
-            log_fbank = log_fbank.numpy()
-            log_fbank -= (np.mean(log_fbank, axis=0) + 1e-8)
+            # log_fbank = log_fbank.numpy()
+            # log_fbank -= (np.mean(log_fbank, axis=0) + 1e-8)
 
             # log_mel = []
             # for row in range(len(log_fbank)):
