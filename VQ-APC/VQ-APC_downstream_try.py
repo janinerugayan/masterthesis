@@ -132,6 +132,7 @@ for file in os.listdir(logmel_path):
 
         with torch.set_grad_enabled(False):
             for frames_BxLxM, lengths_B in dataset_loader:
+                print(lengths_B)
                 frames_BxLxM = Variable(frames_BxLxM).cuda()
                 lengths_B = Variable(lengths_B).cuda()
                 __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
