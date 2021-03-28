@@ -4,6 +4,7 @@ import scipy
 import numpy as np
 import torch
 import torch.nn.functional as F
+import torchaudio
 import os
 from pydub import AudioSegment
 import argparse
@@ -147,6 +148,33 @@ def prepare_torch_lengths_multiple(logmel_path, max_seq_len):
             print(f'file: {filename} torch size: {log_mel.size()}')
 
     with open(os.path.join(logmel_path, 'lengths.pkl'), 'wb') as f:  # sequence lengths to be used for forward function?
+        pickle.dump(id2len, f, protocol=4)
+
+
+def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False,
+                dither=1.0, num_mel_bins=80, htk_compat=True):
+
+    id2len = {}
+
+    for file in os.listdir(in_path):
+        if file.endswith('.wav'):
+            wav_path = in_path + file
+            fn = Path(file).stem
+
+            waveform, sample_rate = torchaudio.load(wav_path)
+
+            log_fbank = torchaudio.compliance.kaldi.fbank(waveform=waveform,
+                                                          window_type=window_type,
+                                                          use_energy=use_energy,
+                                                          dither=dither,
+                                                          num_mel_bins=num_mel_bins,
+                                                          htk_compat=htk_compat)
+
+            id2len[fn + '.pt'] = len(log_fbank)
+            torch.save(log_fbank, os.path.join(in_path, fn + '.pt'))
+            print(f'file: {fn} torch size: {log_mel.size()}')
+
+    with open(os.path.join(in_path, 'lengths.pkl'), 'wb') as f:
         pickle.dump(id2len, f, protocol=4)
 
 

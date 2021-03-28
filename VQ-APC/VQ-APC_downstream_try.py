@@ -20,6 +20,7 @@ from vqapc_model import GumbelAPCModel
 
 from prepare_data import randomseg, CombinedSpeech, LoadSpeechSegment
 from prepare_data import process_wav_multiple, prepare_torch_lengths_multiple
+from prepare_data import process_wav_kaldi
 
 from phoneseg_algorithms import l2_segmentation
 
@@ -52,7 +53,7 @@ randomseg(wav_path, export_dir_path, min_len, max_len)
 # process wav files to get log-mel feature vectors
 in_path = export_dir_path
 out_path = export_dir_path
-process_wav_multiple(in_path, out_path)
+process_wav_kaldi(in_path, out_path)
 
 
 
@@ -60,10 +61,10 @@ process_wav_multiple(in_path, out_path)
 #   prepare data - following APC pipeline
 # ---------------------------------------------
 
-logmel_path = export_dir_path
-max_seq_len = 2000
-
-prepare_torch_lengths_multiple(logmel_path, max_seq_len)
+# logmel_path = export_dir_path
+# max_seq_len = 2000
+#
+# prepare_torch_lengths_multiple(logmel_path, max_seq_len)
 
 
 
@@ -76,7 +77,7 @@ pretrained_vqapc = GumbelAPCModel(input_size=80,
                      num_layers=3,
                      dropout=0.1,
                      residual=' ',
-                     codebook_size=512,
+                     codebook_size=128,  # important to change model trained with codesize 512 or 128?
                      code_dim=512,
                      gumbel_temperature=0.5,
                      vq_hidden_size=-1,
