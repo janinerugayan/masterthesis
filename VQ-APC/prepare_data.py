@@ -178,6 +178,7 @@ def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False
             id2len[fn + '.pt'] = len(log_mel)
             log_mel = torch.FloatTensor(log_mel)
             torch.save(log_mel, os.path.join(in_path, fn + 'pt'))
+            print(f'file: {fn} torch size: {log_mel.size()}')
 
             # id2len[fn + '.pt'] = len(log_fbank)
             # torch.save(log_fbank, os.path.join(in_path, fn + '.pt'))
