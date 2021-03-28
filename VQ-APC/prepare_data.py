@@ -189,8 +189,6 @@ def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False
     with open(os.path.join(in_path, 'lengths.pkl'), 'wb') as f:
         pickle.dump(id2len, f, protocol=4)
 
-    print(id2len)
-
 
 
 # -----------------------------------------------------
