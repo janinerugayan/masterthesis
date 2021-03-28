@@ -62,10 +62,10 @@ process_wav_kaldi(in_path, out_path)
 #   prepare data - following APC pipeline
 # ---------------------------------------------
 
-logmel_path = export_dir_path
-max_seq_len = 2000
-
-prepare_torch_lengths_multiple(logmel_path, max_seq_len)
+# logmel_path = export_dir_path
+# max_seq_len = 2000
+#
+# prepare_torch_lengths_multiple(logmel_path, max_seq_len)
 
 
 
