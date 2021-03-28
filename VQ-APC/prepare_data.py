@@ -172,17 +172,17 @@ def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False
             log_fbank = log_fbank.numpy()
             log_fbank -= (np.mean(log_fbank, axis=0) + 1e-8)
 
-            log_mel = []
-            for row in range(len(log_fbank)):
-                log_mel.append([float(i) for i in log_fbank[row]])
-            id2len[fn + '.pt'] = len(log_mel)
-            log_mel = torch.FloatTensor(log_mel)
-            torch.save(log_mel, os.path.join(in_path, fn + '.pt'))
-            print(f'file: {fn} torch size: {log_mel.size()}')
+            # log_mel = []
+            # for row in range(len(log_fbank)):
+            #     log_mel.append([float(i) for i in log_fbank[row]])
+            # id2len[fn + '.pt'] = len(log_mel)
+            # log_mel = torch.FloatTensor(log_mel)
+            # torch.save(log_mel, os.path.join(in_path, fn + '.pt'))
+            # print(f'file: {fn} torch size: {log_mel.size()}')
 
-            # id2len[fn + '.pt'] = len(log_fbank)
-            # torch.save(log_fbank, os.path.join(in_path, fn + '.pt'))
-            # print(f'file: {fn} torch size: {log_fbank.size()}')
+            id2len[fn + '.pt'] = len(log_fbank)
+            torch.save(log_fbank, os.path.join(in_path, fn + '.pt'))
+            print(f'file: {fn} torch size: {log_fbank.size()}')
 
     with open(os.path.join(in_path, 'lengths.pkl'), 'wb') as f:
         pickle.dump(id2len, f, protocol=4)
