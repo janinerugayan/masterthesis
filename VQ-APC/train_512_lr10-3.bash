@@ -1,4 +1,4 @@
-CUDA_VISIBLE_DEVICES=1 python train_vqapc.py --rnn_num_layers 3 \
+python train_vqapc.py --rnn_num_layers 3 \
                       --rnn_hidden_size 512 \
                       --rnn_dropout 0.1 \
                       --rnn_residual \
@@ -16,5 +16,5 @@ CUDA_VISIBLE_DEVICES=1 python train_vqapc.py --rnn_num_layers 3 \
                       --train_sampling 1. \
                       --val_partition dev-clean \
                       --val_sampling 1. \
-                      --exp_name mar-26_codesize512_lr10-3_100epochs \
+                      --exp_name mar-29_codesize512_lr10-3_100epochs \
                       --store_path ./logs \
