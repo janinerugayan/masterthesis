@@ -144,6 +144,8 @@ for file in os.listdir(logmel_path):
 
         print(f'Pre-VQ shape: {np.shape(prevq)}')
 
+        embed()
+
         with open(output_dir + filename + '.txt', 'w') as file:
             np.savetxt(file, prevq, fmt='%.16f')
 
