@@ -33,6 +33,7 @@ parser.add_argument('--sound_file',     type=str)
 parser.add_argument('--pretrained_weights',   type=str)
 parser.add_argument('--preprocess_path',    type=str)
 parser.add_argument('--out_path',      type=str)
+parser.add_argument('--codebook_size'   type=int)
 args = parser.parse_args()
 
 
@@ -78,7 +79,7 @@ pretrained_vqapc = GumbelAPCModel(input_size=80,
                      num_layers=3,
                      dropout=0.1,
                      residual=' ',
-                     codebook_size=512,  # important to change model trained with codesize 512 or 128?
+                     codebook_size=args.codebook_size,  # important to change model trained with codesize 512 or 128?
                      code_dim=512,
                      gumbel_temperature=0.5,
                      vq_hidden_size=-1,
@@ -135,7 +136,7 @@ for file in os.listdir(logmel_path):
             for frames_BxLxM, lengths_B in dataset_loader:
                 frames_BxLxM = Variable(frames_BxLxM).cuda()
                 lengths_B = Variable(lengths_B).cuda()
-                __, features, __ = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+                __, features, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq_rnn_outputs = features[-1, :, :, :]
 
@@ -145,6 +146,12 @@ for file in os.listdir(logmel_path):
 
         with open(output_dir + filename + '.txt', 'w') as file:
             np.savetxt(file, prevq, fmt='%.16f')
+
+        logits = []
+        logits.append(logits_NxBxLxC.squeeze().cpu().numpy())
+        logits_file = output_dir + filename + '_logits.csv'
+        df_logits = pd.DataFrame(logits)
+        df_logits.to_csv(logits_file, index=True, header=False, mode='w')
 
 
 
