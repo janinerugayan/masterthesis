@@ -33,7 +33,7 @@ parser.add_argument('--sound_file',     type=str)
 parser.add_argument('--pretrained_weights',   type=str)
 parser.add_argument('--preprocess_path',    type=str)
 parser.add_argument('--out_path',      type=str)
-parser.add_argument('--codebook_size'   type=int)
+parser.add_argument('--codebook_size',   type=int)
 args = parser.parse_args()
 
 
