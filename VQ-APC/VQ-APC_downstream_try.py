@@ -144,13 +144,10 @@ for file in os.listdir(logmel_path):
 
         print(f'Pre-VQ shape: {np.shape(prevq)}')
 
-        embed()
-
         with open(output_dir + filename + '.txt', 'w') as file:
             np.savetxt(file, prevq, fmt='%.16f')
 
-        logits = []
-        logits.append(logits_NxBxLxC.squeeze().cpu().numpy())
+        logits = logits_NxBxLxC[2].squeeze().cpu().numpy()
         logits_file = output_dir + filename + '_logits.csv'
         df_logits = pd.DataFrame(logits)
         df_logits.to_csv(logits_file, index=True, header=False, mode='w')
