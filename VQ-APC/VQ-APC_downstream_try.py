@@ -172,7 +172,7 @@ print(f'Embedding matrix shape: {codebook.shape}')
 # segmentation
 boundaries_dict = {}
 code_indices_dict = {}
-downsample_factor = 1 # downsampling not required because vq-apc doesnt have convolutional layer
+downsample_factor = 10 # downsampling not required because vq-apc doesnt have convolutional layer
 
 # using phoneseg algorithm: L2 Segmentation
 n_min_frames = 0
