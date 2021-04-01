@@ -152,7 +152,7 @@ def prepare_torch_lengths_multiple(logmel_path, max_seq_len):
 
 
 def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False,
-                dither=1.0, num_mel_bins=80, htk_compat=True, frame_shift=1, snip_edges=False):
+                dither=1.0, num_mel_bins=80, htk_compat=True, frame_shift=10, snip_edges=False):
 
     id2len = {}
 
