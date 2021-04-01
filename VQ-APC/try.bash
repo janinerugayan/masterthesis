@@ -1,5 +1,11 @@
 # --exp_name=$1 --wordseg_algo=$2
 
+cd preprocessed
+rm -rv try*
+cd ../results
+rm -rv try*
+cd ..
+
 eval "$(conda shell.bash hook)"
 
 conda activate vq-apc
