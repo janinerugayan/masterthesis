@@ -9,7 +9,7 @@ python VQ-APC_downstream_try.py --exp_name=$1 \
 --pretrained_weights=./logs/mar-26_codesize512_lr10-4_100epochs.dir/mar-26_codesize512_lr10-4_100epochs__epoch_100.model \
 --preprocess_path=./preprocessed/ \
 --out_path=./results/ \
---codebook_size=512  # need to changed based on model codebook size
+--codebook_size=512  # need to change based on model codebook size
 
 conda activate wordseg
 
