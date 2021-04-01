@@ -161,30 +161,27 @@ def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False
             wav_path = in_path + file
             fn = Path(file).stem
 
-            waveform, sample_rate = torchaudio.load(wav_path)
+            waveform, sample_frequency = torchaudio.load(wav_path)
 
-            log_fbank = torchaudio.compliance.kaldi.fbank(waveform=waveform,
-                                                          window_type=window_type,
-                                                          use_energy=use_energy,
-                                                          dither=dither,
-                                                          num_mel_bins=num_mel_bins,
-                                                          htk_compat=htk_compat,
-                                                          frame_shift=frame_shift,
-                                                          snip_edges=snip_edges)
-            # log_fbank = log_fbank.numpy()
-            # log_fbank -= (np.mean(log_fbank, axis=0) + 1e-8)
+            logmel = torchaudio.compliance.kaldi.fbank(waveform=waveform,
+                                                       window_type=window_type,
+                                                       use_energy=use_energy,
+                                                       dither=dither,
+                                                       num_mel_bins=num_mel_bins,
+                                                       htk_compat=htk_compat,
+                                                       frame_shift=frame_shift,
+                                                       snip_edges=snip_edges,
+                                                       sample_frequency=sample_frequency)
 
-            # log_mel = []
-            # for row in range(len(log_fbank)):
-            #     log_mel.append([float(i) for i in log_fbank[row]])
-            # id2len[fn + '.pt'] = len(log_mel)
-            # log_mel = torch.FloatTensor(log_mel)
-            # torch.save(log_mel, os.path.join(in_path, fn + '.pt'))
-            # print(f'file: {fn} torch size: {log_mel.size()}')
+            # mean normalization
+            logmel_mean_norm = logmel.numpy()
+            logmel_mean_norm -= (np.mean(logmel, axis=0) + 1e-8)
 
-            id2len[fn + '_logmel.pt'] = len(log_fbank)
-            torch.save(log_fbank, os.path.join(in_path, fn + '_logmel.pt'))
-            print(f'file: {fn} torch size: {log_fbank.size()}')
+            logmel = torch.from_numpy(logmel_mean_norm)
+            
+            id2len[fn + '_logmel.pt'] = len(logmel)
+            torch.save(logmel, os.path.join(in_path, fn + '_logmel.pt'))
+            print(f'file: {fn} torch size: {logmel.size()}')
 
     with open(os.path.join(in_path, 'lengths.pkl'), 'wb') as f:
         pickle.dump(id2len, f, protocol=4)
