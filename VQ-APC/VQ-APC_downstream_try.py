@@ -139,15 +139,13 @@ for file in os.listdir(logmel_path):
                 __, features, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq_rnn_outputs = features[-1, :, :, :]
-
         prevq = prevq_rnn_outputs.squeeze().cpu().numpy()
-
         print(f'Pre-VQ shape: {np.shape(prevq)}')
-
         with open(output_dir + filename + '.txt', 'w') as file:
             np.savetxt(file, prevq, fmt='%.16f')
 
         logits = logits_NxBxLxC[2].squeeze().cpu().numpy()
+        print(f'Logits shape: {np.shape(logits)}')
         logits_file = output_dir + filename + '_logits.csv'
         df_logits = pd.DataFrame(logits)
         df_logits.to_csv(logits_file, index=True, header=False, mode='w')
