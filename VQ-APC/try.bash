@@ -1,21 +1,15 @@
 # --exp_name=$1 --wordseg_algo=$2
 
-cd preprocessed
-rm -rv try*
-cd ../results
-rm -rv try*
-cd ..
-
 eval "$(conda shell.bash hook)"
 
 conda activate vq-apc
 
 python VQ-APC_downstream_try.py --exp_name=$1 \
 --sound_file=./wavs/1utt_numbers.wav \
---pretrained_weights=./logs/mar-26_codesize512_lr10-4_100epochs.dir/mar-26_codesize512_lr10-4_100epochs__epoch_100.model \
+--pretrained_weights=./logs/codesize128/mar-24_training_1000epoch.dir/mar-24_training_1000epochs__epoch_661.model \
 --preprocess_path=./preprocessed/ \
 --out_path=./results/ \
---codebook_size=512  # need to change based on model codebook size
+--codebook_size=128  # need to change based on model codebook size
 
 conda activate wordseg
 
