@@ -149,6 +149,8 @@ for file in os.listdir(logmel_path):
         logits_file = output_dir + filename + '_logits.csv'
         df_logits = pd.DataFrame(logits)
         df_logits.to_csv(logits_file, index=True, header=False, mode='w')
+        with open(output_dir + filename + '_logits.txt', 'w') as file:
+            np.savetxt(file, logits, fmt='%.16f')
 
 
 
@@ -160,7 +162,7 @@ for file in os.listdir(logmel_path):
 prevq_path = args.out_path + args.exp_name + '/prevq/'
 prevq_dict = {}
 for file in os.listdir(prevq_path):
-    if file.endswith('.txt'):
+    if file.endswith('logits.txt'):
         filename = Path(file).stem
         print(f'Reading pre-quantisation for {file}')
         prevq_dict[filename] = np.loadtxt(prevq_path + file)
