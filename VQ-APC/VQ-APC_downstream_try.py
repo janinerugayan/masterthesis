@@ -136,7 +136,7 @@ for file in os.listdir(logmel_path):
             for frames_BxLxM, lengths_B in dataset_loader:
                 frames_BxLxM = Variable(frames_BxLxM).cuda()
                 lengths_B = Variable(lengths_B).cuda()
-                __, features, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+                __, features, logits_NxBxLxC, rnn_outputs_BxLxH = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq_rnn_outputs = features[-1, :, :, :]
         prevq = prevq_rnn_outputs.squeeze().cpu().numpy()
@@ -149,6 +149,12 @@ for file in os.listdir(logmel_path):
         logits_file = output_dir + filename + '_logits.csv'
         df_logits = pd.DataFrame(logits)
         df_logits.to_csv(logits_file, index=True, header=False, mode='w')
+
+        codes = rnn_outputs_BxLxH.squeeze().cpu().numpy()
+        print(f'Codes shape: {np.shape(codes)}')
+        codes_file = output_dir + filename + '_codes.csv'
+        df_codes = pd.DataFrame(codes)
+        df_codes.to_csv(codes_file, index=True, header=False, mode='w')
 
 
 
