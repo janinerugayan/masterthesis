@@ -175,7 +175,7 @@ downsample_factor = 1  # downsampling not required because vq-apc doesnt have co
 # using phoneseg algorithm: L2 Segmentation
 n_min_frames = 0
 n_max_frames = 15
-dur_weight = 900  # original: 400 (20**2)
+dur_weight = 100  # original: 400 (20**2)
 
 # for observing the embedding distance output:
 output_path = args.out_path + args.exp_name + '/embedding_dist/'
