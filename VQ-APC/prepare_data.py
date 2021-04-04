@@ -103,9 +103,9 @@ def randomseg(wav_path, export_dir_path, min_len, max_len):
         # break # remove later, this is just for testing 1 segment of speech
 
 
-def process_wav_multiple(in_path, out_path, sr=16000, preemph=0.97, n_fft=2048, n_mels=80, hop_length=16,
+def process_wav_multiple(in_path, out_path, sr=16000, preemph=0.97, n_fft=512, n_mels=80, hop_length=16,
                 win_length=400, fmin=50, top_db=80, bits=8, offset=0.0, duration=None):
-
+    # original: sr=160000, n_fft=2048, hop_length=160, win_length=400
     for file in os.listdir(in_path):
         if file.endswith('.wav'):
             path = in_path + file
