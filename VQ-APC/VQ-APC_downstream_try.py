@@ -22,7 +22,7 @@ from prepare_data import randomseg, CombinedSpeech, LoadSpeechSegment
 from prepare_data import process_wav_multiple, prepare_torch_lengths_multiple
 from prepare_data import process_wav_kaldi
 
-from phoneseg_algorithms import l2_segmentation
+from phoneseg_algorithms import l2_segmentation, l2_segmentation_myver
 
 import argparse
 
@@ -187,7 +187,7 @@ for utt_key in prevq_dict:
         continue
     print(f'Performing phone segmentation on {utt_key}')
 
-    boundaries, code_indices = l2_segmentation(codebook, z, output_path, utt_key, n_min_frames, n_max_frames, dur_weight)
+    boundaries, code_indices = l2_segmentation_myver(codebook, z, output_path, utt_key, n_min_frames, n_max_frames, dur_weight)
     # boundaries, code_indices = l2_segmentation(codebook, z, n_min_frames,
     #                             n_max_frames, dur_weight)  # original code
     # do we need to upsample it? np, it was not downsampled by a conv layer
