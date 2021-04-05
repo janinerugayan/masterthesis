@@ -22,7 +22,7 @@ from prepare_data import randomseg, CombinedSpeech, LoadSpeechSegment
 from prepare_data import process_wav_multiple, prepare_torch_lengths_multiple
 from prepare_data import process_wav_kaldi
 
-from phoneseg_algorithms import l2_segmentation, l2_segmentation_myver
+from phoneseg_algorithms import l2_segmentation
 
 import argparse
 
