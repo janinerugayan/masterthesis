@@ -116,6 +116,11 @@ logmel_path = args.preprocess_path + args.exp_name + '/'
 output_dir = args.out_path + args.exp_name + '/prevq/'
 os.makedirs(output_dir)
 
+# export codebook to csv file
+codebook_file = output_dir + '_codebook.csv'
+df_codebook = pd.DataFrame(codebook)
+df_codebook.to_csv(codebook_file, index=True, header=False, mode='w')
+
 for file in os.listdir(logmel_path):
 
     features = []
