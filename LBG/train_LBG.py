@@ -45,13 +45,11 @@ def main():
     for frames_BxLxM, lengths_B in train_data_loader:
         _, indices_B = torch.sort(lengths_B, descending=True)
 
-        frames = []
+        frames_arr = frames_BxLxM[0].numpy()
 
-        for i in range(config.batch_size):
-            frames.append(frames_BxLxM[i].size())
-            print(frames)
-            print(len(frames))
-            frames_arr = np.array(frames)
+        for i in range(1, config.batch_size):
+            frames = frames_BxLxM[i].numpy()
+            np.append(frames_arr, frames)
             print(np.shape(frames_arr))
 
 
