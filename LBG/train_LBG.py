@@ -1,6 +1,7 @@
 import numpy as np
 import argparse
 import lbg_algo_ver2 as lbg
+import torch
 
 from datasets import LibriSpeech
 from torch.utils import data
