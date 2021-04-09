@@ -48,7 +48,7 @@ def main():
 
         frames = frames_BxLxM.numpy()
 
-        codebook1, __, __ = lbg.generate_codebook(dataset, cb_size)
+        codebook1, __, __ = lbg1.generate_codebook(dataset, cb_size)
 
         print('CODEBOOK 1:')
         print(codebook1)
