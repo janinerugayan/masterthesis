@@ -43,3 +43,5 @@ def main():
         _, indices_B = torch.sort(lengths_B, descending=True)
 
         print(type(frames_BxLxM))
+
+main()
