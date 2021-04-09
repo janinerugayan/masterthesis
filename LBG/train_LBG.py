@@ -48,17 +48,17 @@ def main():
 
         frames = frames_BxLxM.numpy()
 
-        codebook1, __, __ = lbg1.generate_codebook(dataset, cb_size)
+        codebook1, __, __ = lbg1.generate_codebook(frames, cb_size)
 
         print('CODEBOOK 1:')
-        print(codebook1)
+        print(np.shape(codebook1))
 
-        vq_lg = lbg2.VQ_LGB(frames,10,0.00005,3000)
+        vq_lg = lbg2.VQ_LGB(frames,cb_size,0.00005,3000)
         vq_lg.run()
         codebook2 = vq_lg.get_codebook()
 
         print('CODEBOOK 2:')
-        print(codebook2)
+        print(np.shape(codebook2))
 
 
         break
