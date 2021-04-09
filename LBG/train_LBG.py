@@ -46,13 +46,14 @@ def main():
     for frames_BxLxM, lengths_B in train_data_loader:
         _, indices_B = torch.sort(lengths_B, descending=True)
 
-        frames = frames_BxLxM.numpy()
-        print(np.shape(frames))
+        frames_arr = np.array([])
 
-        # codebook1, __, __ = lbg1.generate_codebook(frames, cb_size)
-        #
-        # print('CODEBOOK 1:')
-        # print(np.shape(codebook1))
+        for i in range(config.batch_size):
+            frames = frames_BxLxM[i].numpy().squeeze()
+            np.vstack(frames_arr, frames)
+
+        print(np.shape(frames_arr))
+
 
         vq_lg = lbg2.VQ_LGB(frames,cb_size,0.00005,3000)
         vq_lg.run()
