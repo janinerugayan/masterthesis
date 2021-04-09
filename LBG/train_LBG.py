@@ -48,10 +48,10 @@ def main():
 
         frames = frames_BxLxM.numpy()
 
-        codebook1, __, __ = lbg1.generate_codebook(frames, cb_size)
-
-        print('CODEBOOK 1:')
-        print(np.shape(codebook1))
+        # codebook1, __, __ = lbg1.generate_codebook(frames, cb_size)
+        #
+        # print('CODEBOOK 1:')
+        # print(np.shape(codebook1))
 
         vq_lg = lbg2.VQ_LGB(frames,cb_size,0.00005,3000)
         vq_lg.run()
