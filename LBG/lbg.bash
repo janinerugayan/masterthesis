@@ -1,5 +1,5 @@
 CUDA_VISIBLE_DEVICES=1 python train_LBG.py --batch_size 32  \
-                      --librispeech_home ./librispeech_data/preprocessed \
+                      --librispeech_home ../VQ-APC/librispeech_data/preprocessed \
                       --train_partition train-clean-360 \
                       --train_sampling 1. \
                       --val_partition dev-clean \
