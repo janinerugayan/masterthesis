@@ -46,9 +46,9 @@ def main():
     for frames_BxLxM, lengths_B in train_data_loader:
         _, indices_B = torch.sort(lengths_B, descending=True)
 
-        frames_arr = np.array([])
+        frames_arr = frames_BxLxM[0].numpy().squeeze()
 
-        for i in range(config.batch_size):
+        for i in range(1, config.batch_size):
             frames = frames_BxLxM[i].numpy().squeeze()
             np.vstack((frames_arr, frames))
 
