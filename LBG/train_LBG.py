@@ -43,6 +43,6 @@ def main():
     for frames_BxLxM, lengths_B in train_data_loader:
         _, indices_B = torch.sort(lengths_B, descending=True)
 
-        print(type(frames_BxLxM))
+        print(frames_BxLxM.size())
 
 main()
