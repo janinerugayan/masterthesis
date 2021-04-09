@@ -20,6 +20,7 @@ def main():
     parser.add_argument("--val_sampling", default=1., type=float)
     parser.add_argument("--batch_size", default=32, type=int)
     parser.add_argument("--load_data_workers", default=8, type=int)
+    parser.add_argument("--codebook_size", type=int)
     config = parser.parse_args()
 
 
@@ -38,13 +39,20 @@ def main():
                                         num_workers=config.load_data_workers,
                                         shuffle=True)
 
+    cb_size = config.codebook_size
 
-    # Training
+    # generating codebook
     for frames_BxLxM, lengths_B in train_data_loader:
         _, indices_B = torch.sort(lengths_B, descending=True)
 
+        frames = []
+
         for i in range(config.batch_size):
-            print(frames_BxLxM[i].size())
-            
+            frames.append(frames_BxLxM[i].size())
+
+        print(len(frame))
+
+        # codebook, __, __ = lbg.generate_codebook(dataset, cb_size)
+
 
 main()
