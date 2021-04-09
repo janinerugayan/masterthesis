@@ -47,6 +47,7 @@ def main():
         _, indices_B = torch.sort(lengths_B, descending=True)
 
         frames = frames_BxLxM.numpy()
+        print(np.shape(frames))
 
         # codebook1, __, __ = lbg1.generate_codebook(frames, cb_size)
         #
