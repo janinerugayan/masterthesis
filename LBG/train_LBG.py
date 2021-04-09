@@ -45,19 +45,12 @@ def main():
     for frames_BxLxM, lengths_B in train_data_loader:
         _, indices_B = torch.sort(lengths_B, descending=True)
 
-        frames = []
+        frames = frames_BxLxM.numpy()
 
-        for i in range(config.batch_size):
-            frames_list = frames_BxLxM[i].tolist()
-            frames.append(frames_list)
+        codebook, __, __ = lbg.generate_codebook(dataset, cb_size)
 
-        frames_arr = np.array(frames)
-        frames_arr.squeeze()
-        print(np.shape(frames_arr))
+        print(codebook)
 
         break
-
-        # codebook, __, __ = lbg.generate_codebook(dataset, cb_size)
-
 
 main()
