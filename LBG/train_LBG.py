@@ -50,7 +50,7 @@ def main():
 
         for i in range(config.batch_size):
             frames = frames_BxLxM[i].numpy().squeeze()
-            np.vstack(frames_arr, frames)
+            np.vstack((frames_arr, frames))
 
         print(np.shape(frames_arr))
 
