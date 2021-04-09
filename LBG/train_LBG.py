@@ -1,6 +1,7 @@
 import numpy as np
 import argparse
-import lbg_algo_ver2 as lbg
+import lbg_algo_ver1 as lbg1
+import lbg_algo_ver2 as lbg2
 import torch
 
 from datasets import LibriSpeech
@@ -47,9 +48,18 @@ def main():
 
         frames = frames_BxLxM.numpy()
 
-        codebook, __, __ = lbg.generate_codebook(dataset, cb_size)
+        codebook1, __, __ = lbg.generate_codebook(dataset, cb_size)
 
-        print(codebook)
+        print('CODEBOOK 1:')
+        print(codebook1)
+
+        vq_lg = lbg2.VQ_LGB(frames,10,0.00005,3000)
+        vq_lg.run()
+        codebook2 = vq_lg.get_codebook()
+
+        print('CODEBOOK 2:')
+        print(codebook2)
+
 
         break
 
