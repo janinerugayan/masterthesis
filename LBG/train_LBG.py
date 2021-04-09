@@ -54,6 +54,10 @@ def main():
 
         print(np.shape(frames_arr))
 
+        codebook1, __, __ = lbg1.generate_codebook(frames_arr, cb_size)
+
+        print('CODEBOOK 1:')
+        print(np.shape(codebook1))
 
         vq_lg = lbg2.VQ_LGB(frames,cb_size,0.00005,3000)
         vq_lg.run()
@@ -61,7 +65,6 @@ def main():
 
         print('CODEBOOK 2:')
         print(np.shape(codebook2))
-
 
         break
 
