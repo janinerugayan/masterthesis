@@ -52,6 +52,7 @@ def main():
             frames.append(frames_list)
 
         frames_arr = np.array(frames)
+        frames_arr.squeeze()
         print(np.shape(frames_arr))
 
         break
