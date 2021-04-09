@@ -50,7 +50,7 @@ def main():
         for i in range(config.batch_size):
             frames.append(frames_BxLxM[i].size())
 
-        print(len(frame))
+        print(len(frames))
 
         # codebook, __, __ = lbg.generate_codebook(dataset, cb_size)
 
