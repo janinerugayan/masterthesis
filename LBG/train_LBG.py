@@ -50,9 +50,9 @@ def main():
         for i in range(config.batch_size):
             frames.append(frames_BxLxM[i].size())
             print(len(frames))
+            frames_arr = np.array(frames)
+            print(np.shape(frames_arr))
 
-        frames_arr = np.array(frames)
-        print(np.shape(frames_arr))
 
         break
 
