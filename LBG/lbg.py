@@ -112,8 +112,10 @@ def main():
             print(np.shape(logmel))
 
             distances = distance.cdist(logmel, codebook2, metric="sqeuclidean")
-
             print(np.shape(distances))
+
+            codes = np.argmin(distances, axis=1)
+            print(np.shape(codes))
 
 
 main()
