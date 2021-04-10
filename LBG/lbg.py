@@ -9,6 +9,7 @@ from datasets import LibriSpeech
 from torch.utils import data
 from scipy.spatial import distance
 from os import listdir
+from pathlib import Path
 
 from utils import process_wav_multiple, randomseg
 
@@ -108,6 +109,7 @@ def main():
         codes = []
 
         if file.endswith('_logmel.npy'):
+
             logmel = np.load(export_dir_path + file)
             print(np.shape(logmel))
 
@@ -117,5 +119,9 @@ def main():
             codes = np.argmin(distances, axis=1)
             print(np.shape(codes))
 
+            filename = Path(file).stem
+            with open(export_dir_path + filename + '_codes.txt', 'w') as file:
+                np.savetxt(file, codes)
 
+                
 main()
