@@ -29,6 +29,7 @@ def main():
     parser.add_argument("--codebook_size", type=int)
     parser.add_argument("--sound_file", type=str)
     parser.add_argument("--store_path", type=str)
+    parser.add_argument("--exp_name", type=str)
     config = parser.parse_args()
 
 
