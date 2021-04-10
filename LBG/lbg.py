@@ -53,6 +53,7 @@ def main():
     cb_size = config.codebook_size
 
     export_dir_path = config.store_path + config.exp_name + '/'
+    os.mkdir(export_dir_path)
 
     # ---------------------------------------------
     #   LBG for generating the codebook
@@ -95,7 +96,6 @@ def main():
     # ---------------------------------------------
 
     wav_path = config.sound_file
-    os.mkdir(export_dir_path)
 
     # randomly segment combined sound file
     min_len = 2000  # 1999 for numbers 0-9 test case
