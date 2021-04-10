@@ -3,9 +3,14 @@ import argparse
 import lbg_algo_ver1 as lbg1
 import lbg_algo_ver2 as lbg2
 import torch
+import os
 
 from datasets import LibriSpeech
 from torch.utils import data
+from scipy.spatial import distance
+from os import listdir
+
+from utils import process_wav_multiple, randomseg
 
 
 
@@ -22,6 +27,8 @@ def main():
     parser.add_argument("--batch_size", default=32, type=int)
     parser.add_argument("--load_data_workers", default=8, type=int)
     parser.add_argument("--codebook_size", type=int)
+    parser.add_argument("--sound_file", type=str)
+    parser.add_argument("--store_path", type=str)
     config = parser.parse_args()
 
 
@@ -42,7 +49,10 @@ def main():
 
     cb_size = config.codebook_size
 
-    # generating codebook
+    # ---------------------------------------------
+    #   LBG for generating the codebook
+    # ---------------------------------------------
+
     for frames_BxLxM, lengths_B in train_data_loader:
         _, indices_B = torch.sort(lengths_B, descending=True)
 
@@ -67,5 +77,42 @@ def main():
         print(np.shape(codebook2))
 
         break
+
+
+    # ---------------------------------------------
+    #   mel spectrogram - 80-dimensional
+    # ---------------------------------------------
+
+    wav_path = args.sound_file
+    export_dir_path = args.store_path + args.exp_name + '/'
+    os.mkdir(export_dir_path)
+
+    # randomly segment combined sound file
+    min_len = 2000  # 1999 for numbers 0-9 test case
+    max_len = 2100
+    randomseg(wav_path, export_dir_path, min_len, max_len)
+
+    # process wav files to get log-mel feature vectors
+    in_path = export_dir_path
+    out_path = export_dir_path
+    process_wav_multiple(in_path, out_path)
+
+
+    # ---------------------------------------------
+    #   VQ - code assignments using LBG codebook
+    # ---------------------------------------------
+
+    for file in os.listdir(export_dir_path):
+
+        codes = []
+
+        if file.endswith('_logmel.npy'):
+            logmel = np.load(file)
+            print(np.shape(logmel))
+
+            distances = distance.cdist(logmel, codebook2, metric="sqeuclidean")
+
+            print(np.shape(distances))
+
 
 main()
