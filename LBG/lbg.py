@@ -108,7 +108,7 @@ def main():
         codes = []
 
         if file.endswith('_logmel.npy'):
-            logmel = np.load(file)
+            logmel = np.load(export_dir_path + file)
             print(np.shape(logmel))
 
             distances = distance.cdist(logmel, codebook2, metric="sqeuclidean")
