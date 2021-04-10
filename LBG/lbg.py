@@ -84,8 +84,8 @@ def main():
     #   mel spectrogram - 80-dimensional
     # ---------------------------------------------
 
-    wav_path = args.sound_file
-    export_dir_path = args.store_path + args.exp_name + '/'
+    wav_path = config.sound_file
+    export_dir_path = config.store_path + config.exp_name + '/'
     os.mkdir(export_dir_path)
 
     # randomly segment combined sound file
