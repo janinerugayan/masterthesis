@@ -82,7 +82,7 @@ def main():
 
         codebook = codebook2.tolist()
 
-        codebook_file = export_dir_path 'codebook.csv'
+        codebook_file = export_dir_path + 'codebook.csv'
         df_codebook = pd.DataFrame(codebook)
         df_codebook.to_csv(codebook_file, index=True, header=False, mode='w')
 
