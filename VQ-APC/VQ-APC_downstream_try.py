@@ -47,8 +47,8 @@ export_dir_path = args.preprocess_path + args.exp_name + '/'
 os.mkdir(export_dir_path)
 
 # randomly segment combined sound file
-min_len = 2000  # 1999 for numbers 0-9 test case
-max_len = 2100
+min_len = 1000  # 1999 for numbers 0-9 test case
+max_len = 1600
 randomseg(wav_path, export_dir_path, min_len, max_len)
 
 # process wav files to get log-mel feature vectors
@@ -64,7 +64,7 @@ process_wav_multiple(in_path, out_path)
 # ---------------------------------------------
 
 logmel_path = export_dir_path
-max_seq_len = 2000
+max_seq_len = 1600
 
 prepare_torch_lengths_multiple(logmel_path, max_seq_len)
 
