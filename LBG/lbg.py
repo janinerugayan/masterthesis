@@ -51,6 +51,8 @@ def main():
 
     cb_size = config.codebook_size
 
+    export_dir_path = config.store_path + config.exp_name + '/'
+
     # ---------------------------------------------
     #   LBG for generating the codebook
     # ---------------------------------------------
@@ -78,6 +80,12 @@ def main():
         print('CODEBOOK 2:')
         print(np.shape(codebook2))
 
+        codebook = codebook2.tolist()
+
+        codebook_file = export_dir_path 'codebook.csv'
+        df_codebook = pd.DataFrame(codebook)
+        df_codebook.to_csv(codebook_file, index=True, header=False, mode='w')
+
         break
 
 
@@ -86,7 +94,6 @@ def main():
     # ---------------------------------------------
 
     wav_path = config.sound_file
-    export_dir_path = config.store_path + config.exp_name + '/'
     os.mkdir(export_dir_path)
 
     # randomly segment combined sound file
@@ -123,5 +130,5 @@ def main():
             with open(export_dir_path + filename + '_codes.txt', 'w') as file:
                 np.savetxt(file, codes)
 
-                
+
 main()
