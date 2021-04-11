@@ -70,19 +70,19 @@ def main():
 
         print(np.shape(frames_arr))
 
-        # codebook1, __, __ = lbg1.generate_codebook(frames_arr, cb_size)
+        codebook1, __, __ = lbg1.generate_codebook(frames_arr, cb_size)
+
+        print('CODEBOOK 1:')
+        print(np.shape(codebook1))
+
+        # vq_lg = lbg2.VQ_LGB(frames,cb_size,0.00005,3000)
+        # vq_lg.run()
+        # codebook2 = vq_lg.get_codebook()
         #
-        # print('CODEBOOK 1:')
-        # print(np.shape(codebook1))
+        # print('CODEBOOK 2:')
+        # print(np.shape(codebook2))
 
-        vq_lg = lbg2.VQ_LGB(frames,cb_size,0.00005,3000)
-        vq_lg.run()
-        codebook2 = vq_lg.get_codebook()
-
-        print('CODEBOOK 2:')
-        print(np.shape(codebook2))
-
-        codebook = codebook2.tolist()
+        codebook = codebook1.tolist()
 
         codebook_file = export_dir_path + 'codebook.csv'
         df_codebook = pd.DataFrame(codebook)
@@ -121,7 +121,7 @@ def main():
             logmel = np.load(export_dir_path + file)
             print(np.shape(logmel))
 
-            distances = distance.cdist(logmel, codebook2, metric="sqeuclidean")
+            distances = distance.cdist(logmel, codebook1, metric="sqeuclidean")
             print(np.shape(distances))
 
             codes = np.argmin(distances, axis=1)
