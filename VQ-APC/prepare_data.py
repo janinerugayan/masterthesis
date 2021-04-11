@@ -170,7 +170,7 @@ def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False
                                                        num_mel_bins=num_mel_bins,
                                                        htk_compat=htk_compat,
                                                        sample_frequency=sample_frequency,
-                                                       frame_shift=10,
+                                                       frame_shift=1,
                                                        snip_edges=False)
 
             # mean normalization
