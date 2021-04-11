@@ -54,8 +54,8 @@ randomseg(wav_path, export_dir_path, min_len, max_len)
 # process wav files to get log-mel feature vectors
 in_path = export_dir_path
 out_path = export_dir_path
-process_wav_multiple(in_path, out_path)
-# process_wav_kaldi(in_path, out_path)
+# process_wav_multiple(in_path, out_path)
+process_wav_kaldi(in_path, out_path)
 
 
 
@@ -63,10 +63,10 @@ process_wav_multiple(in_path, out_path)
 #   prepare data - following APC pipeline
 # ---------------------------------------------
 
-logmel_path = export_dir_path
-max_seq_len = 2000
-
-prepare_torch_lengths_multiple(logmel_path, max_seq_len)
+# logmel_path = export_dir_path
+# max_seq_len = 2000
+#
+# prepare_torch_lengths_multiple(logmel_path, max_seq_len)
 
 
 
@@ -160,7 +160,7 @@ for file in os.listdir(logmel_path):
         df_logits.to_csv(logits_file, index=True, header=False, mode='w')
 
         vq_output = predicted.squeeze().cpu().numpy()
-        print(f'Pre-VQ shape: {np.shape(vq_output)}')
+        print(f'VQ output shape: {np.shape(vq_output)}')
         vq_file = output_dir + filename + '_vq_output.csv'
         df_vq_output = pd.DataFrame(vq_output)
         df_vq_output.to_csv(vq_file, index=True, header=False, mode='w')
