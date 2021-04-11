@@ -161,9 +161,9 @@ for file in os.listdir(logmel_path):
 
         vq_output = predicted.squeeze().cpu().numpy()
         print(f'Pre-VQ shape: {np.shape(vq_output)}')
-        vq_file = output_dir + filename + '_vq-output.csv'
-        df_vq-output = pd.DataFrame(vq)
-        df_vq-output.to_csv(vq_file, index=True, header=False, mode='w')
+        vq_file = output_dir + filename + '_vq_output.csv'
+        df_vq_output = pd.DataFrame(vq)
+        df_vq_output.to_csv(vq_file, index=True, header=False, mode='w')
 
 
 
