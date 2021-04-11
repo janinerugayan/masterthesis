@@ -152,7 +152,7 @@ def prepare_torch_lengths_multiple(logmel_path, max_seq_len):
 
 
 def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False,
-                dither=1.0, num_mel_bins=80, htk_compat=True):
+                dither=0, num_mel_bins=80, htk_compat=True):
 
     id2len = {}
 
@@ -174,12 +174,12 @@ def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False
                                                        snip_edges=False)
 
             # mean normalization
-            # logmel_mean_norm = logmel.numpy()
-            # logmel_mean_norm -= (np.mean(logmel_mean_norm, axis=0) + 1e-8)
-            #
-            # logmel = torch.from_numpy(logmel_mean_norm)
+            logmel_mean_norm = logmel.numpy()
+            logmel_mean_norm -= (np.mean(logmel_mean_norm, axis=0) + 1e-8)
 
-            logmel_arr = logmel.numpy().transpose()
+            logmel = torch.from_numpy(logmel_mean_norm)
+
+            logmel_arr = logmel_mean_norm.transpose()
 
             np.save(out_path + fn + '_logmel.npy', logmel_arr)
 
