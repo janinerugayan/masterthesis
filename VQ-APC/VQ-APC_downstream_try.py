@@ -47,8 +47,8 @@ export_dir_path = args.preprocess_path + args.exp_name + '/'
 os.mkdir(export_dir_path)
 
 # randomly segment combined sound file
-min_len = 1000  # 1999 for numbers 0-9 test case
-max_len = 1600
+min_len = 2000  # 1999 for numbers 0-9 test case
+max_len = 2100
 randomseg(wav_path, export_dir_path, min_len, max_len)
 
 # process wav files to get log-mel feature vectors
@@ -64,7 +64,7 @@ process_wav_multiple(in_path, out_path)
 # ---------------------------------------------
 
 logmel_path = export_dir_path
-max_seq_len = 1600
+max_seq_len = 2000
 
 prepare_torch_lengths_multiple(logmel_path, max_seq_len)
 
@@ -141,7 +141,7 @@ for file in os.listdir(logmel_path):
             for frames_BxLxM, lengths_B in dataset_loader:
                 frames_BxLxM = Variable(frames_BxLxM).cuda()
                 lengths_B = Variable(lengths_B).cuda()
-                __, features, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
+                predicted, features, logits_NxBxLxC = pretrained_vqapc.module.forward(frames_BxLxM, lengths_B, testing)
 
         prevq_rnn_outputs = features[-1, :, :, :]
         prevq = prevq_rnn_outputs.squeeze().cpu().numpy()
@@ -158,6 +158,12 @@ for file in os.listdir(logmel_path):
         logits_file = output_dir + filename + '_logits.csv'
         df_logits = pd.DataFrame(logits)
         df_logits.to_csv(logits_file, index=True, header=False, mode='w')
+
+        vq_output = predicted.squeeze().cpu().numpy()
+        print(f'Pre-VQ shape: {np.shape(vq_output)}')
+        vq_file = output_dir + filename + '_vq-output.csv'
+        df_vq-output = pd.DataFrame(vq)
+        df_vq-output.to_csv(vq_file, index=True, header=False, mode='w')
 
 
 
