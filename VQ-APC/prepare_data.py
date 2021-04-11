@@ -181,7 +181,7 @@ def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False
 
             logmel_arr = logmel.numpy().transpose()
 
-            np.save(out_path + filename + '_logmel.npy', logmel_arr)
+            np.save(out_path + fn + '_logmel.npy', logmel_arr)
 
             id2len[fn + '_logmel.pt'] = len(logmel)
             torch.save(logmel, os.path.join(in_path, fn + '_logmel.pt'))
