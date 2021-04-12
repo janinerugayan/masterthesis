@@ -184,10 +184,10 @@ def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False
             np.save(out_path + fn + '_logmel.npy', logmel_arr)
 
             id2len[fn + '_logmel.pt'] = len(logmel)
-            torch.save(logmel, os.path.join(in_path, fn + '_logmel.pt'))
+            torch.save(logmel, os.path.join(out_path, fn + '_logmel.pt'))
             print(f'file: {fn} torch size: {logmel.size()}')
 
-    with open(os.path.join(in_path, 'lengths.pkl'), 'wb') as f:
+    with open(os.path.join(out_path, 'lengths.pkl'), 'wb') as f:
         pickle.dump(id2len, f, protocol=4)
 
 
