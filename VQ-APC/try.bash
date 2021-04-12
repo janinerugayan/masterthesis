@@ -1,4 +1,4 @@
-# --exp_name=$1 --wordseg_algo=$2
+# --exp_name=$1 --wordseg_algo=$2 --dur_weight=$3
 
 eval "$(conda shell.bash hook)"
 
@@ -10,7 +10,7 @@ python VQ-APC_downstream_try.py --exp_name=$1 \
 --preprocess_path=./preprocessed/ \
 --out_path=./results/ \
 --codebook_size=512 \
---dur_weight=600
+--dur_weight=$3
 
 conda activate wordseg
 
