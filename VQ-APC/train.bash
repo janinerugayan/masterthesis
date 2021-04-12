@@ -9,14 +9,14 @@ CUDA_VISIBLE_DEVICES=1 python train_vqapc.py --rnn_num_layers 3 \
                       --optimizer adam \
                       --batch_size 32  \
                       --learning_rate 0.0001 \
-                      --epochs 1000 \
+                      --epochs 2000 \
                       --n_future 5 \
                       --librispeech_home ./librispeech_data/preprocessed \
                       --train_partition train-clean-360 \
                       --train_sampling 1. \
                       --val_partition dev-clean \
                       --val_sampling 1. \
-                      --exp_name mar-31_codesize128_1000epochs \
+                      --exp_name apr-12_codesize128_2000epochs \
                       --store_path ./logs \
-                      --checkpoint_model ./logs/mar-24_training_1000epochs.dir/mar-24_training_1000epochs__epoch_661.model \
-                      --checkpoint_epoch 661
+                      --checkpoint_model ./logs/mar-31_codesize128_1000epochs.dir/mar-31_codesize128_1000epochs__epoch_1000.model \
+                      --checkpoint_epoch 1000
