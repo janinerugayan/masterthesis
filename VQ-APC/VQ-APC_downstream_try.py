@@ -56,8 +56,8 @@ os.mkdir(export_dir_path)
 # in_path = export_dir_path
 in_path = './preprocessed/apr-11_kaldi_1uttnumbers/'  # for reusing same wav segments
 out_path = export_dir_path
-# process_wav_multiple(in_path, out_path)
-process_wav_kaldi(in_path, out_path)
+process_wav_multiple(in_path, out_path)
+# process_wav_kaldi(in_path, out_path)
 
 
 
@@ -65,10 +65,10 @@ process_wav_kaldi(in_path, out_path)
 #   prepare data - following APC pipeline
 # ---------------------------------------------
 
-# logmel_path = export_dir_path
-# max_seq_len = 2000
-#
-# prepare_torch_lengths_multiple(logmel_path, max_seq_len)
+logmel_path = export_dir_path
+max_seq_len = 2000
+
+prepare_torch_lengths_multiple(logmel_path, max_seq_len)
 
 
 
