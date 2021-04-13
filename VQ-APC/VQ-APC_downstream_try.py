@@ -53,9 +53,9 @@ max_len = 4000
 randomseg(wav_path, export_dir_path, min_len, max_len)
 
 # process wav files to get log-mel feature vectors
-in_path = export_dir_path
+# in_path = export_dir_path
 in_path = './preprocessed/apr-11_kaldi_1uttnumbers/'  # for reusing same wav segments
-# out_path = export_dir_path
+out_path = export_dir_path
 # process_wav_multiple(in_path, out_path)
 process_wav_kaldi(in_path, out_path)
 
