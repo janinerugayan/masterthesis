@@ -174,13 +174,13 @@ def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False
                                                        snip_edges=False)
 
             # mean normalization
-            # logmel_mean_norm = logmel.numpy()
-            # logmel_mean_norm -= (np.mean(logmel_mean_norm, axis=0) + 1e-8)
-            #
-            # logmel = torch.from_numpy(logmel_mean_norm)
+            logmel_mean_norm = logmel.numpy()
+            logmel_mean_norm -= (np.mean(logmel_mean_norm, axis=0) + 1e-8)
 
-            # logmel_arr = logmel_mean_norm.transpose()
-            logmel_arr = logmel.numpy().transpose()
+            logmel = torch.from_numpy(logmel_mean_norm)
+
+            logmel_arr = logmel_mean_norm.transpose()
+            # logmel_arr = logmel.numpy().transpose()
 
             np.save(out_path + fn + '_logmel.npy', logmel_arr)
 
