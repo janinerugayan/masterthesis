@@ -59,7 +59,14 @@ for utt_key in utterances:
     prepared_text.append(
         " ".join([i[2] + "_" for i in phoneseg_interval_dict[utt_key]])
         )
-print(len(prepared_text))
+
+# Write prepared text
+output_dir = args.output_dir + '/prepared_text/'
+os.makedirs(output_dir)
+f = open(output_dir + 'prepared_text.txt', 'w')
+f.write(prepared_text)
+f.close()
+
 word_segmentation = segment_func(prepared_text, **kwargs)
 # print(prepared_text[:10])
 wordseg_interval_dict = {}
