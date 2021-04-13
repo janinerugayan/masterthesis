@@ -64,7 +64,7 @@ for utt_key in utterances:
 output_dir = args.output_dir + '/prepared_text/'
 os.makedirs(output_dir)
 f = open(output_dir + 'prepared_text.txt', 'w')
-f.write(prepared_text)
+f.write(str(prepared_text))
 f.close()
 
 word_segmentation = segment_func(prepared_text, **kwargs)
