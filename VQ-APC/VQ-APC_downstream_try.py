@@ -47,7 +47,7 @@ wav_path = args.sound_file
 export_dir_path = args.preprocess_path + args.exp_name + '/'
 os.mkdir(export_dir_path)
 
-randomly segment combined sound file
+# randomly segment combined sound file
 min_len = 2000  # 1999 for numbers 0-9 test case
 max_len = 4000
 randomseg(wav_path, export_dir_path, min_len, max_len)
