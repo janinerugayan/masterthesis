@@ -11,6 +11,9 @@ import argparse
 from eval_segmentation import get_intervals_from_dir
 import wordseg_algorithms
 
+#for debugging
+from IPython import embed
+
 
 
 parser = argparse.ArgumentParser()
@@ -26,7 +29,7 @@ if args.wordseg_algorithm == 'dpseg':
 elif args.wordseg_algorithm == 'tp':
     kwargs = {'threshold': "relative"}
 elif args.wordseg_algorithm == 'ag':
-    kwargs = {'nruns': 4, 'njobs': 3, 'args': "-n 100"}  # original: -n 100 
+    kwargs = {'nruns': 4, 'njobs': 3, 'args': "-n 100"}  # original: -n 100
 
 # Algorithm
 segment_func = getattr(wordseg_algorithms, args.wordseg_algorithm)
@@ -39,8 +42,7 @@ for file in os.listdir(phoneseg_dir):
     if file.endswith('.txt'):
         fn = Path(file).stem
         phoneseg_interval_dict[fn] = []
-        f = open(phoneseg_dir + file, 'r')
-        for line in f:
+        for line in file.read_text().strip().split("\n"):
             if len(line) == 0:
                 phoneseg_interval_dict.pop(fn)
                 continue
@@ -48,7 +50,16 @@ for file in os.listdir(phoneseg_dir):
             start = int(start)
             end = int(end)
             phoneseg_interval_dict[fn].append((start, end, label))
-        f.close()
+        # f = open(phoneseg_dir + file, 'r')
+        # for line in f:
+        #     if len(line) == 0:
+        #         phoneseg_interval_dict.pop(fn)
+        #         continue
+        #     start, end, label = line.split()
+        #     start = int(start)
+        #     end = int(end)
+        #     phoneseg_interval_dict[fn].append((start, end, label))
+        # f.close()
 
 utterances = phoneseg_interval_dict.keys()
 
