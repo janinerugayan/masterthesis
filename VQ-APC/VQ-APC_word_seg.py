@@ -42,7 +42,7 @@ for file in os.listdir(phoneseg_dir):
     if file.endswith('.txt'):
         fn = Path(file).stem
         phoneseg_interval_dict[fn] = []
-        file = phoneseg_dir + file 
+        file = (Path(phoneseg_dir)/fn).with_suffix(".txt")
         for line in file.read_text().strip().split("\n"):
             if len(line) == 0:
                 phoneseg_interval_dict.pop(fn)
