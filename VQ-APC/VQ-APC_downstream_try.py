@@ -48,13 +48,13 @@ export_dir_path = args.preprocess_path + args.exp_name + '/'
 os.mkdir(export_dir_path)
 
 # randomly segment combined sound file
-# min_len = 2000  # 1999 for numbers 0-9 test case
-# max_len = 4000
-# randomseg(wav_path, export_dir_path, min_len, max_len)
+min_len = 2000  # 1999 for numbers 0-9 test case
+max_len = 4000
+randomseg(wav_path, export_dir_path, min_len, max_len)
 
 # process wav files to get log-mel feature vectors
-# in_path = export_dir_path
-in_path = './preprocessed/apr-11_kaldi_1uttnumbers/'  # for reusing same wav segments
+in_path = export_dir_path
+# in_path = './preprocessed/apr-11_kaldi_1uttnumbers/'  # for reusing same wav segments
 out_path = export_dir_path
 # process_wav_multiple(in_path, out_path)
 process_wav_kaldi(in_path, out_path)
