@@ -6,7 +6,7 @@ conda activate vq-apc
 
 python VQ-APC_downstream_buckeye.py --exp_name=$1 \
 --sound_file=./buckeye_data/so_we_can_see.wav \
---in_path=./buckeyey_data/ \
+--in_path=./buckeye_data/ \
 --pretrained_weights=./logs/mar-30_codesize512_lr10-4_101-1000epochs.dir/mar-30_codesize512_lr10-4_101-1000epochs__epoch_1000.model \
 --preprocess_path=./preprocessed/ \
 --out_path=./results/ \
