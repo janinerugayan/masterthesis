@@ -21,7 +21,7 @@ python VQ-APC_word_seg.py --wordseg_algorithm=$2 \
 
 conda activate vq-apc
 
-python VQ-APC_split_wav.py --preprocessed_wav_path=./preprocessed/$1/ \
+python VQ-APC_split_wav_buckeye.py --preprocessed_wav_path=./preprocessed/$1/ \
 --wordseg_interval_dir=./results/$1_$2/intervals/ \
 --output_dir=./results/$1_$2
 
