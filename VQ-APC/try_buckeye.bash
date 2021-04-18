@@ -2,6 +2,12 @@
 
 eval "$(conda shell.bash hook)"
 
+cd preprocessed
+rm -rv *buckeye*
+cd ../results
+rm -rv *buckeye*
+cd ..
+
 conda activate vq-apc
 
 python VQ-APC_downstream_buckeye.py --exp_name=$1 \
