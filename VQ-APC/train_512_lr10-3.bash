@@ -9,12 +9,14 @@ python train_vqapc.py --rnn_num_layers 3 \
                       --optimizer adam \
                       --batch_size 32  \
                       --learning_rate 0.001 \
-                      --epochs 100 \
+                      --epochs 2000 \
                       --n_future 5 \
                       --librispeech_home ./librispeech_data/preprocessed \
                       --train_partition train-clean-360 \
                       --train_sampling 1. \
                       --val_partition dev-clean \
                       --val_sampling 1. \
-                      --exp_name mar-29_codesize512_lr10-3_100epochs \
+                      --exp_name apr-18_codesize512_lr10-3_2000epochs \
                       --store_path ./logs \
+                      --checkpoint_model ./logs/mar-30_codesize512_lr10-4_101-1000epochs.dir/mar-30_codesize512_lr10-4_101-1000epochs__epoch_1000.model \
+                      --checkpoint_epoch 1000
