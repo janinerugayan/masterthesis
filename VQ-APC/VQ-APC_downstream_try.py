@@ -207,7 +207,7 @@ for utt_key in prevq_dict:
     boundaries, code_indices = l2_segmentation(codebook, z, output_path, utt_key, n_min_frames, n_max_frames, dur_weight)
     # boundaries, code_indices = l2_segmentation(codebook, z, n_min_frames,
     #                             n_max_frames, dur_weight)  # original code
-    # do we need to upsample it? np, it was not downsampled by a conv layer
+    # do we need to upsample it? no, it was not downsampled by a conv layer
     # (vqseg source: convert boundaries to same frequency as reference)
     if downsample_factor > 1:
         boundaries_upsampled = np.zeros(len(boundaries) * downsample_factor, dtype=bool)
