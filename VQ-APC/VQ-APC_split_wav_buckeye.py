@@ -38,7 +38,7 @@ export_dir = args.output_dir + '/wavs/'
 os.makedirs(export_dir)
 for utt_key in utterances:
     wav_name = utt_key.split(split_word)[0]
-    wav_original = AudioSegment.from_wav(wav_path + wav_name + '.wav')
+    wav_original = AudioSegment.from_wav(wav_path)
     total_len = len(wav_original)
     count = 0
     for (word_start, word_end) in wordseg_interval_dict[utt_key]:
