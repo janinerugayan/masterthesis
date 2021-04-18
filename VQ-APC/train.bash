@@ -8,7 +8,7 @@ CUDA_VISIBLE_DEVICES=1 python train_vqapc.py --rnn_num_layers 3 \
                       --apply_VQ 0 0 1 \
                       --optimizer adam \
                       --batch_size 32  \
-                      --learning_rate 0.0001 \
+                      --learning_rate 0.001 \
                       --epochs 2000 \
                       --n_future 5 \
                       --librispeech_home ./librispeech_data/preprocessed \
@@ -20,3 +20,6 @@ CUDA_VISIBLE_DEVICES=1 python train_vqapc.py --rnn_num_layers 3 \
                       --store_path ./logs \
                       --checkpoint_model ./logs/mar-31_codesize128_1000epochs.dir/mar-31_codesize128_1000epochs__epoch_1000.model \
                       --checkpoint_epoch 1000
+
+# default values:
+# learning_rate = 0.0001
