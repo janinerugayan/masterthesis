@@ -143,6 +143,8 @@ def custom_viterbi(costs, n_frames):
 def l2_segmentation(embedding, z, output_path, utt_key, n_min_frames, n_max_frames, dur_weight):
         # original n_min_frames=0, n_max_frames=15, dur_weight=400
 
+        print(f'l2_segmentation dur_weight = {dur_weight}')
+
         # Hyperparameters
         count_weight = 0
 
