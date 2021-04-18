@@ -30,6 +30,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--exp_name',   type=str)
 parser.add_argument('--sound_file',     type=str)
+parser.add_argument('--in_path',     type=str)
 parser.add_argument('--pretrained_weights',   type=str)
 parser.add_argument('--preprocess_path',    type=str)
 parser.add_argument('--out_path',      type=str)
@@ -47,7 +48,7 @@ wav_path = args.sound_file
 export_dir_path = args.preprocess_path + args.exp_name + '/'
 os.mkdir(export_dir_path)
 
-in_path = wav_path  # for buckeye segment
+in_path = args.in_path  # for buckeye segment
 out_path = export_dir_path
 process_wav_kaldi(in_path, out_path)
 
