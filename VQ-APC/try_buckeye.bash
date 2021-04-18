@@ -1,12 +1,12 @@
 # --exp_name=$1 --wordseg_algo=$2 --dur_weight=$3
 
 eval "$(conda shell.bash hook)"
-
-cd preprocessed
-rm -rv *buckeye*
-cd ../results
-rm -rv *buckeye*
-cd ..
+# 
+# cd preprocessed
+# rm -rv *buckeye*
+# cd ../results
+# rm -rv *buckeye*
+# cd ..
 
 conda activate vq-apc
 
