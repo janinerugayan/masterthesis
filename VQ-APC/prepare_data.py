@@ -151,7 +151,7 @@ def prepare_torch_lengths_multiple(logmel_path, max_seq_len):
         pickle.dump(id2len, f, protocol=4)
 
 
-def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False,
+def process_wav_kaldi(in_path, out_path, frame_shift=10, window_type='hamming', use_energy=False,
                 dither=0, num_mel_bins=80, htk_compat=True):
 
     id2len = {}
@@ -170,7 +170,7 @@ def process_wav_kaldi(in_path, out_path, window_type='hamming', use_energy=False
                                                        num_mel_bins=num_mel_bins,
                                                        htk_compat=htk_compat,
                                                        sample_frequency=sample_frequency,
-                                                       frame_shift=1,
+                                                       frame_shift=frame_shift,
                                                        snip_edges=False)
 
             logmel_arr = logmel.numpy()

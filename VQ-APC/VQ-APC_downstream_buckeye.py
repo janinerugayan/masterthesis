@@ -50,7 +50,7 @@ os.mkdir(export_dir_path)
 
 in_path = args.in_path  # for buckeye segment
 out_path = export_dir_path
-process_wav_kaldi(in_path, out_path)
+process_wav_kaldi(in_path, out_path, frame_shift=10)
 
 
 
@@ -173,7 +173,7 @@ downsample_factor = 1  # downsampling not required because vq-apc doesnt have co
 
 # using phoneseg algorithm: L2 Segmentation
 n_min_frames = 0
-n_max_frames = 150
+n_max_frames = 15
 dur_weight = args.dur_weight  # original: 400 (20**2)
 
 # for observing the embedding distance output:
