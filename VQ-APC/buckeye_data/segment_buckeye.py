@@ -6,8 +6,8 @@ from pathlib import Path
 
 # load wordseg intervals
 wordseg_interval_dict = {}
-wordseg_file = 'lived_there_for_a_while.txt'
-fn = 'lived_there_for_a_while'
+wordseg_file = 'two_older_brothers.txt'
+fn = 'two_older_brothers'
 wordseg_interval_dict[fn] = []
 f = open(wordseg_file, 'r')
 for line in f:
@@ -20,7 +20,7 @@ f.close()
 utterances = wordseg_interval_dict.keys()
 
 # wav_path = args.preprocessed_wav_path
-wav_path = './s05/s0501a/s0501a.wav'  # for reusing same wav segments
+wav_path = './s06/s0601a/s0601a.wav'  # for reusing same wav segments
 export_dir = './'
 for utt_key in utterances:
     wav_name = utt_key
