@@ -33,8 +33,8 @@ utterances = wordseg_interval_dict.keys()
 
 # segment the combined wav file
 split_word = '_logmel'
-wav_path = args.preprocessed_wav_path
-# wav_path = './preprocessed/apr-11_kaldi_1uttnumbers/'  # for reusing same wav segments
+# wav_path = args.preprocessed_wav_path
+wav_path = './preprocessed/apr-11_kaldi_1uttnumbers/'  # for reusing same wav segments
 export_dir = args.output_dir + '/wavs/'
 os.makedirs(export_dir)
 for utt_key in utterances:
