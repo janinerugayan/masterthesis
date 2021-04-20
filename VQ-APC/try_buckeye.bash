@@ -11,7 +11,6 @@ eval "$(conda shell.bash hook)"
 conda activate vq-apc
 
 python VQ-APC_downstream_buckeye.py --exp_name=$1 \
---sound_file=./buckeye_data/lived_there_for_a_while.wav \
 --in_path=./buckeye_data/ \
 --pretrained_weights=./logs/mar-30_codesize512_lr10-4_101-1000epochs.dir/mar-30_codesize512_lr10-4_101-1000epochs__epoch_1000.model \
 --preprocess_path=./preprocessed/ \

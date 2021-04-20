@@ -44,7 +44,6 @@ args = parser.parse_args()
 #   mel spectrogram - 80-dimensional
 # ---------------------------------------------
 
-wav_path = args.sound_file
 export_dir_path = args.preprocess_path + args.exp_name + '/'
 os.mkdir(export_dir_path)
 
