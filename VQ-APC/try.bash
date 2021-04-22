@@ -6,7 +6,7 @@ conda activate vq-apc
 
 python VQ-APC_downstream_try.py --exp_name=$1 \
 --sound_file=./wavs/numbers_shuffled.wav \
---pretrained_weights=./logs/mar-30_codesize512_lr10-4_101-1000epochs.dir/mar-30_codesize512_lr10-4_101-1000epochs__epoch_1000.model \
+--pretrained_weights=./logs/apr-17_codesize512_lr10-4_2000epochs.dir/apr-17_codesize512_lr10-4_2000epochs__epoch_1251.model \
 --preprocess_path=./preprocessed/ \
 --out_path=./results/ \
 --codebook_size=512 \
