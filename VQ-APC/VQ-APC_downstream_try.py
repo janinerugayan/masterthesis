@@ -35,6 +35,7 @@ parser.add_argument('--preprocess_path',    type=str)
 parser.add_argument('--out_path',      type=str)
 parser.add_argument('--codebook_size',   type=int)
 parser.add_argument('--dur_weight',     type=int)
+parser.add_argument('--max_frame', type=int)
 args = parser.parse_args()
 
 
@@ -191,7 +192,7 @@ downsample_factor = 1  # downsampling not required because vq-apc doesnt have co
 
 # using phoneseg algorithm: L2 Segmentation
 n_min_frames = 0
-n_max_frames = 150  # original: n_max_frames = 15
+n_max_frames = args.max_frame  # original: n_max_frames = 15
 dur_weight = args.dur_weight  # original: 400 (20**2)
 
 # for observing the embedding distance output:
