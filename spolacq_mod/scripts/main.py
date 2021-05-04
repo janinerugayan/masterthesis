@@ -319,9 +319,9 @@ for seed in range(1, 6):  # original range (1,6)
 
 
     # for recording agent state
-    state_file = '../exp/state_list/' + args.data_name + '_Seed' + str(seed) + '_state_list.csv'
-    df_state = pd.DataFrame(agent_state)
-    df_state.to_csv(state_file, index=True, header=False, mode='w')
+    # state_file = '../exp/state_list/' + args.data_name + '_Seed' + str(seed) + '_state_list.csv'
+    # df_state = pd.DataFrame(agent_state)
+    # df_state.to_csv(state_file, index=True, header=False, mode='w')
 
 
     print(f'Seed {seed} Complete')
