@@ -1,6 +1,6 @@
 cd ../scripts/
 
-python main.py --data_name=may-4_wordrecogexp_case2
+python main.py --data_name=may-4_wordrecogexp_case3
 
 # echo "========= START RL for 05-Dec dictionary ========="
 # python main.py --data_name=recog_results_05-Dec_SHUFFLED_run1
