@@ -176,7 +176,10 @@ def process_wav_kaldi(in_path, out_path, frame_shift=10, window_type='hamming', 
             logmel_arr = logmel.numpy()
 
             # mean normalization
-            logmel_normalized = logmel_arr - (np.mean(logmel_arr, axis=0) + 1e-8)
+            # logmel_normalized = logmel_arr - (np.mean(logmel_arr, axis=0) + 1e-8)
+            # mean & variance normalization
+            logmel_normalized = (logmel_arr - (np.mean(logmel_arr, axis=0) + 1e-8)) / np.std(logmel_arr, axis=0)
+
 
             np.save(out_path + fn + '_logmel.npy', logmel_normalized)
             # np.save(out_path + fn + '_logmel.npy', logmel_arr)
