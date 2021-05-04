@@ -16,5 +16,5 @@ python train_vqapc.py --rnn_num_layers 3 \
                       --train_sampling 1. \
                       --val_partition dev-clean \
                       --val_sampling 1. \
-                      --exp_name may-2_codesize256_lr10-4_2000epochs \
+                      --exp_name may-6_codesize256_lr10-4_2000epochs \
                       --store_path ./logs \
