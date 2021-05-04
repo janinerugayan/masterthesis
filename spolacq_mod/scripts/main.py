@@ -26,19 +26,20 @@ from mpl_toolkits import mplot3d
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_name',   type=str)
-parser.add_argument('--output_dir',  type=str)
+# parser.add_argument('--output_dir',  type=str)
 args = parser.parse_args()
 
 # read stt recog results - loaded from previous segmentation & recognition:
 # with open("../exp/pkls/" + args.data_name + ".pkl", "rb") as f:
 #     res_dict = pickle.load(f)
 
-# res_dict = {'num_words': 100, 'zero':5, 'one':5, 'two':5, 'three':5, 'four':5, 'five':5, 'six':5,
-#             'seven':5, 'eight':5, 'nine':5}
+# for simulated word segmentation results:
+res_dict = {'num_words': 1136, 'zero':6, 'one':3, 'two':3, 'three':7, 'four':6, 'five':4, 'six':4,
+            'seven':5, 'eight':4, 'nine':6}
 
 # read stt recog results - original code:
-with open("../exp/pkls/recog_results_dict.pkl", "rb") as f:
-    res_dict = pickle.load(f)
+# with open("../exp/pkls/recog_results_dict.pkl", "rb") as f:
+#     res_dict = pickle.load(f)
 
 env = Env(res_dict)
 
