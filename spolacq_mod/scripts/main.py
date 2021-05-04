@@ -34,8 +34,8 @@ args = parser.parse_args()
 #     res_dict = pickle.load(f)
 
 # for simulated word segmentation results:
-res_dict = {'num_words': 900, 'zero':13, 'one':14, 'two':15, 'three':12, 'four':10, 'five':17, 'six':20,
-            'seven':16, 'eight':15, 'nine':21}
+res_dict = {'num_words': 700, 'zero':23, 'one':25, 'two':27, 'three':23, 'four':22, 'five':30, 'six':21,
+            'seven':26, 'eight':27, 'nine':28}
 
 # read stt recog results - original code:
 # with open("../exp/pkls/recog_results_dict.pkl", "rb") as f:
