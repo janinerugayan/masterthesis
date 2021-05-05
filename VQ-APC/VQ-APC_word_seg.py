@@ -29,7 +29,8 @@ if args.wordseg_algorithm == 'dpseg':
 elif args.wordseg_algorithm == 'tp':
     kwargs = {'threshold': "relative"}
 elif args.wordseg_algorithm == 'ag':
-    kwargs = {'nruns': 4, 'njobs': 3, 'args': "-n 100"}  # original: -n 100
+    # kwargs = {'nruns': 4, 'njobs': 3, 'args': "-n 100"}
+    kwargs = {'nruns': 8, 'njobs': 3, 'args': "-n 2000"}  # default according to WordSeg paper nruns: 8, args: "-n 2000"
 
 # Algorithm
 segment_func = getattr(wordseg_algorithms, args.wordseg_algorithm)
