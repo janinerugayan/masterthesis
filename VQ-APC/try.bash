@@ -5,7 +5,7 @@ eval "$(conda shell.bash hook)"
 conda activate vq-apc
 
 python VQ-APC_downstream_try.py --exp_name=$1 \
---sound_file=./wavs/numbers_shuffled.wav \
+--sound_file=./wavs/numbers_notshuffled.wav \
 --pretrained_weights=./logs/mar-30_codesize512_lr10-4_101-1000epochs.dir/mar-30_codesize512_lr10-4_101-1000epochs__epoch_1000.model \
 --preprocess_path=./preprocessed/ \
 --out_path=./results/ \
