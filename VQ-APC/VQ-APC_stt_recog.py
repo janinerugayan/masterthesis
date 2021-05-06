@@ -16,17 +16,26 @@ r = sr.Recognizer()
 
 recog_dict = {}
 
+# recog_dict['num_words'] = 0
+# recog_dict['zero'] = 0
+# recog_dict['one'] = 0
+# recog_dict['two'] = 0
+# recog_dict['three'] = 0
+# recog_dict['four'] = 0
+# recog_dict['five'] = 0
+# recog_dict['six'] = 0
+# recog_dict['seven'] = 0
+# recog_dict['eight'] = 0
+# recog_dict['nine'] = 0
+
+# for action words:
 recog_dict['num_words'] = 0
-recog_dict['zero'] = 0
-recog_dict['one'] = 0
-recog_dict['two'] = 0
-recog_dict['three'] = 0
-recog_dict['four'] = 0
-recog_dict['five'] = 0
-recog_dict['six'] = 0
-recog_dict['seven'] = 0
-recog_dict['eight'] = 0
-recog_dict['nine'] = 0
+recog_dict['up'] = 0
+recog_dict['down'] = 0
+recog_dict['left'] = 0
+recog_dict['right'] = 0
+recog_dict['backward'] = 0
+recog_dict['forward'] = 0
 
 
 for filename in filenames:
