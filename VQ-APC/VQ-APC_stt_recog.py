@@ -45,26 +45,42 @@ for filename in filenames:
             recog_result = r.recognize_google(audio)
             f.write(filename + ' ' + recog_result + '\n')
             recog_dict['num_words'] += 1
-            if recog_result == "0":
-                recog_dict['zero'] += 1
-            elif recog_result == "1":
-                recog_dict['one'] += 1
-            elif recog_result == "2":
-                recog_dict['two'] += 1
-            elif recog_result == "3":
-                recog_dict['three'] += 1
-            elif recog_result == "4":
-                recog_dict['four'] += 1
-            elif recog_result == "5":
-                recog_dict['five'] += 1
-            elif recog_result == "6":
-                recog_dict['six'] += 1
-            elif recog_result == "7":
-                recog_dict['seven'] += 1
-            elif recog_result == "8":
-                recog_dict['eight'] += 1
-            elif recog_result == "9":
-                recog_dict['nine'] += 1
+
+            # if recog_result == "0":
+            #     recog_dict['zero'] += 1
+            # elif recog_result == "1":
+            #     recog_dict['one'] += 1
+            # elif recog_result == "2":
+            #     recog_dict['two'] += 1
+            # elif recog_result == "3":
+            #     recog_dict['three'] += 1
+            # elif recog_result == "4":
+            #     recog_dict['four'] += 1
+            # elif recog_result == "5":
+            #     recog_dict['five'] += 1
+            # elif recog_result == "6":
+            #     recog_dict['six'] += 1
+            # elif recog_result == "7":
+            #     recog_dict['seven'] += 1
+            # elif recog_result == "8":
+            #     recog_dict['eight'] += 1
+            # elif recog_result == "9":
+            #     recog_dict['nine'] += 1
+
+            # for trying with direction action words:
+            if recog_result == "up":
+                recog_dict['up'] += 1
+            elif recog_result == "down":
+                recog_dict['down'] += 1
+            elif recog_result == "left":
+                recog_dict['left'] += 1
+            elif recog_result == "right":
+                recog_dict['right'] += 1
+            elif recog_result == "forward":
+                recog_dict['forward'] += 1
+            elif recog_result == "backward":
+                recog_dict['backward'] += 1
+
             break
 
         except sr.UnknownValueError:
