@@ -228,7 +228,7 @@ record_file = "../exp/rl_results_" + args.data_name +".csv"
 
 
 # Random Seed
-for seed in range(1, 6):  # original range (1,6)
+for seed in range(1, 101):  # original range (1,6)
     random.seed(seed)
     torch.manual_seed(0)
 
