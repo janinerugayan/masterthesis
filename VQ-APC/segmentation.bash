@@ -1,4 +1,4 @@
-# --exp_name=$1 --wordseg_algo=$2 --dur_weight=$3 --max_frame=$4 --pretrained_weights=$5
+# --exp_name=$1 --wordseg_algo=$2 --dur_weight=$3 --max_frame=$4 --codebook_size=$5 --pretrained_weights=$6
 
 eval "$(conda shell.bash hook)"
 
@@ -6,10 +6,10 @@ conda activate vq-apc
 
 python VQ-APC_downstream_try.py --exp_name=$1 \
 --sound_file=./wavs/numbers_shuffled.wav \
---pretrained_weights=$5 \
+--pretrained_weights=$6 \
 --preprocess_path=./preprocessed/ \
 --out_path=./results/ \
---codebook_size=512 \
+--codebook_size=$5 \
 --dur_weight=$3 \
 --max_frame=$4 \
 
