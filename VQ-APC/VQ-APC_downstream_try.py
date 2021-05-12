@@ -91,6 +91,7 @@ pretrained_vqapc = GumbelAPCModel(input_size=80,
 pretrained_vqapc = nn.DataParallel(pretrained_vqapc)
 
 pretrained_weights_path = args.pretrained_weights
+print(pretrained_weights_path)
 pretrained_vqapc.module.load_state_dict(torch.load(pretrained_weights_path))
 pretrained_vqapc.eval()
 
