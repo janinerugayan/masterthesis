@@ -16,7 +16,7 @@ python train_vqapc.py --rnn_num_layers 3 \
                       --train_sampling 1. \
                       --val_partition dev-clean \
                       --val_sampling 1. \
-                      --exp_name apr-17_codesize512_lr10-4_2000epochs \
+                      --exp_name may-12_codesize512_lr10-4_3000epochs \
                       --store_path ./logs \
                       --checkpoint_model ./logs/apr-17_codesize512_lr10-4_2000epochs.dir/apr-17_codesize512_lr10-4_2000epochs__epoch_2000.model \
                       --checkpoint_epoch 2000
