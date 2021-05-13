@@ -26,7 +26,8 @@ from mpl_toolkits import mplot3d
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_name',   type=str)
-parser.add_argument('--simulated_wordseg', type=str)
+parser.add_argument('--num_words',   type=int)
+parser.add_argument('--utterance',   type=int)
 # parser.add_argument('--recog_dict',  type=str)
 # parser.add_argument('--output_dir',  type=str)
 args = parser.parse_args()
@@ -36,7 +37,10 @@ args = parser.parse_args()
 #     res_dict = pickle.load(f)
 
 # for simulated word segmentation results:
-res_dict = args.simulated_wordseg
+res_dict = {'num_words':args.num_words, 'zero':args.utterance,
+'one':args.utterance, 'two':args.utterance, 'three':args.utterance,
+'four':args.utterance, 'five':args.utterance, 'six':args.utterance,
+'seven':args.utterance, 'eight':args.utterance, 'nine':args.utterance}
 
 # read stt recog results - original code:
 # with open("../exp/pkls/recog_results_dict.pkl", "rb") as f:
