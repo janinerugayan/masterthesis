@@ -11,4 +11,4 @@ conda activate spolacq
 cd ../spolacq_mod/scripts/
 
 python main.py --data_name=$4_$2_run$1 \
---recog_dict=../../VQ-APC/results/$4_$2_run$1_$2/recog_results_dict.pkl
+--recog_dict=../../VQ-APC/results/$4_$2_dw$3_run$1_$2/recog_results_dict.pkl
