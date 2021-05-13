@@ -1,3 +1,3 @@
-/usr/bin/time -v bash VQ_spolacq_size128.bash
+bash VQ_spolacq_size128.bash
 
-/usr/bin/time -v bash VQ_spolacq_size512.bash 
+bash VQ_spolacq_size512.bash 
