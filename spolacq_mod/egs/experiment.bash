@@ -1,17 +1,17 @@
 cd ../scripts/
 
-python main_simulate_wordseg.py --data_name=may-13_simulatedwordseg_10percent \
+python main_simulate_wordseg.py --data_name=may-13_simulatedwordseg_50percent \
 --num_words=500 \
---utterance=5
+--utterance=25
 
-python main_simulate_wordseg.py --data_name=may-13_simulatedwordseg_20percent \
+python main_simulate_wordseg.py --data_name=may-13_simulatedwordseg_60percent \
 --num_words=500 \
---utterance=10
+--utterance=30
 
-python main_simulate_wordseg.py --data_name=may-13_simulatedwordseg_30percent \
+python main_simulate_wordseg.py --data_name=may-13_simulatedwordseg_70percent \
 --num_words=500 \
---utterance=15
+--utterance=35
 
-python main_simulate_wordseg.py --data_name=may-13_simulatedwordseg_40percent \
+python main_simulate_wordseg.py --data_name=may-13_simulatedwordseg_80percent \
 --num_words=500 \
---utterance=20
+--utterance=40
