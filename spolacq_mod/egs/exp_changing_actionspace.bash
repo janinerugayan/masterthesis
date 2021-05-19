@@ -1,37 +1,25 @@
 cd ../scripts/
 
-python main_simulate_wordseg.py --data_name=may-16_recog40percent_simactionspace200 \
---num_words=200 \
+python main_simulate_wordseg.py --data_name=may-19_recog40percent_simactionspace1100 \
+--num_words=1100 \
 --utterance=20
 
-python main_simulate_wordseg.py --data_name=may-16_recog40percent_simactionspace300 \
---num_words=300 \
+python main_simulate_wordseg.py --data_name=may-19_recog40percent_simactionspace1200 \
+--num_words=1200 \
 --utterance=20
 
-python main_simulate_wordseg.py --data_name=may-16_recog40percent_simactionspace400 \
---num_words=400 \
+python main_simulate_wordseg.py --data_name=may-19_recog40percent_simactionspace1300 \
+--num_words=1300 \
 --utterance=20
 
-python main_simulate_wordseg.py --data_name=may-16_recog40percent_simactionspace500 \
---num_words=500 \
+python main_simulate_wordseg.py --data_name=may-19_recog40percent_simactionspace1400 \
+--num_words=1400 \
 --utterance=20
 
-python main_simulate_wordseg.py --data_name=may-16_recog40percent_simactionspace600 \
---num_words=600 \
+python main_simulate_wordseg.py --data_name=may-19_recog40percent_simactionspace1500 \
+--num_words=1500 \
 --utterance=20
 
-python main_simulate_wordseg.py --data_name=may-16_recog40percent_simactionspace700 \
---num_words=700 \
---utterance=20
-
-python main_simulate_wordseg.py --data_name=may-16_recog40percent_simactionspace800 \
---num_words=800 \
---utterance=20
-
-python main_simulate_wordseg.py --data_name=may-16_recog40percent_simactionspace900 \
---num_words=900 \
---utterance=20
-
-python main_simulate_wordseg.py --data_name=may-16_recog40percent_simactionspace1000 \
---num_words=1000 \
+python main_simulate_wordseg.py --data_name=may-19_recog40percent_simactionspace2000 \
+--num_words=2000 \
 --utterance=20
