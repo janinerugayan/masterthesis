@@ -26,21 +26,21 @@ from mpl_toolkits import mplot3d
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_name',   type=str)
-parser.add_argument('--recog_dict',  type=str)
+# parser.add_argument('--recog_dict',  type=str)
 # parser.add_argument('--output_dir',  type=str)
 args = parser.parse_args()
 
 # read stt recog results - loaded from previous segmentation & recognition:
-with open( args.recog_dict , "rb") as f:
-    res_dict = pickle.load(f)
+# with open( args.recog_dict , "rb") as f:
+#     res_dict = pickle.load(f)
 
 # for simulated word segmentation results:
 # res_dict = {'num_words': 589, 'zero':18, 'one':13, 'two':13, 'three':11, 'four':11, 'five':14, 'six':9,
 #             'seven':12, 'eight':10, 'nine':10}
 
 # read stt recog results - original code:
-# with open("../exp/pkls/recog_results_dict.pkl", "rb") as f:
-#     res_dict = pickle.load(f)
+with open("../exp/pkls/recog_results_dict.pkl", "rb") as f:
+    res_dict = pickle.load(f)
 
 env = Env(res_dict)
 
