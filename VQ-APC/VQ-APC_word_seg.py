@@ -12,7 +12,7 @@ from eval_segmentation import get_intervals_from_dir
 import wordseg_algorithms
 
 #for debugging
-from IPython import embed
+# from IPython import embed
 
 
 
