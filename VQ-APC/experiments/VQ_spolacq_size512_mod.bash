@@ -4,7 +4,7 @@ eval "$(conda shell.bash hook)"
 
 cd ..
 
-bash segmentation.bash $4_$2_dw$3_run$1 $2 $3 100 512 ./logs/mar-30_codesize512_lr10-4_101-1000epochs.dir/mar-30_codesize512_lr10-4_101-1000epochs__epoch_1000.model
+bash segmentation_ver2.bash $4_$2_dw$3_run$1 $2 $3 100 512 ./logs/mar-30_codesize512_lr10-4_101-1000epochs.dir/mar-30_codesize512_lr10-4_101-1000epochs__epoch_1000.model
 
 conda activate spolacq
 
