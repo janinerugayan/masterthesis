@@ -1,10 +1,10 @@
 # code size 256
 # using wordseg-ag
 for i in {1..5}; do
-  bash VQ_spolacq_size256.bash $i ag 36 june-2_size256epoch1600
+  bash VQ_spolacq_size256.bash $i ag 36 june-8_size256epoch2000
 done
 # using wordseg-tp
-bash VQ_spolacq_size256.bash 1 tp 36 june-2_size256epoch1600
+bash VQ_spolacq_size256.bash 1 tp 36 june-8_size256epoch2000
 
 
 # code size 128
